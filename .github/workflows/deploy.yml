@@ -90,13 +90,19 @@ jobs:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-    env:
-      SITE_DISPATCH_TOKEN: ${{ secrets.SITE_DISPATCH_TOKEN }}
     steps:
       - uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d # v6.0.0
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5.0.1
+
+      - name: Check for SITE_DISPATCH_TOKEN
+        # `if:` cannot read secrets: this step tells the next one whether the
+        # token is set, without handing it to every step of the job.
+        id: token
+        env:
+          SITE_DISPATCH_TOKEN: ${{ secrets.SITE_DISPATCH_TOKEN }}
+        run: echo "set=$([ -n "$SITE_DISPATCH_TOKEN" ] && echo true || echo false)" >> "$GITHUB_OUTPUT"
 
       - name: Rebuild vtesitaly.com with the new albums
         # The site's event pages read /albums.json at build time. Needs the
@@ -107,8 +113,9 @@ jobs:
         # The Pages CDN keeps /albums.json up to 10 minutes and ignores query
         # strings, so the request waits until the live copy is the one just
         # deployed: otherwise vtesitaly.com would rebuild with the old index.
-        if: env.SITE_DISPATCH_TOKEN != '' && (needs.ci.outputs.albums-changed == 'true' || github.event_name == 'workflow_dispatch')
+        if: steps.token.outputs.set == 'true' && (needs.ci.outputs.albums-changed == 'true' || github.event_name == 'workflow_dispatch')
         env:
+          SITE_DISPATCH_TOKEN: ${{ secrets.SITE_DISPATCH_TOKEN }}
           WANT: ${{ needs.ci.outputs.albums-sha }}
         run: |
           for i in $(seq 1 40); do
