@@ -26,6 +26,7 @@ jobs:
     timeout-minutes: 15
     outputs:
       albums-changed: ${{ steps.albums.outputs.changed }}
+      albums-sha: ${{ steps.albums.outputs.sha }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
@@ -66,6 +67,7 @@ jobs:
         # touch CI, dependencies or page code leave it as it is.
         id: albums
         run: |
+          echo "sha=$(sha256sum dist/albums.json | cut -d' ' -f1)" >> "$GITHUB_OUTPUT"
           if curl -fsS https://foto.vtesitaly.com/albums.json -o live-albums.json && cmp -s live-albums.json dist/albums.json; then
             echo "changed=false" >> "$GITHUB_OUTPUT"
           else
@@ -82,7 +84,8 @@ jobs:
     needs: ci
     if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
     runs-on: ubuntu-24.04
-    timeout-minutes: 5
+    # deploy-pages, plus up to 10 minutes waiting for the CDN (see below).
+    timeout-minutes: 15
     permissions:
       pages: write
       id-token: write
@@ -102,8 +105,20 @@ jobs:
         # secret SITE_DISPATCH_TOKEN: a fine-grained token on VtesItaly.Site
         # with Contents read and write. Without it the step is skipped, and so
         # it is when /albums.json did not change (a manual run always sends it).
+        #
+        # The Pages CDN keeps /albums.json up to 10 minutes and ignores query
+        # strings, so the request waits until the live copy is the one just
+        # deployed: otherwise vtesitaly.com would rebuild with the old index.
         if: env.SITE_DISPATCH_TOKEN != '' && (needs.ci.outputs.albums-changed == 'true' || github.event_name == 'workflow_dispatch')
+        env:
+          WANT: ${{ needs.ci.outputs.albums-sha }}
         run: |
+          for i in $(seq 1 40); do
+            GOT=$(curl -fsS https://foto.vtesitaly.com/albums.json | sha256sum | cut -d' ' -f1 || true)
+            [ "$GOT" = "$WANT" ] && { echo "albums.json live after $((i - 1)) waits"; break; }
+            [ "$i" = 40 ] && echo "::warning::albums.json still not the new one after 10 minutes: rebuilding anyway."
+            sleep 15
+          done
           curl -fsS -X POST \
             -H "Authorization: Bearer $SITE_DISPATCH_TOKEN" \
             -H "Accept: application/vnd.github+json" \
