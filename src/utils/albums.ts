@@ -43,10 +43,6 @@ export function loadAlbums(file = resolve('src/data/manifest.json')): Album[] {
   return (JSON.parse(readFileSync(file, 'utf8')) as { albums: Album[] }).albums;
 }
 
-export function coverOf(album: Album): Cover {
-  return album.cover;
-}
-
 /** Albums grouped by year, newest year first, keeping the order within each. */
 export function byYear(albums: Album[]): { year: string; albums: Album[] }[] {
   const groups = new Map<string, Album[]>();
@@ -112,7 +108,7 @@ export function publicIndex(albums: Album[], site: string) {
       city: a.city,
       url: abs(`/${a.slug}/`),
       ...(a.event ? { event: a.event } : {}),
-      cover: abs(coverOf(a).thumb),
+      cover: abs(a.cover.thumb),
       photos: a.photos.map((p) => ({
         src: abs(p.src),
         thumb: abs(p.thumb),

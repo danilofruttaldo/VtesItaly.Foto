@@ -1,6 +1,6 @@
 ---
 /* Albums grouped by year, newest first: the home and every principato page. */
-import { byYear, cityName, coverOf, formatDate, typeLabel, type Album } from '../utils/albums';
+import { byYear, cityName, formatDate, typeLabel, type Album } from '../utils/albums';
 
 interface Props {
   albums: Album[];
@@ -16,7 +16,7 @@ const { albums, hideCity = false } = Astro.props;
     <h2>{year}</h2>
     <ul class="albums">
       {albums.map((a, i) => {
-        const cover = coverOf(a);
+        const cover = a.cover;
         return (
           <li data-album-city={a.city} data-album-photos={a.photos.length}>
             <a href={`/${a.slug}/`} class="album-card">

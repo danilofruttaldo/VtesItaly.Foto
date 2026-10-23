@@ -6,9 +6,11 @@ interface Props {
   description: string;
   /** Absolute or root-relative image for social previews. */
   image?: string;
+  /** Keeps the page out of search results (the 404). */
+  noindex?: boolean;
 }
 
-const { title, description, image } = Astro.props;
+const { title, description, image, noindex } = Astro.props;
 const fullTitle = title === 'Foto VTES Italy' ? title : `${title} | Foto VTES Italy`;
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
 const ogImage = image ? new URL(image, Astro.site).href : undefined;
@@ -21,7 +23,7 @@ const ogImage = image ? new URL(image, Astro.site).href : undefined;
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
-    <link rel="canonical" href={canonical} />
+    {noindex ? <meta name="robots" content="noindex" /> : <link rel="canonical" href={canonical} />}
     <link rel="icon" href="/favicon.ico" sizes="any" />
     <link rel="icon" href="/favicon-32.png" type="image/png" />
     <meta name="theme-color" content="#121416" />

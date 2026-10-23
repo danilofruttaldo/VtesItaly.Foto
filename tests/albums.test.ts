@@ -3,7 +3,6 @@ import {
   byYear,
   citiesOf,
   cityName,
-  coverOf,
   formatDate,
   loadAlbums,
   publicIndex,
@@ -28,10 +27,6 @@ describe('albums', () => {
     const groups = byYear([album('c', '2026-05-01'), album('b', '2026-01-01'), album('a', '2025-12-01')]);
     expect(groups.map((g) => g.year)).toEqual(['2026', '2025']);
     expect(groups[0].albums.map((a) => a.slug)).toEqual(['c', 'b']);
-  });
-
-  it('returns the cover chosen at build time', () => {
-    expect(coverOf(album('a', '2026-01-01')).kind).toBe('poster');
   });
 
   it('formats dates and city names for Italian readers', () => {
