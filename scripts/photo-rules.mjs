@@ -15,5 +15,5 @@ export const MAX_BYTES = 600 * 1024;
 /** Photo files of an album folder. */
 export const PHOTO_EXT = /\.webp$/i;
 
-/** Width of the grid thumbnails, in px (sharp keeps the aspect ratio). */
-export const THUMB_WIDTH = 480;
+/** Side of the square grid thumbnails, in px: sharp at 3x on a phone, 2x on a desktop tile. */
+export const THUMB_SIZE = 640;

@@ -5,7 +5,8 @@
  *   the build on one that breaks them: `npm run add-album` prepares photos
  *   the right way;
  * - copies the photo to public/p/<slug>/ untouched (it is already the display
- *   size) and writes a THUMB_WIDTH-wide thumbnail next to it;
+ *   size) and writes a THUMB_SIZE square thumbnail next to it, cut around the
+ *   photo's point of interest (the grid shows squares);
  * - picks the album cover: the event poster or logo (albums/<slug>/cover.webp),
  *   else the principato header (covers/<city>.webp), else a photo (album.json
  *   `cover`, or the first). Covers get a square thumb cut like vtesitaly.com's
@@ -20,7 +21,7 @@
 import sharp from 'sharp';
 import { copyFileSync, existsSync, mkdirSync, readdirSync, readFileSync, statSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
-import { MAX_BYTES, MAX_SIDE, PHOTO_EXT, THUMB_WIDTH } from './photo-rules.mjs';
+import { MAX_BYTES, MAX_SIDE, PHOTO_EXT, THUMB_SIZE } from './photo-rules.mjs';
 import { ALBUM_TYPES } from '../src/utils/album-types.ts';
 
 const ROOT = 'albums';
@@ -28,7 +29,7 @@ const OUT = 'public/p';
 const MANIFEST = 'src/data/manifest.json';
 const COVER_FILE = 'cover.webp';
 const CITY_COVERS = 'covers';
-const COVER_SIZE = 480;
+const COVER_SIZE = 720;
 
 const errors = [];
 const albums = [];
@@ -48,7 +49,7 @@ async function cover(src, dir, name, kind) {
     const position = height > width ? 'top' : sharp.strategy.attention;
     await sharp(src)
       .resize(COVER_SIZE, COVER_SIZE, { fit: 'cover', position })
-      .webp({ quality: 78, effort: 6 })
+      .webp({ quality: 80, effort: 6 })
       .toFile(thumb);
   }
   return {
@@ -100,7 +101,11 @@ for (const slug of existsSync(ROOT) ? readdirSync(ROOT).sort() : []) {
     const display = join(OUT, slug, f);
     const thumb = join(OUT, slug, `${base}-thumb.webp`);
     if (!fresh(display, src)) copyFileSync(src, display);
-    if (!fresh(thumb, src)) await sharp(src).resize(THUMB_WIDTH).webp({ quality: 75, effort: 6 }).toFile(thumb);
+    if (!fresh(thumb, src))
+      await sharp(src)
+        .resize(THUMB_SIZE, THUMB_SIZE, { fit: 'cover', position: sharp.strategy.attention })
+        .webp({ quality: 80, effort: 6 })
+        .toFile(thumb);
     photos.push({
       file: f,
       src: `/p/${slug}/${f}`,

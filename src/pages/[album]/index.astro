@@ -42,8 +42,8 @@ const description =
                 <img
                   src={p.thumb}
                   alt={p.caption ?? `${album.title}, foto ${i + 1}`}
-                  width={p.width}
-                  height={p.height}
+                  width="640"
+                  height="640"
                   loading={i < 8 ? 'eager' : 'lazy'}
                   decoding="async"
                 />
