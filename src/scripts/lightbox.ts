@@ -42,9 +42,21 @@ export function initLightbox(): void {
   dialog.addEventListener('click', (e) => {
     if (e.target === dialog) dialog.close();
   });
+  // A one-finger swipe moves; a pinch, or panning a zoomed-in photo, does not.
   let startX = 0;
-  dialog.addEventListener('touchstart', (e) => (startX = e.touches[0].clientX), { passive: true });
+  let multiTouch = false;
+  dialog.addEventListener(
+    'touchstart',
+    (e) => {
+      if (e.touches.length > 1) multiTouch = true;
+      else startX = e.touches[0].clientX;
+    },
+    { passive: true },
+  );
   dialog.addEventListener('touchend', (e) => {
+    const pinched = multiTouch;
+    if (e.touches.length === 0) multiTouch = false;
+    if (pinched || e.touches.length > 0 || (window.visualViewport?.scale ?? 1) > 1) return;
     const dx = e.changedTouches[0].clientX - startX;
     if (Math.abs(dx) > 50) show(current + (dx < 0 ? 1 : -1));
   });
