@@ -1,25 +1,26 @@
 ---
-/* "Tutti · Bologna · Firenze …": links to the principato pages. On a phone the
-   row scrolls sideways instead of wrapping into a tall block. */
+/* Principato toggles for the home: switching some on shows only their albums,
+   none on shows all. Without JavaScript they stay links to the principato
+   pages. On a phone the row scrolls sideways instead of wrapping. */
 interface Props {
   cities: { slug: string; name: string; count: number }[];
-  /** Slug of the page's principato; none on the home. */
-  current?: string;
 }
 
-const { cities, current } = Astro.props;
+const { cities } = Astro.props;
 ---
 
-<nav class="filter" aria-label="Filtra per principato">
-  <a href="/" class="chip" aria-current={current ? undefined : 'page'}>
-    Tutti
-  </a>
+<nav class="filter" aria-label="Filtra per principato" data-city-filter>
   {cities.map((c) => (
-    <a href={`/principati/${c.slug}/`} class="chip" aria-current={c.slug === current ? 'page' : undefined}>
+    <a href={`/principati/${c.slug}/`} class="chip" data-city={c.slug}>
       {c.name} <span class="chip__count">{c.count}</span>
     </a>
   ))}
 </nav>
+
+<script>
+  import { initCityFilter } from '../scripts/city-filter';
+  initCityFilter();
+</script>
 
 <style>
   .filter {
@@ -39,12 +40,14 @@ const { cities, current } = Astro.props;
     color: var(--color-contrast);
     font-size: 0.9rem;
     white-space: nowrap;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
   }
   .chip:hover {
     border-color: var(--color-gold);
     color: var(--color-gold);
   }
-  .chip[aria-current='page'] {
+  .chip[aria-pressed='true'] {
     background: var(--color-gold);
     border-color: var(--color-gold);
     color: var(--color-base);

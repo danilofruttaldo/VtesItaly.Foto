@@ -14,7 +14,7 @@ const photos = albums.reduce((n, a) => n + a.photos.length, 0);
   image={albums[0] ? coverOf(albums[0]).src : undefined}
 >
   <h1>Foto della community</h1>
-  <p class="muted">
+  <p class="muted" data-album-summary>
     {albums.length} album, {photos} foto.
   </p>
   <CityFilter cities={citiesOf(albums)} />

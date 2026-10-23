@@ -6,6 +6,11 @@
  *   the right way;
  * - copies the photo to public/p/<slug>/ untouched (it is already the display
  *   size) and writes a THUMB_WIDTH-wide thumbnail next to it;
+ * - picks the album cover: the event poster or logo (albums/<slug>/cover.webp),
+ *   else the principato header (covers/<city>.webp), else a photo (album.json
+ *   `cover`, or the first). Covers get a square thumb cut like vtesitaly.com's
+ *   cards: portraits from the top, where the title is, others around their
+ *   point of interest;
  * - writes src/data/manifest.json: albums newest first, each with its photos
  *   and their sizes, read by the pages and by /albums.json.
  *
@@ -21,12 +26,38 @@ import { ALBUM_TYPES } from '../src/utils/album-types.ts';
 const ROOT = 'albums';
 const OUT = 'public/p';
 const MANIFEST = 'src/data/manifest.json';
+const COVER_FILE = 'cover.webp';
+const CITY_COVERS = 'covers';
+const COVER_SIZE = 480;
 
 const errors = [];
 const albums = [];
 
 function fresh(out, src) {
   return existsSync(out) && statSync(out).mtimeMs >= statSync(src).mtimeMs;
+}
+
+/** Copies a cover next to the album photos with a square thumb; returns the cover entry. */
+async function cover(src, dir, name, kind) {
+  const display = join(OUT, dir, `${name}.webp`);
+  const thumb = join(OUT, dir, `${name}-thumb.webp`);
+  mkdirSync(join(OUT, dir), { recursive: true });
+  if (!fresh(display, src)) copyFileSync(src, display);
+  if (!fresh(thumb, src)) {
+    const { width, height } = await sharp(src).metadata();
+    const position = height > width ? 'top' : sharp.strategy.attention;
+    await sharp(src)
+      .resize(COVER_SIZE, COVER_SIZE, { fit: 'cover', position })
+      .webp({ quality: 78, effort: 6 })
+      .toFile(thumb);
+  }
+  return {
+    src: `/p/${dir}/${name}.webp`,
+    thumb: `/p/${dir}/${name}-thumb.webp`,
+    width: COVER_SIZE,
+    height: COVER_SIZE,
+    kind,
+  };
 }
 
 for (const slug of existsSync(ROOT) ? readdirSync(ROOT).sort() : []) {
@@ -46,7 +77,7 @@ for (const slug of existsSync(ROOT) ? readdirSync(ROOT).sort() : []) {
     errors.push(`${metaFile}: type deve essere uno di ${Object.keys(ALBUM_TYPES).join(', ')}`);
 
   const files = readdirSync(dir)
-    .filter((f) => f !== 'album.json')
+    .filter((f) => f !== 'album.json' && f !== COVER_FILE)
     .sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
   const photos = [];
   mkdirSync(join(OUT, slug), { recursive: true });
@@ -100,6 +131,14 @@ for (const slug of existsSync(ROOT) ? readdirSync(ROOT).sort() : []) {
     }
     photos.splice(0, photos.length, ...ordered, ...byFile.values());
   }
+  const poster = join(dir, COVER_FILE);
+  const cityCover = join(CITY_COVERS, `${meta.city}.webp`);
+  const chosen = photos.find((p) => p.file === meta.cover) ?? photos[0];
+  const albumCover = existsSync(poster)
+    ? await cover(poster, slug, 'cover', 'poster')
+    : !meta.cover && existsSync(cityCover)
+      ? await cover(cityCover, '_covers', meta.city, 'city')
+      : chosen && { src: chosen.src, thumb: chosen.thumb, width: chosen.width, height: chosen.height, kind: 'photo' };
   albums.push({
     slug,
     title: meta.title,
@@ -108,7 +147,7 @@ for (const slug of existsSync(ROOT) ? readdirSync(ROOT).sort() : []) {
     type: meta.type,
     ...(meta.event ? { event: meta.event } : {}),
     ...(meta.description ? { description: meta.description } : {}),
-    cover: meta.cover ?? photos[0]?.file,
+    cover: albumCover,
     photos,
   });
 }

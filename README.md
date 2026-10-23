@@ -6,11 +6,12 @@ vtesitaly.com reads `/albums.json` at build time to show each event's gallery.
 ## Adding an album
 
 ```bash
-npm run add-album -- "C:\path\to\the\photos" grand-prix-2026 --title "Grand Prix 2026" --date 2026-05-02 --city bologna --event https://vtesitaly.com/grand-prix/grand-prix-2026/
+npm run add-album -- "C:\path\to\the\photos" grand-prix-2026 --title "Grand Prix 2026" --date 2026-05-02 --city bologna --type gp --event https://vtesitaly.com/grand-prix/grand-prix-2026/ --cover "C:\path\to\poster.jpg"
 ```
 
 - Photos are turned upright, resized to 1600 px on the long side and saved as WebP in `albums/<slug>/`. EXIF (GPS included) is removed.
-- `albums/<slug>/album.json` holds `title`, `date` (YYYY-MM-DD), `city` (principato slug) and, optionally, `event` (the vtesitaly.com page), `cover` (a file name), `description` and `captions` (`{ "file.webp": "text" }`).
+- Album cover: the event poster or logo (`--cover`, saved as `albums/<slug>/cover.webp`), else the principato header in `covers/<city>.webp`, else a photo.
+- `albums/<slug>/album.json` holds `title`, `date` (YYYY-MM-DD), `city` (principato slug), `type` (gp, nazionale, tour, torneo, lega, evento) and, optionally, `event` (the vtesitaly.com page), `cover` (a photo file name, to use a photo instead of the principato header), `description`, `captions` (`{ "file.webp": "text" }`) and `sections` (`[{ "title": "Finale", "photos": ["file.webp"] }]`).
 - Run it again on the same slug to add more photos. Commit and push: CI checks every photo, builds and deploys.
 
 ## How it works

@@ -13,6 +13,15 @@ export interface Photo {
   section?: string;
 }
 
+export interface Cover {
+  src: string;
+  /** Square for a poster or a principato header, the photo thumb otherwise. */
+  thumb: string;
+  width: number;
+  height: number;
+  kind: 'poster' | 'city' | 'photo';
+}
+
 export interface Album {
   slug: string;
   title: string;
@@ -23,8 +32,8 @@ export interface Album {
   /** The event page on vtesitaly.com. */
   event?: string;
   description?: string;
-  /** File name of the cover photo. */
-  cover: string;
+  /** The card image: event poster or logo, principato header, or a photo (scripts/build-photos.mjs). */
+  cover: Cover;
   photos: Photo[];
 }
 
@@ -34,8 +43,8 @@ export function loadAlbums(file = resolve('src/data/manifest.json')): Album[] {
   return (JSON.parse(readFileSync(file, 'utf8')) as { albums: Album[] }).albums;
 }
 
-export function coverOf(album: Album): Photo {
-  return album.photos.find((p) => p.file === album.cover) ?? album.photos[0];
+export function coverOf(album: Album): Cover {
+  return album.cover;
 }
 
 /** Albums grouped by year, newest year first, keeping the order within each. */

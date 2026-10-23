@@ -18,7 +18,7 @@ const album = (slug: string, date: string, extra: Partial<Album> = {}): Album =>
   date,
   city: 'bologna',
   type: 'torneo',
-  cover: '2.webp',
+  cover: { src: '/p/a/cover.webp', thumb: '/p/a/cover-thumb.webp', width: 480, height: 480, kind: 'poster' },
   photos: [photo('1.webp'), photo('2.webp')],
   ...extra,
 });
@@ -30,9 +30,8 @@ describe('albums', () => {
     expect(groups[0].albums.map((a) => a.slug)).toEqual(['c', 'b']);
   });
 
-  it('picks the cover by name, the first photo otherwise', () => {
-    expect(coverOf(album('a', '2026-01-01')).file).toBe('2.webp');
-    expect(coverOf(album('a', '2026-01-01', { cover: 'missing.webp' })).file).toBe('1.webp');
+  it('returns the cover chosen at build time', () => {
+    expect(coverOf(album('a', '2026-01-01')).kind).toBe('poster');
   });
 
   it('formats dates and city names for Italian readers', () => {
@@ -46,7 +45,7 @@ describe('albums', () => {
       'https://foto.vtesitaly.com/',
     ).albums;
     expect(a.url).toBe('https://foto.vtesitaly.com/praxis/');
-    expect(a.cover).toBe('https://foto.vtesitaly.com/p/a/2.webp-t');
+    expect(a.cover).toBe('https://foto.vtesitaly.com/p/a/cover-thumb.webp');
     expect(a.photos[0]).toEqual({
       src: 'https://foto.vtesitaly.com/p/a/1.webp',
       thumb: 'https://foto.vtesitaly.com/p/a/1.webp-t',

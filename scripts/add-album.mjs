@@ -1,7 +1,7 @@
 /* Imports the photos of an event into albums/<slug>/, ready to commit.
  *
  * Usage: npm run add-album -- <source folder> <slug> [--title "..."] [--date YYYY-MM-DD]
- *                            [--city <principato>] [--type <tipo>] [--event <vtesitaly.com URL>]
+ *                            [--city <principato>] [--type <tipo>] [--event <vtesitaly.com URL>] [--cover <locandina>]
  *
  * Every photo (jpg, jpeg, png, webp, heic is not supported: export it first)
  * is rotated upright from its EXIF, resized to at most MAX_SIDE px on the long
@@ -9,6 +9,10 @@
  * player's home position in it. Files are numbered `<slug>-01.webp`, … in the
  * order of their source names, after the photos the album already has, so the
  * script can be run again to add more.
+ *
+ * --cover <file> saves the event poster or logo as the album cover
+ * (cover.webp, at most 1200 px); without it the card shows the principato
+ * header from covers/.
  *
  * album.json is created when missing, with the fields given on the command
  * line; the ones left out are written as TODO for a hand edit.
@@ -21,7 +25,7 @@ import { MAX_SIDE, QUALITY, PHOTO_EXT } from './photo-rules.mjs';
 const [src, slug, ...rest] = process.argv.slice(2);
 if (!src || !slug || !/^[a-z0-9]+(-[a-z0-9]+)*$/.test(slug)) {
   console.error(
-    'Uso: npm run add-album -- <cartella sorgente> <slug-in-minuscolo> [--title …] [--date …] [--city …] [--type …] [--event …]',
+    'Uso: npm run add-album -- <cartella sorgente> <slug-in-minuscolo> [--title …] [--date …] [--city …] [--type …] [--event …] [--cover …]',
   );
   process.exit(1);
 }
@@ -49,6 +53,15 @@ for (const f of sources) {
     .webp({ quality: QUALITY, effort: 6 })
     .toFile(out);
   console.log(`${f} → ${out}${extname(f).toLowerCase() === '.webp' ? '' : ' (convertita)'}`);
+}
+
+if (opts.cover) {
+  await sharp(opts.cover)
+    .rotate()
+    .resize(1200, 1200, { fit: 'inside', withoutEnlargement: true })
+    .webp({ quality: QUALITY, effort: 6 })
+    .toFile(join(dest, 'cover.webp'));
+  console.log(`${opts.cover} → ${join(dest, 'cover.webp')} (copertina)`);
 }
 
 const meta = join(dest, 'album.json');

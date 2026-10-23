@@ -2,7 +2,6 @@
 import type { GetStaticPaths } from 'astro';
 import Base from '../../../layouts/Base.astro';
 import AlbumGrid from '../../../components/AlbumGrid.astro';
-import CityFilter from '../../../components/CityFilter.astro';
 import { citiesOf, coverOf, loadAlbums } from '../../../utils/albums';
 import { PRINCIPATI } from '../../../utils/principati';
 
@@ -20,6 +19,9 @@ const photos = albums.reduce((n, a) => n + a.photos.length, 0);
   description={`Le foto dei tornei e degli eventi VTES a ${city.name}: ${albums.length} album, ${photos} foto.`}
   image={coverOf(albums[0]).src}
 >
+  <a href="/" class="back">
+    &larr; Tutti gli album
+  </a>
   <h1>Foto da {city.name}</h1>
   <p class="muted">
     {albums.length} album, {photos} foto
@@ -30,6 +32,5 @@ const photos = albums.reduce((n, a) => n + a.photos.length, 0);
       </>
     )}
   </p>
-  <CityFilter cities={citiesOf(all)} current={city.slug} />
   <AlbumGrid albums={albums} hideCity />
 </Base>
