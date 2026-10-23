@@ -18,6 +18,9 @@ export const PHOTO_EXT = /\.webp$/i;
 /** Side of the square grid thumbnails, in px: sharp at 3x on a phone, 2x on a desktop tile. */
 export const THUMB_SIZE = 640;
 
+/** Side of the smaller copy of each thumbnail, for 1x screens, where a grid tile is ~150–300 px. */
+export const THUMB_SMALL = 320;
+
 /** Metadata a stored photo must not carry (EXIF holds the GPS position): the
  * names of the blocks found in a sharp `metadata()` result. */
 export function leakedMetadata(meta) {

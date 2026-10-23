@@ -6,6 +6,8 @@ export interface Photo {
   file: string;
   src: string;
   thumb: string;
+  /** The thumb at half size (320 px), for the grid's srcset. */
+  thumbSmall?: string;
   width: number;
   height: number;
   caption?: string;

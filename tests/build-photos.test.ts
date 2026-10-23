@@ -40,12 +40,17 @@ describe('build-photos', () => {
   it('copies the photos, makes thumbs, picks the cover and writes the manifest', async () => {
     const { errors } = await buildPhotos(root);
     expect(errors).toEqual([]);
-    for (const f of ['torneo-2026-01.webp', 'torneo-2026-01-thumb.webp', 'torneo-2026-02-thumb.webp'])
+    for (const f of ['torneo-2026-01.webp', 'torneo-2026-01-thumb.webp', 'torneo-2026-01-thumb-320.webp'])
       expect(existsSync(out('torneo-2026', f))).toBe(true);
     const [a] = manifest().albums;
     expect(a).toMatchObject({ slug: 'torneo-2026', title: 'Torneo 2026', city: 'bologna', type: 'torneo' });
     expect(a.photos.map((p: { file: string }) => p.file)).toEqual(['torneo-2026-01.webp', 'torneo-2026-02.webp']);
-    expect(a.photos[0]).toMatchObject({ width: 48, height: 32, src: '/p/torneo-2026/torneo-2026-01.webp' });
+    expect(a.photos[0]).toMatchObject({
+      width: 48,
+      height: 32,
+      src: '/p/torneo-2026/torneo-2026-01.webp',
+      thumbSmall: '/p/torneo-2026/torneo-2026-01-thumb-320.webp',
+    });
     // No poster and no covers/bologna.webp here: the first photo's thumb.
     expect(a.cover).toMatchObject({ kind: 'photo', thumb: '/p/torneo-2026/torneo-2026-01-thumb.webp' });
   });
@@ -62,6 +67,7 @@ describe('build-photos', () => {
     expect(existsSync(out('torneo-2026', 'torneo-2026-09.webp'))).toBe(false);
     expect(existsSync(out('torneo-2026', 'torneo-2026-02.webp'))).toBe(false);
     expect(existsSync(out('torneo-2026', 'torneo-2026-02-thumb.webp'))).toBe(false);
+    expect(existsSync(out('torneo-2026', 'torneo-2026-02-thumb-320.webp'))).toBe(false);
     expect(existsSync(out('torneo-2026', 'torneo-2026-01.webp'))).toBe(true);
     expect(existsSync(out('gone'))).toBe(false);
     expect(existsSync(out('stray.webp'))).toBe(false);

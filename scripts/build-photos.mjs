@@ -6,7 +6,8 @@
  *   that breaks them: `npm run add-album` prepares photos the right way;
  * - copies the photo to public/p/<slug>/ untouched (it is already the display
  *   size) and writes a THUMB_SIZE square thumbnail next to it, cut around the
- *   photo's point of interest (the grid shows squares);
+ *   photo's point of interest (the grid shows squares), plus a THUMB_SMALL
+ *   copy of it for 1x screens;
  * - picks the album cover: the event poster or logo (albums/<slug>/cover.webp),
  *   else the principato header (covers/<city>.webp), else a photo (album.json
  *   `cover`, or the first). Covers get a square thumb cut like vtesitaly.com's
@@ -32,7 +33,15 @@ import {
   writeFileSync,
 } from 'node:fs';
 import { join } from 'node:path';
-import { PHOTO_EXT, THUMB_SIZE, albumErrors, captionErrors, imageErrors, orderBySections } from './photo-rules.mjs';
+import {
+  PHOTO_EXT,
+  THUMB_SIZE,
+  THUMB_SMALL,
+  albumErrors,
+  captionErrors,
+  imageErrors,
+  orderBySections,
+} from './photo-rules.mjs';
 import { ALBUM_TYPES } from '../src/utils/album-types.ts';
 import { PRINCIPATI } from '../src/utils/principati.ts';
 
@@ -145,17 +154,26 @@ export async function buildPhotos(root = '.') {
       const base = f.replace(PHOTO_EXT, '');
       const display = join(OUT, slug, f);
       const thumb = join(OUT, slug, `${base}-thumb.webp`);
-      outputs.add(display).add(thumb);
+      const small = join(OUT, slug, `${base}-thumb-${THUMB_SMALL}.webp`);
+      outputs.add(display).add(thumb).add(small);
       if (!fresh(display, src)) copyFileSync(src, display);
       if (!fresh(thumb, src))
         await sharp(src)
           .resize(THUMB_SIZE, THUMB_SIZE, { fit: 'cover', position: sharp.strategy.attention })
           .webp({ quality: 80, effort: 6 })
           .toFile(thumb);
+      // From the thumb, so both show the same crop; read as a buffer, so
+      // libvips keeps no handle on a file a later run rewrites.
+      if (!fresh(small, thumb))
+        await sharp(readFileSync(thumb))
+          .resize(THUMB_SMALL, THUMB_SMALL)
+          .webp({ quality: 80, effort: 6 })
+          .toFile(small);
       photos.push({
         file: f,
         src: `/p/${slug}/${f}`,
         thumb: `/p/${slug}/${base}-thumb.webp`,
+        thumbSmall: `/p/${slug}/${base}-thumb-${THUMB_SMALL}.webp`,
         width,
         height,
         ...(meta.captions?.[f] ? { caption: meta.captions[f] } : {}),

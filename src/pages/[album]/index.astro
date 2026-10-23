@@ -41,6 +41,8 @@ const description =
               <a href={p.src} data-index={i} data-caption={p.caption ?? p.section}>
                 <img
                   src={p.thumb}
+                  srcset={p.thumbSmall && `${p.thumbSmall} 320w, ${p.thumb} 640w`}
+                  sizes={p.thumbSmall && '(max-width: 640px) 50vw, 300px'}
                   alt={p.caption ?? `${album.title}, foto ${i + 1}`}
                   width="640"
                   height="640"
