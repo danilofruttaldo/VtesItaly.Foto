@@ -31,6 +31,7 @@ const ogImage = image ? new URL(image, Astro.site).href : undefined;
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     {ogImage && <meta property="og:image" content={ogImage} />}
+    <meta name="twitter:card" content={ogImage ? 'summary_large_image' : 'summary'} />
   </head>
   <body>
     <header class="site-header">

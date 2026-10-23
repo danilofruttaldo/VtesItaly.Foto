@@ -20,6 +20,14 @@ npm run add-album -- "C:\path\to\the\photos" grand-prix-2026 --title "Grand Prix
 - Pages: `/` (albums by year), `/<slug>/` (grid with a full-screen viewer), `/albums.json`.
 - CI warns at 750 MB and stops at 900 MB of `dist/`, below the 1 GB GitHub Pages limit.
 
+## Removing a photo on request
+
+The footer promises removal to anyone who asks (info@vtesitaly.com). Deleting the file is not enough: the repo is public and the photo stays in its history.
+
+1. Delete `albums/<slug>/<file>.webp` (and its `captions`/`sections` entries in `album.json`), commit and push: the site and `/albums.json` drop it at the next deploy, and vtesitaly.com follows.
+2. Purge it from history: `git filter-repo --invert-paths --path albums/<slug>/<file>.webp`, then `git push --force` on `main` (re-add the `origin` remote first: filter-repo removes it).
+3. Ask GitHub Support to drop cached views of the old commits ("Remove sensitive data"), since forks and cached commit URLs keep them otherwise.
+
 ## Scripts
 
 `npm run dev` (port 4323) · `npm run build` · `npm test` · `npm run ci:verify` (run by the pre-push hook).

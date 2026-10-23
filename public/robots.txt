@@ -1,2 +1,4 @@
 User-agent: *
 Allow: /
+
+Sitemap: https://foto.vtesitaly.com/sitemap.xml
