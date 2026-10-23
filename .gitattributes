@@ -1,0 +1,25 @@
+# Normalizza i fine-riga: nel repo e in working tree i file di testo usano LF.
+# Evita che core.autocrlf=true riscriva i sorgenti in CRLF e faccia fallire
+# il check di Prettier (configurato su LF).
+* text=auto eol=lf
+
+# Script Windows: mantieni CRLF
+*.ps1 text eol=crlf
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
+# File binari: non toccare mai i byte
+*.webp binary
+*.png  binary
+*.jpg  binary
+*.jpeg binary
+*.gif  binary
+*.ico  binary
+*.svg  text eol=lf
+*.woff  binary
+*.woff2 binary
+*.ttf   binary
+*.eot   binary
+*.pdf   binary
+*.xlsx  binary
+*.zip   binary

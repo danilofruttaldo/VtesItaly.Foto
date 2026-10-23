@@ -1,0 +1,79 @@
+name: CI
+
+# ci -> deploy to GitHub Pages (foto.vtesitaly.com, see public/CNAME).
+# The Pages deploy needs no secret: the job's OIDC token is enough.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  # Pages rejects a deploy while another is running: a newer push supersedes.
+  group: pages-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  ci:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - run: npm ci
+      - run: npm audit --omit=dev
+      - run: npm run lint
+      - run: npm run format:check
+      - run: npm test
+
+      # prebuild (scripts/build-photos.mjs) also checks every photo against
+      # scripts/photo-rules.mjs and stops on one that breaks them.
+      - run: npm run build
+      - run: npm run check
+
+      - name: Enforce the Pages size budget
+        # GitHub Pages publishes at most 1 GB: warn early, stop before it.
+        run: |
+          SIZE_MB=$(du --apparent-size -sm dist | cut -f1)
+          echo "dist: ${SIZE_MB}MB"
+          if [ "$SIZE_MB" -gt 900 ]; then
+            echo "::error::dist is ${SIZE_MB}MB, near the 1 GB GitHub Pages limit."
+            exit 1
+          elif [ "$SIZE_MB" -gt 750 ]; then
+            echo "::warning::dist is ${SIZE_MB}MB: plan the next step before the 1 GB GitHub Pages limit."
+          fi
+
+      - name: Upload the Pages artifact
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+        uses: actions/upload-pages-artifact@v5
+        with:
+          path: dist
+
+  deploy:
+    needs: ci
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/configure-pages@v6
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v5

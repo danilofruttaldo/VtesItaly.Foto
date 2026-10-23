@@ -1,0 +1,10 @@
+Manrope
+
+Copyright 2018 The Manrope Project Authors (https://github.com/sharanda/manrope)
+
+This Font Software is licensed under the SIL Open Font License, Version 1.1.
+The full license text is available with a FAQ at: https://openfontlicense.org
+
+The font files served by this site (manrope-latin and manrope-latin-ext,
+WOFF2, subset by Unicode range) are unmodified subsets of Manrope, distributed
+under the same license.

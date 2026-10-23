@@ -1,0 +1,162 @@
+---
+import type { GetStaticPaths } from 'astro';
+import Base from '../../layouts/Base.astro';
+import { cityName, coverOf, formatDate, loadAlbums, type Album } from '../../utils/albums';
+
+export const getStaticPaths = (() =>
+  loadAlbums().map((album) => ({ params: { album: album.slug }, props: { album } }))) satisfies GetStaticPaths;
+
+const { album } = Astro.props as { album: Album };
+const description =
+  album.description ??
+  `${album.photos.length} foto di ${album.title}, ${formatDate(album.date)} a ${cityName(album.city)}.`;
+---
+
+<Base title={album.title} description={description} image={coverOf(album).src}>
+  <a href="/" class="back">
+    &larr; Tutti gli album
+  </a>
+  <h1>{album.title}</h1>
+  <p class="muted">
+    {formatDate(album.date)} · {cityName(album.city)} · {album.photos.length} foto
+    {album.event && (
+      <>
+        {' · '}
+        <a href={album.event}>Pagina dell'evento</a>
+      </>
+    )}
+  </p>
+  {album.description && <p>{album.description}</p>}
+
+  {/* Without JavaScript each thumb opens the photo; the script turns them into a viewer. */}
+  <ul class="grid" data-lightbox>
+    {album.photos.map((p, i) => (
+      <li>
+        <a href={p.src} data-index={i} data-caption={p.caption}>
+          <img
+            src={p.thumb}
+            alt={p.caption ?? `${album.title}, foto ${i + 1}`}
+            width={p.width}
+            height={p.height}
+            loading={i < 8 ? 'eager' : 'lazy'}
+            decoding="async"
+          />
+        </a>
+      </li>
+    ))}
+  </ul>
+
+  <dialog class="viewer" aria-label="Visualizzatore foto">
+    <img alt="" />
+    <p class="viewer__caption"></p>
+    <button type="button" class="viewer__btn viewer__prev" aria-label="Foto precedente">
+      &larr;
+    </button>
+    <button type="button" class="viewer__btn viewer__next" aria-label="Foto successiva">
+      &rarr;
+    </button>
+    <button type="button" class="viewer__btn viewer__close" aria-label="Chiudi">
+      &times;
+    </button>
+  </dialog>
+</Base>
+
+<script>
+  import { initLightbox } from '../../scripts/lightbox';
+  initLightbox();
+</script>
+
+<style>
+  .back {
+    display: inline-block;
+    margin-bottom: 16px;
+  }
+  .grid {
+    list-style: none;
+    margin: 24px 0 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 8px;
+  }
+  .grid img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1;
+    object-fit: cover;
+    border-radius: 4px;
+    background: var(--color-surface);
+  }
+  .viewer {
+    width: 100vw;
+    height: 100vh;
+    max-width: none;
+    max-height: none;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: rgba(0, 0, 0, 0.94);
+    color: var(--color-contrast);
+  }
+  .viewer::backdrop {
+    background: rgba(0, 0, 0, 0.94);
+  }
+  .viewer img {
+    position: absolute;
+    inset: 48px 56px;
+    width: calc(100% - 112px);
+    height: calc(100% - 96px);
+    object-fit: contain;
+  }
+  .viewer__caption {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 12px;
+    margin: 0;
+    text-align: center;
+    font-size: 0.9rem;
+  }
+  .viewer__btn {
+    position: absolute;
+    width: 44px;
+    height: 44px;
+    border: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--color-contrast);
+    font-size: 1.4rem;
+    cursor: pointer;
+  }
+  .viewer__btn:hover {
+    background: rgba(255, 255, 255, 0.16);
+  }
+  .viewer__prev {
+    left: 6px;
+    top: calc(50% - 22px);
+  }
+  .viewer__next {
+    right: 6px;
+    top: calc(50% - 22px);
+  }
+  .viewer__close {
+    right: 6px;
+    top: 6px;
+  }
+  @media (max-width: 640px) {
+    .grid {
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    }
+    .viewer img {
+      inset: 56px 8px;
+      width: calc(100% - 16px);
+      height: calc(100% - 112px);
+    }
+    .viewer__prev,
+    .viewer__next {
+      top: auto;
+      bottom: 6px;
+    }
+  }
+</style>
