@@ -70,16 +70,49 @@ export function imageErrors(src, meta, bytes, maxSide = MAX_SIDE) {
   return errors;
 }
 
-/** Problems of an album.json, as messages; `types` are the ALBUM_TYPES. */
-export function albumErrors(meta, metaFile, types) {
+/** Fields an album.json may have: any other is a typo (`caption` for `captions`)
+ * that would be dropped without a word. */
+export const ALBUM_KEYS = ['title', 'date', 'city', 'type', 'event', 'cover', 'description', 'captions', 'sections'];
+
+/** True for a real calendar day written YYYY-MM-DD (not 2026-13-45, which
+ * would make the pages' date formatting throw). */
+export function isDay(date) {
+  if (typeof date !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(date)) return false;
+  const day = new Date(`${date}T00:00:00Z`);
+  return !Number.isNaN(day.getTime()) && day.toISOString().slice(0, 10) === date;
+}
+
+/** Problems of an album.json, as messages; `types` are the ALBUM_TYPES and
+ * `cities` the slugs accepted as `city` (the principati, plus any town with a
+ * header in covers/). */
+export function albumErrors(meta, metaFile, types, cities) {
   const errors = [];
+  if (meta === null || typeof meta !== 'object' || Array.isArray(meta))
+    return [`${metaFile}: deve essere un oggetto JSON`];
+  for (const key of Object.keys(meta))
+    if (!ALBUM_KEYS.includes(key))
+      errors.push(`${metaFile}: campo sconosciuto "${key}" (ammessi: ${ALBUM_KEYS.join(', ')})`);
   if (!meta.title || /TODO/.test(meta.title)) errors.push(`${metaFile}: title mancante`);
-  if (!/^\d{4}-\d{2}-\d{2}$/.test(meta.date ?? '')) errors.push(`${metaFile}: date deve essere YYYY-MM-DD`);
+  if (!isDay(meta.date)) errors.push(`${metaFile}: date deve essere una data YYYY-MM-DD esistente`);
   if (!meta.city || !/^[a-z]+(-[a-z]+)*$/.test(meta.city))
     errors.push(`${metaFile}: city deve essere lo slug del principato (es. bologna)`);
+  else if (!cities.has(meta.city))
+    errors.push(`${metaFile}: city "${meta.city}" non è un principato né ha un'intestazione covers/${meta.city}.webp`);
   if (typeof meta.type !== 'string' || !Object.hasOwn(types, meta.type))
     errors.push(`${metaFile}: type deve essere uno di ${Object.keys(types).join(', ')}`);
   if (meta.event !== undefined && !/^https:\/\/vtesitaly\.com\//.test(meta.event))
     errors.push(`${metaFile}: event deve essere una pagina di https://vtesitaly.com/`);
   return errors;
+}
+
+/** Problems of album.json `captions` ({ file: text }) against the album's
+ * photo files: a caption for a missing or renamed photo would never show. */
+export function captionErrors(captions, files, metaFile) {
+  if (captions === undefined) return [];
+  if (captions === null || typeof captions !== 'object' || Array.isArray(captions))
+    return [`${metaFile}: captions deve essere un oggetto { "file.webp": "testo" }`];
+  return Object.entries(captions).flatMap(([file, text]) => [
+    ...(files.includes(file) ? [] : [`${metaFile}: la didascalia di ${file} non corrisponde a nessuna foto`]),
+    ...(typeof text === 'string' ? [] : [`${metaFile}: la didascalia di ${file} deve essere un testo`]),
+  ]);
 }

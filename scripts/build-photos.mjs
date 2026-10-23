@@ -31,8 +31,9 @@ import {
   writeFileSync,
 } from 'node:fs';
 import { join } from 'node:path';
-import { PHOTO_EXT, THUMB_SIZE, albumErrors, imageErrors, orderBySections } from './photo-rules.mjs';
+import { PHOTO_EXT, THUMB_SIZE, albumErrors, captionErrors, imageErrors, orderBySections } from './photo-rules.mjs';
 import { ALBUM_TYPES } from '../src/utils/album-types.ts';
+import { PRINCIPATI } from '../src/utils/principati.ts';
 
 const ROOT = 'albums';
 const OUT = 'public/p';
@@ -40,6 +41,14 @@ const MANIFEST = 'src/data/manifest.json';
 const COVER_FILE = 'cover.webp';
 const CITY_COVERS = 'covers';
 const COVER_SIZE = 720;
+
+/** Accepted album.json `city`: a principato, or a town with its own header. */
+const cities = new Set([
+  ...PRINCIPATI,
+  ...(existsSync(CITY_COVERS) ? readdirSync(CITY_COVERS) : [])
+    .filter((f) => f.endsWith('.webp'))
+    .map((f) => f.replace(/\.webp$/, '')),
+]);
 
 const errors = [];
 const albums = [];
@@ -92,11 +101,11 @@ for (const slug of existsSync(ROOT) ? readdirSync(ROOT).sort() : []) {
     continue;
   }
   const meta = JSON.parse(readFileSync(metaFile, 'utf8'));
-  errors.push(...albumErrors(meta, metaFile, ALBUM_TYPES));
-
   const files = readdirSync(dir)
     .filter((f) => f !== 'album.json' && f !== COVER_FILE)
     .sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
+  errors.push(...albumErrors(meta, metaFile, ALBUM_TYPES, cities));
+  errors.push(...captionErrors(meta.captions, files, metaFile));
   const photos = [];
   mkdirSync(join(OUT, slug), { recursive: true });
   for (const f of files) {

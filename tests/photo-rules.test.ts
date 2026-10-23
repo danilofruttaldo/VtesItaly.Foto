@@ -1,7 +1,16 @@
 import { describe, it, expect } from 'vitest';
-import { albumErrors, imageErrors, leakedMetadata, nextPhotoNumber, orderBySections } from '../scripts/photo-rules.mjs';
+import {
+  albumErrors,
+  captionErrors,
+  imageErrors,
+  isDay,
+  leakedMetadata,
+  nextPhotoNumber,
+  orderBySections,
+} from '../scripts/photo-rules.mjs';
 import { ALBUM_TYPES } from '../src/utils/album-types';
 
+const cities = new Set(['bologna', 'brescia']);
 const valid = { title: 'Praxis Seizure', date: '2026-07-12', city: 'bologna', type: 'torneo' };
 
 describe('photo rules', () => {
@@ -18,8 +27,10 @@ describe('photo rules', () => {
   });
 
   it('accepts a complete album.json', () => {
-    expect(albumErrors(valid, 'a.json', ALBUM_TYPES)).toEqual([]);
-    expect(albumErrors({ ...valid, event: 'https://vtesitaly.com/eventi/x/' }, 'a.json', ALBUM_TYPES)).toEqual([]);
+    expect(albumErrors(valid, 'a.json', ALBUM_TYPES, cities)).toEqual([]);
+    expect(albumErrors({ ...valid, event: 'https://vtesitaly.com/eventi/x/' }, 'a.json', ALBUM_TYPES, cities)).toEqual(
+      [],
+    );
   });
 
   it('rejects TODO fields, unknown types and foreign event links', () => {
@@ -27,8 +38,29 @@ describe('photo rules', () => {
       { title: 'TODO titolo', date: 'TODO-YYYY-MM-DD', city: 'Bologna', type: 'toString', event: 'http://x.it/' },
       'a.json',
       ALBUM_TYPES,
+      cities,
     );
     expect(errors).toHaveLength(5);
+  });
+
+  it('rejects impossible dates, unknown cities and unknown fields', () => {
+    expect(isDay('2026-02-28')).toBe(true);
+    expect(isDay('2024-02-29')).toBe(true);
+    expect(isDay('2026-13-45')).toBe(false);
+    expect(isDay('2026-02-30')).toBe(false);
+    expect(albumErrors({ ...valid, date: '2026-13-45' }, 'a.json', ALBUM_TYPES, cities)).toHaveLength(1);
+    expect(albumErrors({ ...valid, city: 'brescia' }, 'a.json', ALBUM_TYPES, cities)).toEqual([]);
+    expect(albumErrors({ ...valid, city: 'bolgona' }, 'a.json', ALBUM_TYPES, cities)).toHaveLength(1);
+    expect(albumErrors({ ...valid, caption: {} }, 'a.json', ALBUM_TYPES, cities)).toHaveLength(1);
+    expect(albumErrors([], 'a.json', ALBUM_TYPES, cities)).toHaveLength(1);
+  });
+
+  it('matches every caption to a photo of the album', () => {
+    const files = ['a.webp', 'b.webp'];
+    expect(captionErrors(undefined, files, 'a.json')).toEqual([]);
+    expect(captionErrors({ 'a.webp': 'Finale' }, files, 'a.json')).toEqual([]);
+    expect(captionErrors({ 'c.webp': 'Finale', 'b.webp': 3 }, files, 'a.json')).toHaveLength(2);
+    expect(captionErrors(['x'], files, 'a.json')).toHaveLength(1);
   });
 
   it('orders photos by section, unlisted ones last, and reports bad references', () => {
