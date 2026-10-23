@@ -119,6 +119,7 @@ export function publicIndex(albums: Album[], site: string) {
         width: p.width,
         height: p.height,
         ...(p.caption ? { caption: p.caption } : {}),
+        ...(p.section ? { section: p.section } : {}),
       })),
     })),
   };

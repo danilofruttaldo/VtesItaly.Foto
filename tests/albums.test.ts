@@ -53,6 +53,12 @@ describe('albums', () => {
       height: 1067,
     });
     expect(a.event).toBe('https://vtesitaly.com/x/');
+    expect(
+      publicIndex(
+        [album('s', '2026-01-01', { photos: [{ ...photo('1.webp'), section: 'Finale' }] })],
+        'https://foto.vtesitaly.com/',
+      ).albums[0].photos[0].section,
+    ).toBe('Finale');
   });
 
   it('lists the principati with albums, by name, with their counts', () => {
