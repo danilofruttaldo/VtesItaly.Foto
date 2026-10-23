@@ -68,6 +68,36 @@ describe('build-photos', () => {
     expect(manifest().albums[0].photos).toHaveLength(1);
   });
 
+  it('cuts a poster or header cover to a square no larger than its short side', async () => {
+    const dir = album('gp-2026', { title: 'GP 2026', date: '2026-03-01', city: 'bologna', type: 'gp' });
+    await webp(join(dir, 'gp-2026-01.webp'), 48, 32);
+    await webp(join(dir, 'cover.webp'), 160, 35);
+    expect((await buildPhotos(root)).errors).toEqual([]);
+    const gp = manifest().albums.find((a: { slug: string }) => a.slug === 'gp-2026');
+    expect(gp.cover).toMatchObject({ kind: 'poster', width: 35, height: 35 });
+    const thumb = await sharp(out('gp-2026', 'cover-thumb.webp')).metadata();
+    expect([thumb.width, thumb.height]).toEqual([35, 35]);
+  });
+
+  it('skips the files the OS leaves in a folder', async () => {
+    const dir = join(root, 'albums', 'torneo-2026');
+    writeFileSync(join(dir, 'desktop.ini'), '[.ShellClassInfo]');
+    writeFileSync(join(dir, 'Thumbs.db'), 'x');
+    writeFileSync(join(dir, '.DS_Store'), 'x');
+    writeFileSync(join(root, 'albums', 'desktop.ini'), 'x');
+    expect((await buildPhotos(root)).errors).toEqual([]);
+    expect(manifest().albums[0].photos).toHaveLength(2);
+  });
+
+  it('names the album.json that is not valid JSON', async () => {
+    const dir = join(root, 'albums', 'rotto');
+    mkdirSync(dir);
+    writeFileSync(join(dir, 'album.json'), '{ "title": "Rotto", }');
+    const { errors } = await buildPhotos(root);
+    expect(errors).toHaveLength(1);
+    expect(errors[0]).toMatch(/rotto[\\/]album\.json: JSON non valido/);
+  });
+
   it('writes nothing when an album breaks the rules', async () => {
     album('rotto', { title: 'Rotto', date: '2026-13-45', city: 'bologna', type: 'torneo' });
     const { errors } = await buildPhotos(root);

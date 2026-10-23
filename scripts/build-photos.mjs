@@ -38,6 +38,8 @@ import { PRINCIPATI } from '../src/utils/principati.ts';
 
 const COVER_FILE = 'cover.webp';
 const COVER_SIZE = 720;
+/** What Windows, macOS and editors leave in a folder: never a photo. */
+const IGNORED = (f) => f.startsWith('.') || /^(desktop\.ini|thumbs\.db)$/i.test(f);
 
 /** Builds public/p/ and the manifest from the albums/ and covers/ under `root`
  * (the repo; a scratch folder in the tests). Returns the problems found and,
@@ -66,6 +68,12 @@ export async function buildPhotos(root = '.') {
     return existsSync(out) && statSync(out).mtimeMs >= statSync(src).mtimeMs;
   }
 
+  /** Square cover thumbs from an earlier rule (always COVER_SIZE) differ in size. */
+  async function sideIs(file, side) {
+    // From a buffer: libvips would keep the file open and block rewriting it.
+    return (await sharp(readFileSync(file)).metadata()).width === side;
+  }
+
   /** Reads a source image's metadata and records what breaks photo-rules; `ok` is
    * false when it must not be published. */
   async function inspect(src) {
@@ -82,34 +90,44 @@ export async function buildPhotos(root = '.') {
     outputs.add(display).add(thumb);
     mkdirSync(join(OUT, dir), { recursive: true });
     const { width, height } = await inspect(src);
+    // Never larger than the image's short side: the 1600x350 principato
+    // headers would otherwise be cut to 350 px and blown up to 720.
+    const side = Math.min(COVER_SIZE, width, height);
     if (!fresh(display, src)) copyFileSync(src, display);
-    if (!fresh(thumb, src)) {
+    if (!fresh(thumb, src) || !(await sideIs(thumb, side))) {
       const position = height > width ? 'top' : sharp.strategy.attention;
-      await sharp(src)
-        .resize(COVER_SIZE, COVER_SIZE, { fit: 'cover', position })
-        .webp({ quality: 80, effort: 6 })
-        .toFile(thumb);
+      await sharp(src).resize(side, side, { fit: 'cover', position }).webp({ quality: 80, effort: 6 }).toFile(thumb);
     }
     return {
       src: `/p/${dir}/${name}.webp`,
       thumb: `/p/${dir}/${name}-thumb.webp`,
-      width: COVER_SIZE,
-      height: COVER_SIZE,
+      width: side,
+      height: side,
       kind,
     };
   }
 
   for (const slug of existsSync(ROOT) ? readdirSync(ROOT).sort() : []) {
     const dir = join(ROOT, slug);
-    if (!statSync(dir).isDirectory()) continue;
+    if (IGNORED(slug) || !statSync(dir).isDirectory()) continue;
     const metaFile = join(dir, 'album.json');
     if (!existsSync(metaFile)) {
       errors.push(`${dir}: manca album.json`);
       continue;
     }
-    const meta = JSON.parse(readFileSync(metaFile, 'utf8'));
+    let meta;
+    try {
+      meta = JSON.parse(readFileSync(metaFile, 'utf8'));
+    } catch (e) {
+      errors.push(`${metaFile}: JSON non valido (${e.message})`);
+      continue;
+    }
+    if (meta === null || typeof meta !== 'object' || Array.isArray(meta)) {
+      errors.push(`${metaFile}: deve essere un oggetto JSON`);
+      continue;
+    }
     const files = readdirSync(dir)
-      .filter((f) => f !== 'album.json' && f !== COVER_FILE)
+      .filter((f) => f !== 'album.json' && f !== COVER_FILE && !IGNORED(f))
       .sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
     errors.push(...albumErrors(meta, metaFile, ALBUM_TYPES, cities));
     errors.push(...captionErrors(meta.captions, files, metaFile));
