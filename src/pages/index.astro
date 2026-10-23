@@ -1,9 +1,10 @@
 ---
 import Base from '../layouts/Base.astro';
-import { byYear, cityName, coverOf, formatDate, loadAlbums } from '../utils/albums';
+import AlbumGrid from '../components/AlbumGrid.astro';
+import CityFilter from '../components/CityFilter.astro';
+import { citiesOf, coverOf, loadAlbums } from '../utils/albums';
 
 const albums = loadAlbums();
-const years = byYear(albums);
 const photos = albums.reduce((n, a) => n + a.photos.length, 0);
 ---
 
@@ -16,69 +17,6 @@ const photos = albums.reduce((n, a) => n + a.photos.length, 0);
   <p class="muted">
     {albums.length} album, {photos} foto.
   </p>
-
-  {years.map(({ year, albums }) => (
-    <section>
-      <h2>{year}</h2>
-      <ul class="albums">
-        {albums.map((a) => {
-          const cover = coverOf(a);
-          return (
-            <li>
-              <a href={`/${a.slug}/`} class="album-card">
-                <img
-                  src={cover.thumb}
-                  alt=""
-                  width={cover.width}
-                  height={cover.height}
-                  loading="lazy"
-                  decoding="async"
-                />
-                <span class="album-card__title">{a.title}</span>
-                <span class="album-card__meta">
-                  {formatDate(a.date)} · {cityName(a.city)} · {a.photos.length} foto
-                </span>
-              </a>
-            </li>
-          );
-        })}
-      </ul>
-    </section>
-  ))}
+  <CityFilter cities={citiesOf(albums)} />
+  <AlbumGrid albums={albums} />
 </Base>
-
-<style>
-  .albums {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-    gap: 20px;
-  }
-  .album-card {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    color: var(--color-contrast);
-  }
-  .album-card img {
-    width: 100%;
-    height: auto;
-    aspect-ratio: 4 / 3;
-    object-fit: cover;
-    border-radius: var(--radius);
-    background: var(--color-surface);
-    transition: transform 0.2s ease;
-  }
-  .album-card:hover img {
-    transform: translateY(-2px);
-  }
-  .album-card__title {
-    font-weight: 700;
-  }
-  .album-card__meta {
-    font-size: 0.85rem;
-    color: var(--color-muted);
-  }
-</style>

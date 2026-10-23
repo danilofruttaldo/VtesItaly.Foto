@@ -1,7 +1,7 @@
 ---
 import type { GetStaticPaths } from 'astro';
 import Base from '../../layouts/Base.astro';
-import { cityName, coverOf, formatDate, loadAlbums, type Album } from '../../utils/albums';
+import { cityName, coverOf, formatDate, loadAlbums, sectionsOf, typeLabel, type Album } from '../../utils/albums';
 
 export const getStaticPaths = (() =>
   loadAlbums().map((album) => ({ params: { album: album.slug }, props: { album } }))) satisfies GetStaticPaths;
@@ -16,9 +16,11 @@ const description =
   <a href="/" class="back">
     &larr; Tutti gli album
   </a>
+  <p class="type">{typeLabel(album.type)}</p>
   <h1>{album.title}</h1>
   <p class="muted">
-    {formatDate(album.date)} · {cityName(album.city)} · {album.photos.length} foto
+    {formatDate(album.date)} · <a href={`/principati/${album.city}/`}>{cityName(album.city)}</a> ·{album.photos.length}{' '}
+    foto
     {album.event && (
       <>
         {' · '}
@@ -29,22 +31,29 @@ const description =
   {album.description && <p>{album.description}</p>}
 
   {/* Without JavaScript each thumb opens the photo; the script turns them into a viewer. */}
-  <ul class="grid" data-lightbox>
-    {album.photos.map((p, i) => (
-      <li>
-        <a href={p.src} data-index={i} data-caption={p.caption}>
-          <img
-            src={p.thumb}
-            alt={p.caption ?? `${album.title}, foto ${i + 1}`}
-            width={p.width}
-            height={p.height}
-            loading={i < 8 ? 'eager' : 'lazy'}
-            decoding="async"
-          />
-        </a>
-      </li>
+  <div data-lightbox>
+    {sectionsOf(album.photos).map((section) => (
+      <section>
+        {section.title && <h2>{section.title}</h2>}
+        <ul class="grid">
+          {section.photos.map(({ photo: p, index: i }) => (
+            <li>
+              <a href={p.src} data-index={i} data-caption={p.caption ?? p.section}>
+                <img
+                  src={p.thumb}
+                  alt={p.caption ?? `${album.title}, foto ${i + 1}`}
+                  width={p.width}
+                  height={p.height}
+                  loading={i < 8 ? 'eager' : 'lazy'}
+                  decoding="async"
+                />
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
     ))}
-  </ul>
+  </div>
 
   <dialog class="viewer" aria-label="Visualizzatore foto">
     <img alt="" />
@@ -71,9 +80,23 @@ const description =
     display: inline-block;
     margin-bottom: 16px;
   }
+  .type {
+    margin: 0 0 4px;
+    color: var(--color-gold);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  [data-lightbox] {
+    margin-top: 24px;
+  }
+  [data-lightbox] h2 {
+    margin: 28px 0 12px;
+  }
   .grid {
     list-style: none;
-    margin: 24px 0 0;
+    margin: 0;
     padding: 0;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -91,6 +114,8 @@ const description =
   .viewer {
     width: 100vw;
     height: 100vh;
+    /* The real visible height on phones, address bar included. */
+    height: 100dvh;
     max-width: none;
     max-height: none;
     margin: 0;

@@ -1,0 +1,53 @@
+{
+  "title": "Nazionale 2026",
+  "date": "2026-02-27",
+  "city": "trento",
+  "type": "nazionale",
+  "event": "https://vtesitaly.com/nazionale/nazionale-2026/",
+  "sections": [
+    {
+      "title": "Preparazione",
+      "photos": [
+        "nc-2026-preparazione-01.webp",
+        "nc-2026-preparazione-02.webp",
+        "nc-2026-preparazione-03.webp",
+        "nc-2026-preparazione-04.webp",
+        "nc-2026-preparazione-05.webp",
+        "nc-2026-preparazione-06.webp"
+      ]
+    },
+    {
+      "title": "Round",
+      "photos": [
+        "nc-2026-round-01.webp",
+        "nc-2026-round-02.webp",
+        "nc-2026-round-03.webp",
+        "nc-2026-round-04.webp",
+        "nc-2026-round-05.webp",
+        "nc-2026-round-06.webp",
+        "nc-2026-round-07.webp"
+      ]
+    },
+    {
+      "title": "Finale",
+      "photos": [
+        "nc-2026-finale-01.webp",
+        "nc-2026-finale-02.webp",
+        "nc-2026-finale-03.webp",
+        "nc-2026-finale-04.webp",
+        "nc-2026-finale-05.webp",
+        "nc-2026-finale-06.webp"
+      ]
+    },
+    {
+      "title": "Bonus",
+      "photos": [
+        "nc-2026-bonus-01.webp",
+        "nc-2026-bonus-02.webp",
+        "nc-2026-bonus-03.webp",
+        "nc-2026-bonus-04.webp",
+        "nc-2026-bonus-05.webp"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "title": "Nazionale 2022",
+  "date": "2022-10-15",
+  "city": "bologna",
+  "type": "nazionale",
+  "event": "https://vtesitaly.com/nazionale/nazionale-2022/",
+  "sections": [
+    {
+      "title": "Preparazione",
+      "photos": ["nc-2022-preparazione-01.webp"]
+    },
+    {
+      "title": "Finale",
+      "photos": ["nc-2022-finale-03.webp", "nc-2022-finale-02.webp", "nc-2022-finale-01.webp"]
+    }
+  ]
+}

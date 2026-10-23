@@ -1,0 +1,31 @@
+{
+  "title": "Nazionale 2025",
+  "date": "2025-04-12",
+  "city": "pordenone",
+  "type": "nazionale",
+  "event": "https://vtesitaly.com/nazionale/nazionale-2025/",
+  "sections": [
+    {
+      "title": "Preparazione",
+      "photos": ["nc-2025-preparazione-01.webp", "nc-2025-preparazione-02.webp", "nc-2025-preparazione-03.webp"]
+    },
+    {
+      "title": "Round",
+      "photos": ["nc-2025-round-01.webp", "nc-2025-round-02.webp", "nc-2025-round-03.webp", "nc-2025-round-04.webp"]
+    },
+    {
+      "title": "Finale",
+      "photos": ["nc-2025-finale-01.webp", "nc-2025-finale-02.webp"]
+    },
+    {
+      "title": "Bonus",
+      "photos": [
+        "nc-2025-bonus-01.webp",
+        "nc-2025-bonus-02.webp",
+        "nc-2025-bonus-03.webp",
+        "nc-2025-bonus-04.webp",
+        "nc-2025-bonus-05.webp"
+      ]
+    }
+  ]
+}

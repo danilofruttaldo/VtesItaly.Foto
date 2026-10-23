@@ -1,0 +1,46 @@
+{
+  "title": "Grand Prix 2025",
+  "date": "2025-03-01",
+  "city": "modena",
+  "type": "gp",
+  "event": "https://vtesitaly.com/grand-prix/grand-prix-2025/",
+  "sections": [
+    {
+      "title": "Preparazione",
+      "photos": ["gp-2025-preparazione-01.webp", "gp-2025-preparazione-02.webp", "gp-2025-preparazione-03.webp"]
+    },
+    {
+      "title": "Round",
+      "photos": [
+        "gp-2025-round-01.webp",
+        "gp-2025-round-02.webp",
+        "gp-2025-round-03.webp",
+        "gp-2025-round-04.webp",
+        "gp-2025-round-05.webp",
+        "gp-2025-round-06.webp"
+      ]
+    },
+    {
+      "title": "Finale",
+      "photos": [
+        "gp-2025-finale-01.webp",
+        "gp-2025-finale-02.webp",
+        "gp-2025-finale-03.webp",
+        "gp-2025-finale-04.webp",
+        "gp-2025-finale-05.webp",
+        "gp-2025-finale-06.webp"
+      ]
+    },
+    {
+      "title": "Bonus",
+      "photos": [
+        "gp-2025-bonus-01.webp",
+        "gp-2025-bonus-02.webp",
+        "gp-2025-bonus-03.webp",
+        "gp-2025-bonus-04.webp",
+        "gp-2025-bonus-05.webp",
+        "gp-2025-bonus-06.webp"
+      ]
+    }
+  ]
+}

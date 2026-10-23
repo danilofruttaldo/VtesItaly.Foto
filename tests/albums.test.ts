@@ -1,5 +1,15 @@
 import { describe, it, expect } from 'vitest';
-import { byYear, cityName, coverOf, formatDate, loadAlbums, publicIndex, type Album } from '../src/utils/albums';
+import {
+  byYear,
+  citiesOf,
+  cityName,
+  coverOf,
+  formatDate,
+  loadAlbums,
+  publicIndex,
+  typeLabel,
+  type Album,
+} from '../src/utils/albums';
 
 const photo = (file: string) => ({ file, src: `/p/a/${file}`, thumb: `/p/a/${file}-t`, width: 1600, height: 1067 });
 const album = (slug: string, date: string, extra: Partial<Album> = {}): Album => ({
@@ -7,6 +17,7 @@ const album = (slug: string, date: string, extra: Partial<Album> = {}): Album =>
   title: slug,
   date,
   city: 'bologna',
+  type: 'torneo',
   cover: '2.webp',
   photos: [photo('1.webp'), photo('2.webp')],
   ...extra,
@@ -43,6 +54,24 @@ describe('albums', () => {
       height: 1067,
     });
     expect(a.event).toBe('https://vtesitaly.com/x/');
+  });
+
+  it('lists the principati with albums, by name, with their counts', () => {
+    const list = citiesOf([
+      album('a', '2026-01-01'),
+      album('b', '2026-02-01', { city: 'firenze' }),
+      album('c', '2025-01-01'),
+    ]);
+    expect(list).toEqual([
+      { slug: 'bologna', name: 'Bologna', count: 2 },
+      { slug: 'firenze', name: 'Firenze', count: 1 },
+    ]);
+  });
+
+  it('labels album types', () => {
+    expect(typeLabel('gp')).toBe('Grand Prix');
+    expect(typeLabel('torneo')).toBe('Torneo');
+    expect(typeLabel('altro')).toBe('altro');
   });
 
   it('has no albums before build-photos has run', () => {

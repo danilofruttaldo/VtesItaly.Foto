@@ -1,7 +1,7 @@
 /* Imports the photos of an event into albums/<slug>/, ready to commit.
  *
  * Usage: npm run add-album -- <source folder> <slug> [--title "..."] [--date YYYY-MM-DD]
- *                            [--city <principato>] [--event <vtesitaly.com URL>]
+ *                            [--city <principato>] [--type <tipo>] [--event <vtesitaly.com URL>]
  *
  * Every photo (jpg, jpeg, png, webp, heic is not supported: export it first)
  * is rotated upright from its EXIF, resized to at most MAX_SIDE px on the long
@@ -21,7 +21,7 @@ import { MAX_SIDE, QUALITY, PHOTO_EXT } from './photo-rules.mjs';
 const [src, slug, ...rest] = process.argv.slice(2);
 if (!src || !slug || !/^[a-z0-9]+(-[a-z0-9]+)*$/.test(slug)) {
   console.error(
-    'Uso: npm run add-album -- <cartella sorgente> <slug-in-minuscolo> [--title …] [--date …] [--city …] [--event …]',
+    'Uso: npm run add-album -- <cartella sorgente> <slug-in-minuscolo> [--title …] [--date …] [--city …] [--type …] [--event …]',
   );
   process.exit(1);
 }
@@ -57,6 +57,7 @@ if (!existsSync(meta)) {
     title: opts.title ?? 'TODO titolo',
     date: opts.date ?? 'TODO-YYYY-MM-DD',
     city: opts.city ?? 'TODO principato (es. bologna)',
+    type: opts.type ?? 'TODO gp | nazionale | tour | torneo | lega | evento',
     ...(opts.event ? { event: opts.event } : {}),
   };
   writeFileSync(meta, JSON.stringify(album, null, 2) + '\n');

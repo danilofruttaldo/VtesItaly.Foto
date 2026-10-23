@@ -16,6 +16,7 @@ import sharp from 'sharp';
 import { copyFileSync, existsSync, mkdirSync, readdirSync, readFileSync, statSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { MAX_BYTES, MAX_SIDE, PHOTO_EXT, THUMB_WIDTH } from './photo-rules.mjs';
+import { ALBUM_TYPES } from '../src/utils/album-types.ts';
 
 const ROOT = 'albums';
 const OUT = 'public/p';
@@ -39,7 +40,10 @@ for (const slug of existsSync(ROOT) ? readdirSync(ROOT).sort() : []) {
   const meta = JSON.parse(readFileSync(metaFile, 'utf8'));
   if (!meta.title || /TODO/.test(meta.title)) errors.push(`${metaFile}: title mancante`);
   if (!/^\d{4}-\d{2}-\d{2}$/.test(meta.date ?? '')) errors.push(`${metaFile}: date deve essere YYYY-MM-DD`);
-  if (!meta.city || /TODO/.test(meta.city)) errors.push(`${metaFile}: city mancante`);
+  if (!meta.city || !/^[a-z]+(-[a-z]+)*$/.test(meta.city))
+    errors.push(`${metaFile}: city deve essere lo slug del principato (es. bologna)`);
+  if (!(meta.type in ALBUM_TYPES))
+    errors.push(`${metaFile}: type deve essere uno di ${Object.keys(ALBUM_TYPES).join(', ')}`);
 
   const files = readdirSync(dir)
     .filter((f) => f !== 'album.json')
@@ -78,11 +82,30 @@ for (const slug of existsSync(ROOT) ? readdirSync(ROOT).sort() : []) {
   if (photos.length === 0) errors.push(`${dir}: nessuna foto`);
   if (meta.cover && !photos.some((p) => p.file === meta.cover))
     errors.push(`${metaFile}: cover ${meta.cover} non trovata`);
+  // Optional sections ([{ title, photos: [file, …] }]): photos follow the
+  // sections' order and carry their title; any photo left out comes last.
+  if (meta.sections) {
+    const byFile = new Map(photos.map((p) => [p.file, p]));
+    const ordered = [];
+    for (const s of meta.sections) {
+      for (const f of s.photos ?? []) {
+        const p = byFile.get(f);
+        if (!p) {
+          errors.push(`${metaFile}: la sezione "${s.title}" cita ${f}, che non c'è o compare due volte`);
+          continue;
+        }
+        byFile.delete(f);
+        ordered.push({ ...p, section: s.title });
+      }
+    }
+    photos.splice(0, photos.length, ...ordered, ...byFile.values());
+  }
   albums.push({
     slug,
     title: meta.title,
     date: meta.date,
     city: meta.city,
+    type: meta.type,
     ...(meta.event ? { event: meta.event } : {}),
     ...(meta.description ? { description: meta.description } : {}),
     cover: meta.cover ?? photos[0]?.file,

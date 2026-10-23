@@ -1,0 +1,32 @@
+{
+  "title": "Grand Prix 2024",
+  "date": "2023-12-09",
+  "city": "milano",
+  "type": "gp",
+  "event": "https://vtesitaly.com/grand-prix/grand-prix-2024/",
+  "sections": [
+    {
+      "title": "Preparazione",
+      "photos": ["gp-2024-preparazione-01.webp", "gp-2024-preparazione-02.webp", "gp-2024-preparazione-03.webp"]
+    },
+    {
+      "title": "Round",
+      "photos": ["gp-2024-round-01.webp", "gp-2024-round-02.webp", "gp-2024-round-03.webp", "gp-2024-round-04.webp"]
+    },
+    {
+      "title": "Finale",
+      "photos": [
+        "gp-2024-finale-01.webp",
+        "gp-2024-finale-02.webp",
+        "gp-2024-finale-03.webp",
+        "gp-2024-finale-04.webp",
+        "gp-2024-finale-05.webp",
+        "gp-2024-finale-06.webp"
+      ]
+    },
+    {
+      "title": "Bonus",
+      "photos": ["gp-2024-bonus-01.webp", "gp-2024-bonus-02.webp", "gp-2024-bonus-03.webp", "gp-2024-bonus-04.webp"]
+    }
+  ]
+}

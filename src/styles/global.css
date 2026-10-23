@@ -112,3 +112,19 @@ h2 {
   font-size: 0.875rem;
   color: var(--color-muted);
 }
+
+@media (max-width: 640px) {
+  main {
+    padding: 20px 0 48px;
+  }
+  .site-header {
+    padding: 10px 0;
+  }
+  .brand img {
+    width: 30px;
+    height: 30px;
+  }
+  .site-header .container > a:last-child {
+    font-size: 0.85rem;
+  }
+}

@@ -1,0 +1,114 @@
+---
+/* Albums grouped by year, newest first: the home and every principato page. */
+import { byYear, cityName, coverOf, formatDate, typeLabel, type Album } from '../utils/albums';
+
+interface Props {
+  albums: Album[];
+  /** Hide the city on the cards (a principato page already names it). */
+  hideCity?: boolean;
+}
+
+const { albums, hideCity = false } = Astro.props;
+---
+
+{byYear(albums).map(({ year, albums }, yi) => (
+  <section>
+    <h2>{year}</h2>
+    <ul class="albums">
+      {albums.map((a, i) => {
+        const cover = coverOf(a);
+        return (
+          <li>
+            <a href={`/${a.slug}/`} class="album-card">
+              <span class="album-card__media">
+                <img
+                  src={cover.thumb}
+                  alt=""
+                  width={cover.width}
+                  height={cover.height}
+                  loading={yi === 0 && i < 4 ? 'eager' : 'lazy'}
+                  decoding="async"
+                />
+                <span class="album-card__type">{typeLabel(a.type)}</span>
+              </span>
+              <span class="album-card__title">{a.title}</span>
+              <span class="album-card__meta">
+                {formatDate(a.date)}
+                {!hideCity && ` · ${cityName(a.city)}`} · {a.photos.length} foto
+              </span>
+            </a>
+          </li>
+        );
+      })}
+    </ul>
+  </section>
+))}
+
+<style>
+  .albums {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 24px;
+  }
+  .album-card {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    color: var(--color-contrast);
+  }
+  .album-card__media {
+    position: relative;
+    display: block;
+    margin-bottom: 6px;
+  }
+  .album-card img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    border-radius: var(--radius);
+    background: var(--color-surface);
+    transition: transform 0.2s ease;
+  }
+  .album-card:hover img {
+    transform: translateY(-2px);
+  }
+  .album-card__type {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    padding: 2px 8px;
+    border-radius: 4px;
+    background: rgba(18, 20, 22, 0.85);
+    color: var(--color-gold);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  .album-card__title {
+    font-weight: 700;
+    line-height: 1.3;
+  }
+  .album-card__meta {
+    font-size: 0.85rem;
+    color: var(--color-muted);
+  }
+  @media (max-width: 640px) {
+    /* Two columns on a phone: the covers stay recognizable, twice as many fit. */
+    .albums {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px 12px;
+    }
+    .album-card__title {
+      font-size: 0.95rem;
+    }
+    .album-card__meta {
+      font-size: 0.78rem;
+    }
+  }
+</style>

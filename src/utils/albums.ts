@@ -1,5 +1,6 @@
 import { existsSync, readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
+import { ALBUM_TYPES, type AlbumType } from './album-types';
 
 export interface Photo {
   file: string;
@@ -8,6 +9,8 @@ export interface Photo {
   width: number;
   height: number;
   caption?: string;
+  /** Title of the album section the photo is in (album.json `sections`). */
+  section?: string;
 }
 
 export interface Album {
@@ -15,6 +18,8 @@ export interface Album {
   title: string;
   date: string; // YYYY-MM-DD
   city: string;
+  /** Key of ALBUM_TYPES (scripts/album-types.mjs). */
+  type: string;
   /** The event page on vtesitaly.com. */
   event?: string;
   description?: string;
@@ -42,6 +47,31 @@ export function byYear(albums: Album[]): { year: string; albums: Album[] }[] {
     groups.get(year)!.push(a);
   }
   return [...groups.entries()].sort(([a], [b]) => b.localeCompare(a)).map(([year, list]) => ({ year, albums: list }));
+}
+
+/** Consecutive photos of the same section, each with its index in the whole album. */
+export function sectionsOf(photos: Photo[]): { title?: string; photos: { photo: Photo; index: number }[] }[] {
+  const out: { title?: string; photos: { photo: Photo; index: number }[] }[] = [];
+  photos.forEach((photo, index) => {
+    const last = out[out.length - 1];
+    if (last && last.title === photo.section) last.photos.push({ photo, index });
+    else out.push({ title: photo.section, photos: [{ photo, index }] });
+  });
+  return out;
+}
+
+/** Principati with at least one album, by name, with how many albums each has. */
+export function citiesOf(albums: Album[]): { slug: string; name: string; count: number }[] {
+  const counts = new Map<string, number>();
+  for (const a of albums) counts.set(a.city, (counts.get(a.city) ?? 0) + 1);
+  return [...counts.entries()]
+    .map(([slug, count]) => ({ slug, name: cityName(slug), count }))
+    .sort((a, b) => a.name.localeCompare(b.name, 'it'));
+}
+
+/** Card label of an album type ("Grand Prix" for "gp"); the raw value when unknown. */
+export function typeLabel(type: string): string {
+  return ALBUM_TYPES[type as AlbumType] ?? type;
 }
 
 /** "Bologna" from the principato slug "bologna". */

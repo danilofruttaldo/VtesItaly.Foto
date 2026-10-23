@@ -1,0 +1,35 @@
+---
+import type { GetStaticPaths } from 'astro';
+import Base from '../../../layouts/Base.astro';
+import AlbumGrid from '../../../components/AlbumGrid.astro';
+import CityFilter from '../../../components/CityFilter.astro';
+import { citiesOf, coverOf, loadAlbums } from '../../../utils/albums';
+import { PRINCIPATI } from '../../../utils/principati';
+
+export const getStaticPaths = (() =>
+  citiesOf(loadAlbums()).map((c) => ({ params: { city: c.slug }, props: { city: c } }))) satisfies GetStaticPaths;
+
+const { city } = Astro.props as { city: { slug: string; name: string } };
+const all = loadAlbums();
+const albums = all.filter((a) => a.city === city.slug);
+const photos = albums.reduce((n, a) => n + a.photos.length, 0);
+---
+
+<Base
+  title={`Foto da ${city.name}`}
+  description={`Le foto dei tornei e degli eventi VTES a ${city.name}: ${albums.length} album, ${photos} foto.`}
+  image={coverOf(albums[0]).src}
+>
+  <h1>Foto da {city.name}</h1>
+  <p class="muted">
+    {albums.length} album, {photos} foto
+    {PRINCIPATI.has(city.slug) && (
+      <>
+        {' · '}
+        <a href={`https://vtesitaly.com/principati/${city.slug}/`}>Principato di {city.name}</a>
+      </>
+    )}
+  </p>
+  <CityFilter cities={citiesOf(all)} current={city.slug} />
+  <AlbumGrid albums={albums} hideCity />
+</Base>

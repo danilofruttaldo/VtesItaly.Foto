@@ -1,0 +1,29 @@
+{
+  "title": "Rise of the Nephtali",
+  "date": "2026-09-19",
+  "city": "treviso",
+  "type": "torneo",
+  "event": "https://vtesitaly.com/comunita/torneo-treviso-settembre-2026/",
+  "sections": [
+    {
+      "title": "Premi",
+      "photos": ["rise-of-the-nephtali-2026-01-premi.webp"]
+    },
+    {
+      "title": "Round",
+      "photos": [
+        "rise-of-the-nephtali-2026-02-round.webp",
+        "rise-of-the-nephtali-2026-03-round.webp",
+        "rise-of-the-nephtali-2026-04-round.webp"
+      ]
+    },
+    {
+      "title": "Finale",
+      "photos": ["rise-of-the-nephtali-2026-05-seating.webp", "rise-of-the-nephtali-2026-06-finale.webp"]
+    },
+    {
+      "title": "Extra",
+      "photos": ["rise-of-the-nephtali-2026-07-gadget.webp"]
+    }
+  ]
+}
