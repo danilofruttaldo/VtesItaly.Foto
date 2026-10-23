@@ -1,16 +1,20 @@
 ---
 import '../styles/global.css';
+import { twitterCard } from '../utils/albums';
 
 interface Props {
   title: string;
   description: string;
   /** Absolute or root-relative image for social previews. */
   image?: string;
+  /** Size of `image`, when known: picks the Twitter card and fills og:image:width/height. */
+  imageWidth?: number;
+  imageHeight?: number;
   /** Keeps the page out of search results (the 404). */
   noindex?: boolean;
 }
 
-const { title, description, image, noindex } = Astro.props;
+const { title, description, image, imageWidth, imageHeight, noindex } = Astro.props;
 const fullTitle = title === 'Foto VTES Italy' ? title : `${title} | Foto VTES Italy`;
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
 const ogImage = image ? new URL(image, Astro.site).href : undefined;
@@ -33,7 +37,9 @@ const ogImage = image ? new URL(image, Astro.site).href : undefined;
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     {ogImage && <meta property="og:image" content={ogImage} />}
-    <meta name="twitter:card" content={ogImage ? 'summary_large_image' : 'summary'} />
+    {ogImage && imageWidth && imageHeight && <meta property="og:image:width" content={String(imageWidth)} />}
+    {ogImage && imageWidth && imageHeight && <meta property="og:image:height" content={String(imageHeight)} />}
+    <meta name="twitter:card" content={ogImage ? twitterCard(imageWidth, imageHeight) : 'summary'} />
   </head>
   <body>
     <header class="site-header">

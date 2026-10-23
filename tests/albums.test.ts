@@ -6,6 +6,7 @@ import {
   formatDate,
   loadAlbums,
   publicIndex,
+  twitterCard,
   typeLabel,
   type Album,
 } from '../src/utils/albums';
@@ -23,6 +24,15 @@ const album = (slug: string, date: string, extra: Partial<Album> = {}): Album =>
 });
 
 describe('albums', () => {
+  it('gives vertical posters and wide headers the small social card', () => {
+    expect(twitterCard(1600, 1067)).toBe('summary_large_image');
+    expect(twitterCard(1200, 630)).toBe('summary_large_image');
+    expect(twitterCard(848, 1200)).toBe('summary');
+    expect(twitterCard(1600, 350)).toBe('summary');
+    expect(twitterCard(720, 720)).toBe('summary');
+    expect(twitterCard()).toBe('summary_large_image');
+  });
+
   it('groups by year, newest year first, keeping the order inside', () => {
     const groups = byYear([album('c', '2026-05-01'), album('b', '2026-01-01'), album('a', '2025-12-01')]);
     expect(groups.map((g) => g.year)).toEqual(['2026', '2025']);

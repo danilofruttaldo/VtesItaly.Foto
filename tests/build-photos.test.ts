@@ -80,7 +80,7 @@ describe('build-photos', () => {
     await webp(join(dir, 'cover.webp'), 160, 35);
     expect((await buildPhotos(root)).errors).toEqual([]);
     const gp = manifest().albums.find((a: { slug: string }) => a.slug === 'gp-2026');
-    expect(gp.cover).toMatchObject({ kind: 'poster', width: 35, height: 35 });
+    expect(gp.cover).toMatchObject({ kind: 'poster', width: 35, height: 35, srcWidth: 160, srcHeight: 35 });
     const thumb = await sharp(out('gp-2026', 'cover-thumb.webp')).metadata();
     expect([thumb.width, thumb.height]).toEqual([35, 35]);
   });

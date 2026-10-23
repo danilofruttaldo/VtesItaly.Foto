@@ -2,7 +2,7 @@
 import Base from '../layouts/Base.astro';
 import AlbumGrid from '../components/AlbumGrid.astro';
 import CityFilter from '../components/CityFilter.astro';
-import { citiesOf, loadAlbums } from '../utils/albums';
+import { citiesOf, coverImage, loadAlbums } from '../utils/albums';
 
 const albums = loadAlbums();
 const photos = albums.reduce((n, a) => n + a.photos.length, 0);
@@ -11,7 +11,7 @@ const photos = albums.reduce((n, a) => n + a.photos.length, 0);
 <Base
   title="Foto VTES Italy"
   description="Le foto dei tornei e degli eventi della community italiana di Vampire: The Eternal Struggle."
-  image={albums[0] ? albums[0].cover.src : undefined}
+  {...(albums[0] ? coverImage(albums[0].cover) : {})}
 >
   <h1>Foto della community</h1>
   <p class="muted" data-album-summary aria-live="polite">

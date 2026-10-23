@@ -1,7 +1,7 @@
 ---
 import type { GetStaticPaths } from 'astro';
 import Base from '../../layouts/Base.astro';
-import { cityName, formatDate, loadAlbums, sectionsOf, typeLabel, type Album } from '../../utils/albums';
+import { cityName, coverImage, formatDate, loadAlbums, sectionsOf, typeLabel, type Album } from '../../utils/albums';
 
 export const getStaticPaths = (() =>
   loadAlbums().map((album) => ({ params: { album: album.slug }, props: { album } }))) satisfies GetStaticPaths;
@@ -12,7 +12,7 @@ const description =
   `${album.photos.length} foto di ${album.title}, ${formatDate(album.date)} a ${cityName(album.city)}.`;
 ---
 
-<Base title={album.title} description={description} image={album.cover.src}>
+<Base title={album.title} description={description} {...coverImage(album.cover)}>
   <a href="/" class="back">
     &larr; Tutti gli album
   </a>

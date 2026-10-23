@@ -21,7 +21,27 @@ export interface Cover {
   thumb: string;
   width: number;
   height: number;
+  /** Size of `src` itself (the poster, header or photo). */
+  srcWidth?: number;
+  srcHeight?: number;
   kind: 'poster' | 'city' | 'photo';
+}
+
+/** Base.astro's social preview props for an album cover. */
+export function coverImage(cover: Cover): { image: string; imageWidth?: number; imageHeight?: number } {
+  return { image: cover.src, imageWidth: cover.srcWidth, imageHeight: cover.srcHeight };
+}
+
+/**
+ * Twitter/X card for a preview image: the large card crops to about 1.91:1,
+ * which would cut a vertical poster to a strip and a 1600x350 principato
+ * header to its middle, so those get the small (square) card. Landscape
+ * photos, and images of unknown size, keep the large one.
+ */
+export function twitterCard(width?: number, height?: number): 'summary' | 'summary_large_image' {
+  if (!width || !height) return 'summary_large_image';
+  const ratio = width / height;
+  return ratio >= 1.3 && ratio <= 2.5 ? 'summary_large_image' : 'summary';
 }
 
 export interface Album {

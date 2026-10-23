@@ -112,6 +112,8 @@ export async function buildPhotos(root = '.') {
       thumb: `/p/${dir}/${name}-thumb.webp`,
       width: side,
       height: side,
+      srcWidth: width,
+      srcHeight: height,
       kind,
     };
   }
@@ -193,7 +195,15 @@ export async function buildPhotos(root = '.') {
       : !meta.cover && existsSync(cityCover)
         ? await cover(cityCover, '_covers', meta.city, 'city')
         : // The card shows the photo's square thumb: its size is the thumb's.
-          chosen && { src: chosen.src, thumb: chosen.thumb, width: THUMB_SIZE, height: THUMB_SIZE, kind: 'photo' };
+          chosen && {
+            src: chosen.src,
+            thumb: chosen.thumb,
+            width: THUMB_SIZE,
+            height: THUMB_SIZE,
+            srcWidth: chosen.width,
+            srcHeight: chosen.height,
+            kind: 'photo',
+          };
     albums.push({
       slug,
       title: meta.title,
