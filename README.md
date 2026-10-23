@@ -11,8 +11,15 @@ npm run add-album -- "C:\path\to\the\photos" grand-prix-2026 --title "Grand Prix
 
 - Photos are turned upright, resized to 1600 px on the long side and saved as WebP in `albums/<slug>/`. EXIF (GPS included) is removed.
 - Album cover: the event poster or logo (`--cover`, saved as `albums/<slug>/cover.webp`), else the principato header in `covers/<city>.webp`, else a photo.
-- `albums/<slug>/album.json` holds `title`, `date` (YYYY-MM-DD), `city` (principato slug), `type` (gp, nazionale, tour, torneo, lega, evento) and, optionally, `event` (the vtesitaly.com page), `cover` (a photo file name, to use a photo instead of the principato header), `description`, `captions` (`{ "file.webp": "text" }`) and `sections` (`[{ "title": "Finale", "photos": ["file.webp"] }]`).
+- `albums/<slug>/album.json` holds `title`, `date` (YYYY-MM-DD), `city` (principato slug, or a town with its header in `covers/`), `type` (gp, nazionale, tour, torneo, lega, evento) and, optionally, `event` (the vtesitaly.com page), `cover` (a photo file name, to use a photo instead of the principato header), `description`, `captions` (`{ "file.webp": "text" }`) and `sections` (`[{ "title": "Finale", "photos": ["file.webp"] }]`).
 - Run it again on the same slug to add more photos. Commit and push: CI checks every photo, builds and deploys.
+
+## Removing or renaming an album
+
+The slug is the album's address here and the key vtesitaly.com links it by, so the site has to follow.
+
+1. Delete `albums/<slug>/` (or rename the folder, and the `<slug>-NN.webp` files and `album.json` references with it), commit and push. The build deletes the old copies under `public/p/`, and `/albums.json` drops the old slug at the next deploy.
+2. In VtesItaly.Site, remove `album: <slug>` from the posts that name it (or change it to the new slug), then run `npm run albums` to refresh the committed snapshot `src/data/albums.json`, and commit both. Otherwise `scripts/fetch-albums.mjs` stops the site build (a post names an album the archive no longer has), and the snapshot it falls back on points to photos that are now 404.
 
 ## How it works
 
