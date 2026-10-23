@@ -11,18 +11,21 @@
  * order of their source names, after the highest number the album already
  * has, so the script can be run again to add more; it never overwrites.
  * A photo still over MAX_BYTES after the resize is saved again at a lower
- * quality, so build-photos accepts it.
+ * quality, down to 50, then at a shorter long side, so build-photos accepts
+ * it; one that never fits stops the script.
  *
  * --cover <file> saves the event poster or logo as the album cover
  * (cover.webp, at most 1200 px); without it the card shows the principato
  * header from covers/. An existing cover is replaced only with --force.
  *
  * album.json is created when missing, with the fields given on the command
- * line; the ones left out are written as TODO for a hand edit.
+ * line; the ones left out are written as TODO for a hand edit. On an album
+ * with `sections`, the new photos land after them: the script reminds to add
+ * them to a section.
  */
 import sharp from 'sharp';
-import { existsSync, mkdirSync, readdirSync, statSync, writeFileSync } from 'node:fs';
-import { extname, join } from 'node:path';
+import { existsSync, mkdirSync, readdirSync, readFileSync, rmSync, statSync, writeFileSync } from 'node:fs';
+import { basename, extname, join } from 'node:path';
 import { MAX_BYTES, MAX_SIDE, QUALITY, nextPhotoNumber } from './photo-rules.mjs';
 
 const [src, slug, ...rest] = process.argv.slice(2);
@@ -39,6 +42,18 @@ for (let i = 0; i < rest.length; i++) {
   const flag = rest[i].replace(/^--/, '');
   if (next === undefined || next.startsWith('--')) opts[flag] = true;
   else opts[flag] = rest[++i];
+}
+
+// Flags that take a value: `--cover` with nothing after it would otherwise
+// reach sharp as `true`, after the album folder was created.
+for (const flag of ['title', 'date', 'city', 'type', 'event', 'cover'])
+  if (opts[flag] === true) {
+    console.error(`--${flag} vuole un valore`);
+    process.exit(1);
+  }
+if (opts.cover !== undefined && !(existsSync(opts.cover) && statSync(opts.cover).isFile())) {
+  console.error(`--cover: ${opts.cover} non esiste o non è un file`);
+  process.exit(1);
 }
 
 const dest = join('albums', slug);
@@ -58,20 +73,29 @@ if (opts.cover && existsSync(coverOut) && !opts.force) {
 mkdirSync(dest, { recursive: true });
 const first = nextPhotoNumber(readdirSync(dest), slug);
 
-/** Saves `file` as a WebP of at most `side` px at `out`, lowering the quality
- * until it fits MAX_BYTES; returns the quality used. */
-async function save(file, out, side) {
-  for (let quality = QUALITY; ; quality -= 10) {
-    await sharp(file)
-      .rotate()
-      .resize(side, side, { fit: 'inside', withoutEnlargement: true })
-      .webp({ quality, effort: 6 })
-      .toFile(out);
-    if (statSync(out).size <= MAX_BYTES || quality <= 50) return quality;
-  }
+/** Saves `file` as a WebP of at most `maxSide` px at `out`, lowering the
+ * quality (down to 50), then the long side (down to half), until it fits
+ * MAX_BYTES; returns the quality and side used. Stops the script when even
+ * that is too big, instead of leaving it to fail at the build. */
+async function save(file, out, maxSide) {
+  for (let side = maxSide; side >= maxSide / 2; side = Math.round(side * 0.85))
+    for (let quality = QUALITY; quality >= 50; quality -= 10) {
+      await sharp(file)
+        .rotate()
+        .resize(side, side, { fit: 'inside', withoutEnlargement: true })
+        .webp({ quality, effort: 6 })
+        .toFile(out);
+      if (statSync(out).size <= MAX_BYTES) return { quality, side };
+    }
+  rmSync(out);
+  console.error(
+    `${file}: oltre ${MAX_BYTES / 1024} KB anche a qualità 50 e lato ${Math.round(maxSide / 2)} px: riducila a mano`,
+  );
+  process.exit(1);
 }
 
 let n = first - 1;
+const added = [];
 for (const f of sources) {
   n++;
   const out = join(dest, `${slug}-${String(n).padStart(2, '0')}.webp`);
@@ -79,10 +103,12 @@ for (const f of sources) {
     console.error(`${out} esiste già: non sovrascrivo`);
     process.exit(1);
   }
-  const quality = await save(join(src, f), out, MAX_SIDE);
+  const { quality, side } = await save(join(src, f), out, MAX_SIDE);
+  added.push(out);
   const notes = [
     extname(f).toLowerCase() === '.webp' ? '' : 'convertita',
     quality < QUALITY ? `qualità ${quality}` : '',
+    side < MAX_SIDE ? `lato ${side} px` : '',
   ]
     .filter(Boolean)
     .join(', ');
@@ -90,12 +116,24 @@ for (const f of sources) {
 }
 
 if (opts.cover) {
-  await save(opts.cover, coverOut, 1200);
-  console.log(`${opts.cover} → ${coverOut} (copertina)`);
+  const { side } = await save(opts.cover, coverOut, 1200);
+  console.log(`${opts.cover} → ${coverOut} (copertina${side < 1200 ? `, lato ${side} px` : ''})`);
 }
 
 const meta = join(dest, 'album.json');
-if (!existsSync(meta)) {
+if (existsSync(meta)) {
+  let sections;
+  try {
+    sections = JSON.parse(readFileSync(meta, 'utf8')).sections;
+  } catch {
+    // build-photos names the broken file.
+  }
+  if (Array.isArray(sections))
+    console.log(
+      `${meta} ha delle sections: le nuove foto compaiono dopo, aggiungile a una sezione:\n  ` +
+        added.map((f) => basename(f)).join('\n  '),
+    );
+} else {
   const album = {
     title: opts.title ?? 'TODO titolo',
     date: opts.date ?? 'TODO-YYYY-MM-DD',
