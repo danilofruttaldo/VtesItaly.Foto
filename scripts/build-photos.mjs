@@ -31,7 +31,7 @@ import {
   writeFileSync,
 } from 'node:fs';
 import { join } from 'node:path';
-import { MAX_BYTES, MAX_SIDE, PHOTO_EXT, THUMB_SIZE, albumErrors, leakedMetadata } from './photo-rules.mjs';
+import { PHOTO_EXT, THUMB_SIZE, albumErrors, imageErrors, orderBySections } from './photo-rules.mjs';
 import { ALBUM_TYPES } from '../src/utils/album-types.ts';
 
 const ROOT = 'albums';
@@ -50,13 +50,13 @@ function fresh(out, src) {
   return existsSync(out) && statSync(out).mtimeMs >= statSync(src).mtimeMs;
 }
 
-/** Reads a source image's metadata, recording an error if it would publish EXIF/XMP/IPTC. */
+/** Reads a source image's metadata and records what breaks photo-rules; `ok` is
+ * false when it must not be published. */
 async function inspect(src) {
   const meta = await sharp(src).metadata();
-  const leaked = leakedMetadata(meta);
-  if (leaked.length)
-    errors.push(`${src}: contiene metadati ${leaked.join(', ')} (posizione GPS?): usa npm run add-album`);
-  return meta;
+  const problems = imageErrors(src, meta, statSync(src).size);
+  errors.push(...problems);
+  return { ...meta, ok: problems.length === 0 };
 }
 
 /** Copies a cover next to the album photos with a square thumb; returns the cover entry. */
@@ -105,15 +105,8 @@ for (const slug of existsSync(ROOT) ? readdirSync(ROOT).sort() : []) {
       errors.push(`${src}: solo foto WebP (usa npm run add-album)`);
       continue;
     }
-    const { width, height } = await inspect(src);
-    const bytes = statSync(src).size;
-    if (Math.max(width, height) > MAX_SIDE || bytes > MAX_BYTES) {
-      errors.push(
-        `${src}: ${width}x${height}, ${Math.round(bytes / 1024)} KB oltre i limiti ` +
-          `(${MAX_SIDE}px, ${MAX_BYTES / 1024} KB): usa npm run add-album`,
-      );
-      continue;
-    }
+    const { width, height, ok } = await inspect(src);
+    if (!ok) continue;
     const base = f.replace(PHOTO_EXT, '');
     const display = join(OUT, slug, f);
     const thumb = join(OUT, slug, `${base}-thumb.webp`);
@@ -136,24 +129,9 @@ for (const slug of existsSync(ROOT) ? readdirSync(ROOT).sort() : []) {
   if (photos.length === 0) errors.push(`${dir}: nessuna foto`);
   if (meta.cover && !photos.some((p) => p.file === meta.cover))
     errors.push(`${metaFile}: cover ${meta.cover} non trovata`);
-  // Optional sections ([{ title, photos: [file, …] }]): photos follow the
-  // sections' order and carry their title; any photo left out comes last.
-  if (meta.sections) {
-    const byFile = new Map(photos.map((p) => [p.file, p]));
-    const ordered = [];
-    for (const s of meta.sections) {
-      for (const f of s.photos ?? []) {
-        const p = byFile.get(f);
-        if (!p) {
-          errors.push(`${metaFile}: la sezione "${s.title}" cita ${f}, che non c'è o compare due volte`);
-          continue;
-        }
-        byFile.delete(f);
-        ordered.push({ ...p, section: s.title });
-      }
-    }
-    photos.splice(0, photos.length, ...ordered, ...byFile.values());
-  }
+  const sectioned = orderBySections(photos, meta.sections, metaFile);
+  errors.push(...sectioned.errors);
+  photos.splice(0, photos.length, ...sectioned.photos);
   const poster = join(dir, COVER_FILE);
   const cityCover = join(CITY_COVERS, `${meta.city}.webp`);
   const chosen = photos.find((p) => p.file === meta.cover) ?? photos[0];
@@ -161,7 +139,8 @@ for (const slug of existsSync(ROOT) ? readdirSync(ROOT).sort() : []) {
     ? await cover(poster, slug, 'cover', 'poster')
     : !meta.cover && existsSync(cityCover)
       ? await cover(cityCover, '_covers', meta.city, 'city')
-      : chosen && { src: chosen.src, thumb: chosen.thumb, width: chosen.width, height: chosen.height, kind: 'photo' };
+      : // The card shows the photo's square thumb: its size is the thumb's.
+        chosen && { src: chosen.src, thumb: chosen.thumb, width: THUMB_SIZE, height: THUMB_SIZE, kind: 'photo' };
   albums.push({
     slug,
     title: meta.title,
@@ -183,6 +162,10 @@ if (errors.length) {
 // Photos, covers or whole albums taken out of albums/ leave their copies behind.
 for (const dir of existsSync(OUT) ? readdirSync(OUT) : []) {
   const path = join(OUT, dir);
+  if (!statSync(path).isDirectory()) {
+    rmSync(path); // nothing is written loose in OUT (a desktop.ini, a stray copy)
+    continue;
+  }
   for (const f of readdirSync(path)) if (!outputs.has(join(path, f))) rmSync(join(path, f));
   if (readdirSync(path).length === 0) rmSync(path, { recursive: true });
 }

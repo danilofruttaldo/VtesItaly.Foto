@@ -25,10 +25,49 @@ export function leakedMetadata(meta) {
 }
 
 /** Number of the next `<slug>-NN.webp` of an album folder: one past the
- * highest in use, so a gap left by a removed photo never leads to an overwrite. */
+ * highest in use, so a gap left by a removed photo never leads to an overwrite.
+ * Hand-renamed photos keep their number before a word suffix (`<slug>-07-premi.webp`). */
 export function nextPhotoNumber(files, slug) {
-  const own = new RegExp(String.raw`^${slug}-(\d+)\.webp$`, 'i');
+  const own = new RegExp(String.raw`^${slug}-(\d+)(?:-[a-z][a-z0-9-]*)?\.webp$`, 'i');
   return files.reduce((n, f) => Math.max(n, Number(own.exec(f)?.[1] ?? 0)), 0) + 1;
+}
+
+/** Puts photos in the order of album.json `sections` ([{ title, photos: [file, …] }]),
+ * each carrying its section title; photos left out come last, as they were.
+ * Returns the photos and the problems found (a file missing or listed twice). */
+export function orderBySections(photos, sections, metaFile) {
+  if (!sections) return { photos, errors: [] };
+  const errors = [];
+  const byFile = new Map(photos.map((p) => [p.file, p]));
+  const ordered = [];
+  for (const s of sections) {
+    for (const f of s.photos ?? []) {
+      const p = byFile.get(f);
+      if (!p) {
+        errors.push(`${metaFile}: la sezione "${s.title}" cita ${f}, che non c'è o compare due volte`);
+        continue;
+      }
+      byFile.delete(f);
+      ordered.push({ ...p, section: s.title });
+    }
+  }
+  return { photos: [...ordered, ...byFile.values()], errors };
+}
+
+/** Problems of an image under albums/ or covers/, from its sharp `metadata()`
+ * and size in bytes; `maxSide` is the long-side limit for that kind of image. */
+export function imageErrors(src, meta, bytes, maxSide = MAX_SIDE) {
+  const errors = [];
+  const leaked = leakedMetadata(meta);
+  if (leaked.length)
+    errors.push(`${src}: contiene metadati ${leaked.join(', ')} (posizione GPS?): usa npm run add-album`);
+  if (meta.format !== 'webp') errors.push(`${src}: non è una WebP (${meta.format}): usa npm run add-album`);
+  if (Math.max(meta.width, meta.height) > maxSide || bytes > MAX_BYTES)
+    errors.push(
+      `${src}: ${meta.width}x${meta.height}, ${Math.round(bytes / 1024)} KB oltre i limiti ` +
+        `(${maxSide}px, ${MAX_BYTES / 1024} KB): usa npm run add-album`,
+    );
+  return errors;
 }
 
 /** Problems of an album.json, as messages; `types` are the ALBUM_TYPES. */

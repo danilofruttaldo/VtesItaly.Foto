@@ -2,6 +2,7 @@
  *
  * Usage: npm run add-album -- <source folder> <slug> [--title "..."] [--date YYYY-MM-DD]
  *                            [--city <principato>] [--type <tipo>] [--event <vtesitaly.com URL>] [--cover <locandina>]
+ *                            [--force]
  *
  * Every photo (jpg, jpeg, png, webp, heic is not supported: export it first)
  * is rotated upright from its EXIF, resized to at most MAX_SIDE px on the long
@@ -9,38 +10,65 @@
  * player's home position in it. Files are numbered `<slug>-01.webp`, … in the
  * order of their source names, after the highest number the album already
  * has, so the script can be run again to add more; it never overwrites.
+ * A photo still over MAX_BYTES after the resize is saved again at a lower
+ * quality, so build-photos accepts it.
  *
  * --cover <file> saves the event poster or logo as the album cover
  * (cover.webp, at most 1200 px); without it the card shows the principato
- * header from covers/.
+ * header from covers/. An existing cover is replaced only with --force.
  *
  * album.json is created when missing, with the fields given on the command
  * line; the ones left out are written as TODO for a hand edit.
  */
 import sharp from 'sharp';
-import { existsSync, mkdirSync, readdirSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdirSync, readdirSync, statSync, writeFileSync } from 'node:fs';
 import { extname, join } from 'node:path';
-import { MAX_SIDE, QUALITY, nextPhotoNumber } from './photo-rules.mjs';
+import { MAX_BYTES, MAX_SIDE, QUALITY, nextPhotoNumber } from './photo-rules.mjs';
 
 const [src, slug, ...rest] = process.argv.slice(2);
 if (!src || !slug || !/^[a-z0-9]+(-[a-z0-9]+)*$/.test(slug)) {
   console.error(
-    'Uso: npm run add-album -- <cartella sorgente> <slug-in-minuscolo> [--title …] [--date …] [--city …] [--type …] [--event …] [--cover …]',
+    'Uso: npm run add-album -- <cartella sorgente> <slug-in-minuscolo> [--title …] [--date …] [--city …] [--type …] [--event …] [--cover …] [--force]',
   );
   process.exit(1);
 }
+// --name value pairs; a flag followed by another flag (or by nothing) is true.
 const opts = {};
-for (let i = 0; i < rest.length; i += 2) opts[rest[i].replace(/^--/, '')] = rest[i + 1];
+for (let i = 0; i < rest.length; i++) {
+  const next = rest[i + 1];
+  const flag = rest[i].replace(/^--/, '');
+  if (next === undefined || next.startsWith('--')) opts[flag] = true;
+  else opts[flag] = rest[++i];
+}
 
 const dest = join('albums', slug);
-mkdirSync(dest, { recursive: true });
-const first = nextPhotoNumber(readdirSync(dest), slug);
+const coverOut = join(dest, 'cover.webp');
 const sources = readdirSync(src)
   .filter((f) => /\.(jpe?g|png|webp)$/i.test(f))
   .sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
 if (sources.length === 0) {
   console.error(`Nessuna foto (jpg, png, webp) in ${src}`);
   process.exit(1);
+}
+if (opts.cover && existsSync(coverOut) && !opts.force) {
+  console.error(`${coverOut} esiste già: aggiungi --force per sostituirla`);
+  process.exit(1);
+}
+// Only now, so a failed run leaves no empty album folder behind.
+mkdirSync(dest, { recursive: true });
+const first = nextPhotoNumber(readdirSync(dest), slug);
+
+/** Saves `file` as a WebP of at most `side` px at `out`, lowering the quality
+ * until it fits MAX_BYTES; returns the quality used. */
+async function save(file, out, side) {
+  for (let quality = QUALITY; ; quality -= 10) {
+    await sharp(file)
+      .rotate()
+      .resize(side, side, { fit: 'inside', withoutEnlargement: true })
+      .webp({ quality, effort: 6 })
+      .toFile(out);
+    if (statSync(out).size <= MAX_BYTES || quality <= 50) return quality;
+  }
 }
 
 let n = first - 1;
@@ -51,21 +79,19 @@ for (const f of sources) {
     console.error(`${out} esiste già: non sovrascrivo`);
     process.exit(1);
   }
-  await sharp(join(src, f))
-    .rotate()
-    .resize(MAX_SIDE, MAX_SIDE, { fit: 'inside', withoutEnlargement: true })
-    .webp({ quality: QUALITY, effort: 6 })
-    .toFile(out);
-  console.log(`${f} → ${out}${extname(f).toLowerCase() === '.webp' ? '' : ' (convertita)'}`);
+  const quality = await save(join(src, f), out, MAX_SIDE);
+  const notes = [
+    extname(f).toLowerCase() === '.webp' ? '' : 'convertita',
+    quality < QUALITY ? `qualità ${quality}` : '',
+  ]
+    .filter(Boolean)
+    .join(', ');
+  console.log(`${f} → ${out}${notes ? ` (${notes})` : ''}`);
 }
 
 if (opts.cover) {
-  await sharp(opts.cover)
-    .rotate()
-    .resize(1200, 1200, { fit: 'inside', withoutEnlargement: true })
-    .webp({ quality: QUALITY, effort: 6 })
-    .toFile(join(dest, 'cover.webp'));
-  console.log(`${opts.cover} → ${join(dest, 'cover.webp')} (copertina)`);
+  await save(opts.cover, coverOut, 1200);
+  console.log(`${opts.cover} → ${coverOut} (copertina)`);
 }
 
 const meta = join(dest, 'album.json');
