@@ -20,9 +20,13 @@
  * unpacked the same way. Outside Windows it does nothing. Ported from
  * danilofruttaldo.Site (compilatore-wasi.mjs).
  *
+ * Each tarball is checked against the sha512 `integrity` package-lock pins,
+ * as npm itself would: a mismatch stops the install before it is unpacked.
+ *
  * Runs as postinstall, after every `npm install` or `npm ci`.
  */
 import { execSync } from 'node:child_process';
+import { createHash } from 'node:crypto';
 import { existsSync, mkdirSync, readFileSync, rmSync } from 'node:fs';
 import path from 'node:path';
 
@@ -73,6 +77,15 @@ while (queue.length) {
   const [{ filename }] = JSON.parse(
     execSync(`npm pack ${name}@${version} --json --pack-destination .`, { cwd: dir, encoding: 'utf8' }),
   );
+  const want = entry.integrity?.split(/\s+/).find((h) => h.startsWith('sha512-'));
+  const got = `sha512-${createHash('sha512')
+    .update(readFileSync(path.join(dir, filename)))
+    .digest('base64')}`;
+  if (got !== want) {
+    rmSync(dir, { recursive: true, force: true });
+    console.error(`${name}@${version}: the tarball's ${got} is not package-lock's ${want ?? '(no sha512)'}: stopped.`);
+    process.exit(1);
+  }
   execSync(`tar -xzf ${filename} --strip-components=1`, { cwd: dir });
   rmSync(path.join(dir, filename));
 
