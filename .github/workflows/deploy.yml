@@ -1,7 +1,8 @@
 name: CI
 
 # ci -> deploy to GitHub Pages (foto.vtesitaly.com, see public/CNAME).
-# The Pages deploy needs no secret: the job's OIDC token is enough.
+# The Pages deploy needs no secret: the job's OIDC token is enough. The
+# optional SITE_DISPATCH_TOKEN then asks vtesitaly.com to rebuild.
 
 on:
   push:
@@ -75,8 +76,22 @@ jobs:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
+    env:
+      SITE_DISPATCH_TOKEN: ${{ secrets.SITE_DISPATCH_TOKEN }}
     steps:
       - uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d # v6.0.0
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5.0.1
+
+      - name: Rebuild vtesitaly.com with the new albums
+        # The site's event pages read /albums.json at build time. Needs the
+        # secret SITE_DISPATCH_TOKEN: a fine-grained token on VtesItaly.Site
+        # with Contents read and write. Without it the step is skipped.
+        if: env.SITE_DISPATCH_TOKEN != ''
+        run: |
+          curl -fsS -X POST \
+            -H "Authorization: Bearer $SITE_DISPATCH_TOKEN" \
+            -H "Accept: application/vnd.github+json" \
+            https://api.github.com/repos/danilofruttaldo/VtesItaly.Site/dispatches \
+            -d '{"event_type":"foto-updated"}'
