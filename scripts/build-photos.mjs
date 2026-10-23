@@ -1,9 +1,9 @@
 /* Turns albums/ into what the pages need (runs as `prebuild`, and before `dev`).
  *
  * For every albums/<slug>/ with an album.json:
- * - checks each photo against photo-rules (WebP, long side, weight) and stops
- *   the build on one that breaks them: `npm run add-album` prepares photos
- *   the right way;
+ * - checks each photo and cover against photo-rules (WebP, long side, weight,
+ *   no EXIF/XMP/IPTC: the GPS position lives there) and stops the build on one
+ *   that breaks them: `npm run add-album` prepares photos the right way;
  * - copies the photo to public/p/<slug>/ untouched (it is already the display
  *   size) and writes a THUMB_SIZE square thumbnail next to it, cut around the
  *   photo's point of interest (the grid shows squares);
@@ -16,12 +16,22 @@
  *   and their sizes, read by the pages and by /albums.json.
  *
  * public/p/ and the manifest are generated, git-ignored. Re-runs only
- * regenerate a thumb older than its photo.
+ * regenerate a thumb older than its photo, and delete the files of photos
+ * and albums no longer in albums/.
  */
 import sharp from 'sharp';
-import { copyFileSync, existsSync, mkdirSync, readdirSync, readFileSync, statSync, writeFileSync } from 'node:fs';
+import {
+  copyFileSync,
+  existsSync,
+  mkdirSync,
+  readdirSync,
+  readFileSync,
+  rmSync,
+  statSync,
+  writeFileSync,
+} from 'node:fs';
 import { join } from 'node:path';
-import { MAX_BYTES, MAX_SIDE, PHOTO_EXT, THUMB_SIZE } from './photo-rules.mjs';
+import { MAX_BYTES, MAX_SIDE, PHOTO_EXT, THUMB_SIZE, albumErrors, leakedMetadata } from './photo-rules.mjs';
 import { ALBUM_TYPES } from '../src/utils/album-types.ts';
 
 const ROOT = 'albums';
@@ -33,19 +43,31 @@ const COVER_SIZE = 720;
 
 const errors = [];
 const albums = [];
+/** Every file written under OUT by this run: the rest is stale. */
+const outputs = new Set();
 
 function fresh(out, src) {
   return existsSync(out) && statSync(out).mtimeMs >= statSync(src).mtimeMs;
+}
+
+/** Reads a source image's metadata, recording an error if it would publish EXIF/XMP/IPTC. */
+async function inspect(src) {
+  const meta = await sharp(src).metadata();
+  const leaked = leakedMetadata(meta);
+  if (leaked.length)
+    errors.push(`${src}: contiene metadati ${leaked.join(', ')} (posizione GPS?): usa npm run add-album`);
+  return meta;
 }
 
 /** Copies a cover next to the album photos with a square thumb; returns the cover entry. */
 async function cover(src, dir, name, kind) {
   const display = join(OUT, dir, `${name}.webp`);
   const thumb = join(OUT, dir, `${name}-thumb.webp`);
+  outputs.add(display).add(thumb);
   mkdirSync(join(OUT, dir), { recursive: true });
+  const { width, height } = await inspect(src);
   if (!fresh(display, src)) copyFileSync(src, display);
   if (!fresh(thumb, src)) {
-    const { width, height } = await sharp(src).metadata();
     const position = height > width ? 'top' : sharp.strategy.attention;
     await sharp(src)
       .resize(COVER_SIZE, COVER_SIZE, { fit: 'cover', position })
@@ -70,12 +92,7 @@ for (const slug of existsSync(ROOT) ? readdirSync(ROOT).sort() : []) {
     continue;
   }
   const meta = JSON.parse(readFileSync(metaFile, 'utf8'));
-  if (!meta.title || /TODO/.test(meta.title)) errors.push(`${metaFile}: title mancante`);
-  if (!/^\d{4}-\d{2}-\d{2}$/.test(meta.date ?? '')) errors.push(`${metaFile}: date deve essere YYYY-MM-DD`);
-  if (!meta.city || !/^[a-z]+(-[a-z]+)*$/.test(meta.city))
-    errors.push(`${metaFile}: city deve essere lo slug del principato (es. bologna)`);
-  if (!(meta.type in ALBUM_TYPES))
-    errors.push(`${metaFile}: type deve essere uno di ${Object.keys(ALBUM_TYPES).join(', ')}`);
+  errors.push(...albumErrors(meta, metaFile, ALBUM_TYPES));
 
   const files = readdirSync(dir)
     .filter((f) => f !== 'album.json' && f !== COVER_FILE)
@@ -88,7 +105,7 @@ for (const slug of existsSync(ROOT) ? readdirSync(ROOT).sort() : []) {
       errors.push(`${src}: solo foto WebP (usa npm run add-album)`);
       continue;
     }
-    const { width, height } = await sharp(src).metadata();
+    const { width, height } = await inspect(src);
     const bytes = statSync(src).size;
     if (Math.max(width, height) > MAX_SIDE || bytes > MAX_BYTES) {
       errors.push(
@@ -100,6 +117,7 @@ for (const slug of existsSync(ROOT) ? readdirSync(ROOT).sort() : []) {
     const base = f.replace(PHOTO_EXT, '');
     const display = join(OUT, slug, f);
     const thumb = join(OUT, slug, `${base}-thumb.webp`);
+    outputs.add(display).add(thumb);
     if (!fresh(display, src)) copyFileSync(src, display);
     if (!fresh(thumb, src))
       await sharp(src)
@@ -160,6 +178,13 @@ for (const slug of existsSync(ROOT) ? readdirSync(ROOT).sort() : []) {
 if (errors.length) {
   console.error('Album non validi:\n- ' + errors.join('\n- '));
   process.exit(1);
+}
+
+// Photos, covers or whole albums taken out of albums/ leave their copies behind.
+for (const dir of existsSync(OUT) ? readdirSync(OUT) : []) {
+  const path = join(OUT, dir);
+  for (const f of readdirSync(path)) if (!outputs.has(join(path, f))) rmSync(join(path, f));
+  if (readdirSync(path).length === 0) rmSync(path, { recursive: true });
 }
 
 albums.sort((a, b) => b.date.localeCompare(a.date) || a.slug.localeCompare(b.slug));

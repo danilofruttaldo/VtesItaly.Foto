@@ -27,7 +27,7 @@ export interface Album {
   title: string;
   date: string; // YYYY-MM-DD
   city: string;
-  /** Key of ALBUM_TYPES (scripts/album-types.mjs). */
+  /** Key of ALBUM_TYPES (src/utils/album-types.ts). */
   type: string;
   /** The event page on vtesitaly.com. */
   event?: string;

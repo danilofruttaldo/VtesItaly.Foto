@@ -19,7 +19,7 @@ const description =
   <p class="type">{typeLabel(album.type)}</p>
   <h1>{album.title}</h1>
   <p class="muted">
-    {formatDate(album.date)} · <a href={`/principati/${album.city}/`}>{cityName(album.city)}</a> ·{album.photos.length}{' '}
+    {formatDate(album.date)} · <a href={`/principati/${album.city}/`}>{cityName(album.city)}</a> · {album.photos.length}{' '}
     foto
     {album.event && (
       <>

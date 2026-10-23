@@ -7,8 +7,8 @@
  * is rotated upright from its EXIF, resized to at most MAX_SIDE px on the long
  * side and saved as WebP. EXIF, GPS included, is dropped: phones put the
  * player's home position in it. Files are numbered `<slug>-01.webp`, … in the
- * order of their source names, after the photos the album already has, so the
- * script can be run again to add more.
+ * order of their source names, after the highest number the album already
+ * has, so the script can be run again to add more; it never overwrites.
  *
  * --cover <file> saves the event poster or logo as the album cover
  * (cover.webp, at most 1200 px); without it the card shows the principato
@@ -20,7 +20,7 @@
 import sharp from 'sharp';
 import { existsSync, mkdirSync, readdirSync, writeFileSync } from 'node:fs';
 import { extname, join } from 'node:path';
-import { MAX_SIDE, QUALITY, PHOTO_EXT } from './photo-rules.mjs';
+import { MAX_SIDE, QUALITY, nextPhotoNumber } from './photo-rules.mjs';
 
 const [src, slug, ...rest] = process.argv.slice(2);
 if (!src || !slug || !/^[a-z0-9]+(-[a-z0-9]+)*$/.test(slug)) {
@@ -34,7 +34,7 @@ for (let i = 0; i < rest.length; i += 2) opts[rest[i].replace(/^--/, '')] = rest
 
 const dest = join('albums', slug);
 mkdirSync(dest, { recursive: true });
-const already = readdirSync(dest).filter((f) => PHOTO_EXT.test(f)).length;
+const first = nextPhotoNumber(readdirSync(dest), slug);
 const sources = readdirSync(src)
   .filter((f) => /\.(jpe?g|png|webp)$/i.test(f))
   .sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
@@ -43,10 +43,14 @@ if (sources.length === 0) {
   process.exit(1);
 }
 
-let n = already;
+let n = first - 1;
 for (const f of sources) {
   n++;
   const out = join(dest, `${slug}-${String(n).padStart(2, '0')}.webp`);
+  if (existsSync(out)) {
+    console.error(`${out} esiste già: non sovrascrivo`);
+    process.exit(1);
+  }
   await sharp(join(src, f))
     .rotate()
     .resize(MAX_SIDE, MAX_SIDE, { fit: 'inside', withoutEnlargement: true })
@@ -77,4 +81,4 @@ if (!existsSync(meta)) {
   const todo = Object.values(album).some((v) => String(v).startsWith('TODO'));
   console.log(`Creato ${meta}${todo ? ': completa i campi TODO.' : '.'}`);
 }
-console.log(`${sources.length} foto aggiunte a ${dest} (totale ${n}).`);
+console.log(`${sources.length} foto aggiunte a ${dest} (fino a ${slug}-${String(n).padStart(2, '0')}).`);

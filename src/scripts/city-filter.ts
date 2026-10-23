@@ -45,6 +45,12 @@ export function initCityFilter(): void {
       else selected.add(city);
       apply();
     });
+    // A button also answers Space; the link only reacts to Enter by itself.
+    chip.addEventListener('keydown', (e) => {
+      if (e.key !== ' ') return;
+      e.preventDefault();
+      chip.click();
+    });
   }
   apply();
 }
