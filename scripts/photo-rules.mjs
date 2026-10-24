@@ -15,8 +15,8 @@ export const MAX_BYTES = 600 * 1024;
 /** Most photos an album should hold, by event type: GP and Nazionale run for
  * days and have side events, a tour stage or a local event tells its story in
  * fewer. A selection, not a dump: build-photos warns past it, it doesn't stop. */
-export const MAX_PHOTOS = { gp: 40, nazionale: 40, tour: 15 };
-export const MAX_PHOTOS_OTHER = 10;
+export const MAX_PHOTOS = { gp: 50, nazionale: 50, tour: 20 };
+export const MAX_PHOTOS_OTHER = 15;
 
 /** Warnings for the albums ({ slug, type, photos }) past their MAX_PHOTOS. */
 export function photoCountWarnings(albums) {

@@ -89,14 +89,14 @@ describe('photoCountWarnings', () => {
   const album = (slug: string, type: string, n: number) => ({ slug, type, photos: Array.from({ length: n }) });
   it('warns only past the cap of the album type', () => {
     expect(
-      photoCountWarnings([album('gp-2026', 'gp', 40), album('tappa', 'tour', 15), album('torneo', 'torneo', 10)]),
+      photoCountWarnings([album('gp-2026', 'gp', 50), album('tappa', 'tour', 20), album('torneo', 'torneo', 15)]),
     ).toEqual([]);
     expect(
-      photoCountWarnings([album('gp-2026', 'gp', 41), album('tappa', 'tour', 16), album('lega', 'lega', 11)]),
+      photoCountWarnings([album('gp-2026', 'gp', 51), album('tappa', 'tour', 21), album('lega', 'lega', 16)]),
     ).toEqual([
-      'gp-2026: 41 foto, oltre il tetto di 40 per "gp"',
-      'tappa: 16 foto, oltre il tetto di 15 per "tour"',
-      'lega: 11 foto, oltre il tetto di 10 per "lega"',
+      'gp-2026: 51 foto, oltre il tetto di 50 per "gp"',
+      'tappa: 21 foto, oltre il tetto di 20 per "tour"',
+      'lega: 16 foto, oltre il tetto di 15 per "lega"',
     ]);
   });
 });
