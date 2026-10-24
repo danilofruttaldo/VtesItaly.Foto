@@ -1,0 +1,36 @@
+{
+  "title": "IT26 - IRA",
+  "date": "2026-04-12",
+  "city": "pordenone",
+  "type": "tour",
+  "event": "https://vtesitaly.com/tour/tour-2026/",
+  "sections": [
+    {
+      "title": "Pordenone",
+      "photos": ["tour-2026-ira-pordenone-01.webp"]
+    },
+    {
+      "title": "Turni di gioco",
+      "photos": [
+        "tour-2026-ira-torneo-01.webp",
+        "tour-2026-ira-torneo-02.webp",
+        "tour-2026-ira-torneo-04.webp",
+        "tour-2026-ira-torneo-05.webp",
+        "tour-2026-ira-torneo-07.webp",
+        "tour-2026-ira-torneo-08.webp"
+      ]
+    },
+    {
+      "title": "Pausa pranzo",
+      "photos": ["tour-2026-ira-dettagli-01.webp"]
+    },
+    {
+      "title": "Premiazione",
+      "photos": [
+        "tour-2026-ira-premiazione-01.webp",
+        "tour-2026-ira-premiazione-02.webp",
+        "tour-2026-ira-premiazione-05.webp"
+      ]
+    }
+  ]
+}

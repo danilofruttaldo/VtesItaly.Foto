@@ -6,23 +6,28 @@
   "event": "https://vtesitaly.com/comunita/torneo-treviso-settembre-2026/",
   "sections": [
     {
-      "title": "Premi",
+      "title": "Premi in palio",
       "photos": ["rise-of-the-nephtali-2026-01-premi.webp"]
     },
     {
-      "title": "Round",
+      "title": "Turni di gioco",
       "photos": [
+        "rise-of-the-nephtali-2026-turni-di-gioco-01.webp",
         "rise-of-the-nephtali-2026-02-round.webp",
         "rise-of-the-nephtali-2026-03-round.webp",
         "rise-of-the-nephtali-2026-04-round.webp"
       ]
     },
     {
-      "title": "Finale",
+      "title": "Tavolo finale",
       "photos": ["rise-of-the-nephtali-2026-05-seating.webp", "rise-of-the-nephtali-2026-06-finale.webp"]
     },
     {
-      "title": "Extra",
+      "title": "Premiazione",
+      "photos": ["rise-of-the-nephtali-2026-premiazione-01.webp", "rise-of-the-nephtali-2026-premiazione-02.webp"]
+    },
+    {
+      "title": "Il gadget dell'evento",
       "photos": ["rise-of-the-nephtali-2026-07-gadget.webp"]
     }
   ]

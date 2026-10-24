@@ -1,0 +1,26 @@
+{
+  "title": "Trento the day after... 2026",
+  "date": "2026-03-01",
+  "city": "trento",
+  "type": "torneo",
+  "event": "https://vtesitaly.com/nazionale/nazionale-2026/",
+  "description": "Side event della domenica dopo il Nazionale 2026.",
+  "sections": [
+    {
+      "title": "Turni di gioco",
+      "photos": [
+        "trento-the-day-after-2026-torneo-02.webp",
+        "trento-the-day-after-2026-torneo-03.webp",
+        "trento-the-day-after-2026-torneo-04.webp"
+      ]
+    },
+    {
+      "title": "Le carte delle sanzioni",
+      "photos": ["trento-the-day-after-2026-dettagli-01.webp"]
+    },
+    {
+      "title": "Trofeo e vincitore",
+      "photos": ["trento-the-day-after-2026-premiazione-01.webp", "trento-the-day-after-2026-premiazione-02.webp"]
+    }
+  ]
+}

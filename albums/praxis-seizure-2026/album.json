@@ -3,5 +3,34 @@
   "date": "2026-07-18",
   "city": "treviso",
   "type": "torneo",
-  "event": "https://vtesitaly.com/comunita/torneo-treviso-luglio-2026/"
+  "event": "https://vtesitaly.com/comunita/torneo-treviso-luglio-2026/",
+  "sections": [
+    {
+      "title": "Premi in palio",
+      "photos": ["praxis-seizure-2026-01-premi.webp"]
+    },
+    {
+      "title": "Turni di gioco",
+      "photos": [
+        "praxis-seizure-2026-02-round.webp",
+        "praxis-seizure-2026-03-round.webp",
+        "praxis-seizure-2026-04-round.webp",
+        "praxis-seizure-2026-05-round.webp",
+        "praxis-seizure-2026-06-round.webp",
+        "praxis-seizure-2026-07-round.webp"
+      ]
+    },
+    {
+      "title": "Tavolo finale",
+      "photos": ["praxis-seizure-2026-08-finale.webp"]
+    },
+    {
+      "title": "Premiazione",
+      "photos": [
+        "praxis-seizure-2026-premiazione-01.webp",
+        "praxis-seizure-2026-09-premiazione.webp",
+        "praxis-seizure-2026-10-premiazione.webp"
+      ]
+    }
+  ]
 }

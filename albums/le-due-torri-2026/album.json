@@ -1,0 +1,25 @@
+{
+  "title": "Le Due Torri 2026",
+  "date": "2026-05-03",
+  "city": "bologna",
+  "type": "torneo",
+  "event": "https://vtesitaly.com/grand-prix/grand-prix-2026/",
+  "description": "Side event del Grand Prix 2026: due tornei paralleli, Asinelli e Garisenda.",
+  "sections": [
+    {
+      "title": "Turni di gioco",
+      "photos": [
+        "le-due-torri-2026-torneo-01.webp",
+        "le-due-torri-2026-torneo-02.webp",
+        "le-due-torri-2026-torneo-03.webp",
+        "le-due-torri-2026-torneo-04.webp",
+        "le-due-torri-2026-torneo-06.webp",
+        "le-due-torri-2026-torneo-07.webp"
+      ]
+    },
+    {
+      "title": "Finale e premiazione",
+      "photos": ["le-due-torri-2026-premiazione-01.webp", "le-due-torri-2026-premiazione-02.webp"]
+    }
+  ]
+}

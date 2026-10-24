@@ -6,10 +6,13 @@
   "event": "https://vtesitaly.com/nazionale/nazionale-2026/",
   "sections": [
     {
-      "title": "Preparazione",
+      "title": "Allestimento e staff",
+      "photos": ["nc-2026-preparazione-07.webp", "nc-2026-preparazione-08.webp", "nc-2026-preparazione-02.webp"]
+    },
+    {
+      "title": "Premi e gadget",
       "photos": [
         "nc-2026-preparazione-01.webp",
-        "nc-2026-preparazione-02.webp",
         "nc-2026-preparazione-03.webp",
         "nc-2026-preparazione-04.webp",
         "nc-2026-preparazione-05.webp",
@@ -17,7 +20,7 @@
       ]
     },
     {
-      "title": "Round",
+      "title": "Main event",
       "photos": [
         "nc-2026-round-01.webp",
         "nc-2026-round-02.webp",
@@ -25,11 +28,16 @@
         "nc-2026-round-04.webp",
         "nc-2026-round-05.webp",
         "nc-2026-round-06.webp",
-        "nc-2026-round-07.webp"
+        "nc-2026-round-07.webp",
+        "nc-2026-round-08.webp"
       ]
     },
     {
-      "title": "Finale",
+      "title": "A tavola",
+      "photos": ["nc-2026-round-10.webp", "nc-2026-serata-01.webp"]
+    },
+    {
+      "title": "Finalisti e vincitore",
       "photos": [
         "nc-2026-finale-01.webp",
         "nc-2026-finale-02.webp",
@@ -40,12 +48,17 @@
       ]
     },
     {
-      "title": "Bonus",
+      "title": "Serata",
+      "photos": ["nc-2026-serata-02.webp", "nc-2026-serata-04.webp", "nc-2026-serata-05.webp"]
+    },
+    {
+      "title": "Intorno al torneo",
       "photos": [
-        "nc-2026-bonus-01.webp",
         "nc-2026-bonus-02.webp",
+        "nc-2026-intorno-al-torneo-01.webp",
         "nc-2026-bonus-03.webp",
         "nc-2026-bonus-04.webp",
+        "nc-2026-bonus-01.webp",
         "nc-2026-bonus-05.webp"
       ]
     }

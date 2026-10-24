@@ -1,0 +1,49 @@
+{
+  "title": "Taste of Spritzae",
+  "date": "2025-07-05",
+  "city": "treviso",
+  "type": "torneo",
+  "event": "https://vtesitaly.com/comunita/taste-of-spritzae/",
+  "captions": {
+    "taste-of-spritzae-2025-atmosfera-01.webp": "Spritz o'clock: sottobicchiere e scatola di VTES",
+    "taste-of-spritzae-2025-round-01.webp": "Alessandro: un bleed sotto il 6 non è un vero bleed",
+    "taste-of-spritzae-2025-round-02.webp": "Il tavolo trema davanti a Paffo",
+    "taste-of-spritzae-2025-round-03.webp": "Thomas sta lanciando una freestyle battle",
+    "taste-of-spritzae-2025-finale-01.webp": "Fede sorride, ignaro del suo destino",
+    "taste-of-spritzae-2025-finale-02.webp": "Leo ci tiene a ricordare: Maleficia non è una Disciplina",
+    "taste-of-spritzae-2025-finale-03.webp": "Paolo, vincitore del torneo",
+    "taste-of-spritzae-2025-concorso-di-stile-01.webp": "Si calcola lo stile dei finalisti",
+    "taste-of-spritzae-2025-concorso-di-stile-02.webp": "Giulietto, vincitore del premio Migliori accessori",
+    "taste-of-spritzae-2025-concorso-di-stile-03.webp": "I vincitori dei premi stile"
+  },
+  "sections": [
+    {
+      "title": "Atmosfera",
+      "photos": ["taste-of-spritzae-2025-atmosfera-01.webp"]
+    },
+    {
+      "title": "Round",
+      "photos": [
+        "taste-of-spritzae-2025-round-01.webp",
+        "taste-of-spritzae-2025-round-02.webp",
+        "taste-of-spritzae-2025-round-03.webp"
+      ]
+    },
+    {
+      "title": "Finale",
+      "photos": [
+        "taste-of-spritzae-2025-finale-01.webp",
+        "taste-of-spritzae-2025-finale-02.webp",
+        "taste-of-spritzae-2025-finale-03.webp"
+      ]
+    },
+    {
+      "title": "Concorso di stile",
+      "photos": [
+        "taste-of-spritzae-2025-concorso-di-stile-01.webp",
+        "taste-of-spritzae-2025-concorso-di-stile-02.webp",
+        "taste-of-spritzae-2025-concorso-di-stile-03.webp"
+      ]
+    }
+  ]
+}

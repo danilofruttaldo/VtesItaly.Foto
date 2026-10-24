@@ -6,30 +6,45 @@
   "event": "https://vtesitaly.com/grand-prix/grand-prix-2026/",
   "sections": [
     {
-      "title": "Preparazione",
+      "title": "Bologna",
+      "photos": ["gp-2026-bologna-01.webp"]
+    },
+    {
+      "title": "Allestimento e premi",
       "photos": [
         "gp-2026-preparazione-01.webp",
         "gp-2026-preparazione-02.webp",
         "gp-2026-preparazione-03.webp",
         "gp-2026-preparazione-04.webp",
         "gp-2026-preparazione-05.webp",
-        "gp-2026-preparazione-06.webp"
+        "gp-2026-preparazione-06.webp",
+        "gp-2026-preparazione-07.webp"
       ]
     },
     {
-      "title": "Round",
+      "title": "Accoglienza",
+      "photos": ["gp-2026-preparazione-08.webp"]
+    },
+    {
+      "title": "Main event",
       "photos": [
-        "gp-2026-round-04.webp",
         "gp-2026-round-01.webp",
         "gp-2026-round-02.webp",
         "gp-2026-round-03.webp",
+        "gp-2026-round-04.webp",
         "gp-2026-round-05.webp",
         "gp-2026-round-06.webp",
-        "gp-2026-round-07.webp"
+        "gp-2026-round-07.webp",
+        "gp-2026-round-09.webp",
+        "gp-2026-round-11.webp"
       ]
     },
     {
-      "title": "Finale",
+      "title": "Giudici",
+      "photos": ["gp-2026-round-10.webp", "gp-2026-bonus-07.webp"]
+    },
+    {
+      "title": "Premiazione",
       "photos": [
         "gp-2026-finale-01.webp",
         "gp-2026-finale-02.webp",
@@ -40,12 +55,17 @@
       ]
     },
     {
-      "title": "Bonus",
+      "title": "Cene",
+      "photos": ["gp-2026-serata-01.webp"]
+    },
+    {
+      "title": "Intorno ai tavoli",
       "photos": [
-        "gp-2026-bonus-02.webp",
+        "gp-2026-round-12.webp",
         "gp-2026-bonus-03.webp",
         "gp-2026-bonus-05.webp",
         "gp-2026-bonus-01.webp",
+        "gp-2026-bonus-02.webp",
         "gp-2026-bonus-04.webp"
       ]
     }
