@@ -25,7 +25,7 @@ The slug is the album's address here and the key vtesitaly.com links it by, so t
 
 - `scripts/build-photos.mjs` (prebuild) checks `albums/` against `scripts/photo-rules.mjs`, copies photos to `public/p/`, makes thumbnails and writes `src/data/manifest.json`. All of these are generated and git-ignored.
 - Pages: `/` (albums by year), `/<slug>/` (grid with a full-screen viewer), `/albums.json`.
-- An album holds a selection, not every shot: at most 50 photos for a GP or Nazionale, 20 for a tour stage, 15 for anything else. The build warns past it (`MAX_PHOTOS` in `scripts/photo-rules.mjs`).
+- An album holds a selection, not every shot: at most 50 photos for a GP or Nazionale, 20 for a tour stage or any other event. The build warns past it (`MAX_PHOTOS` in `scripts/photo-rules.mjs`).
 - CI warns at 750 MB and stops at 900 MB of `dist/`, below the 1 GB GitHub Pages limit.
 
 ## Removing a photo on request
