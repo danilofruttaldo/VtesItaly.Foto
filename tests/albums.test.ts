@@ -5,6 +5,7 @@ import {
   cityName,
   formatDate,
   loadAlbums,
+  photoAlt,
   publicIndex,
   twitterCard,
   typeLabel,
@@ -86,5 +87,20 @@ describe('albums', () => {
 
   it('has no albums before build-photos has run', () => {
     expect(loadAlbums('/nowhere/manifest.json')).toEqual([]);
+  });
+});
+
+describe('photoAlt', () => {
+  const pos = { index: 7, inSection: 1, sectionSize: 5 };
+  it('prefers the album.json caption', () => {
+    expect(photoAlt('GP 2026', { ...photo('a.webp'), caption: 'Il tavolo finale', section: 'Finale' }, pos)).toBe(
+      'Il tavolo finale',
+    );
+  });
+  it('falls back to the section and the position in it', () => {
+    expect(photoAlt('GP 2026', { ...photo('a.webp'), section: 'Finale' }, pos)).toBe('GP 2026, Finale, foto 2 di 5');
+  });
+  it('without a section, numbers the photo in the whole album', () => {
+    expect(photoAlt('GP 2026', photo('a.webp'), pos)).toBe('GP 2026, foto 8');
   });
 });

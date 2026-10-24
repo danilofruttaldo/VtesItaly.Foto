@@ -87,6 +87,19 @@ export function sectionsOf(photos: Photo[]): { title?: string; photos: { photo: 
   return out;
 }
 
+/** Alt text of a thumbnail: its album.json caption, else the section and the
+ * position in it ("GP 2026, Finale, foto 2 di 5"), else the position in the
+ * album. Captions can then be added photo by photo where it matters. */
+export function photoAlt(
+  albumTitle: string,
+  photo: Photo,
+  { index, inSection, sectionSize }: { index: number; inSection: number; sectionSize: number },
+): string {
+  if (photo.caption) return photo.caption;
+  if (photo.section) return `${albumTitle}, ${photo.section}, foto ${inSection + 1} di ${sectionSize}`;
+  return `${albumTitle}, foto ${index + 1}`;
+}
+
 /** Principati with at least one album, by name, with how many albums each has. */
 export function citiesOf(albums: Album[]): { slug: string; name: string; count: number }[] {
   const counts = new Map<string, number>();

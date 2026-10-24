@@ -1,7 +1,16 @@
 ---
 import type { GetStaticPaths } from 'astro';
 import Base from '../../layouts/Base.astro';
-import { cityName, coverImage, formatDate, loadAlbums, sectionsOf, typeLabel, type Album } from '../../utils/albums';
+import {
+  cityName,
+  coverImage,
+  formatDate,
+  loadAlbums,
+  photoAlt,
+  sectionsOf,
+  typeLabel,
+  type Album,
+} from '../../utils/albums';
 
 export const getStaticPaths = (() =>
   loadAlbums().map((album) => ({ params: { album: album.slug }, props: { album } }))) satisfies GetStaticPaths;
@@ -36,14 +45,14 @@ const description =
       <section>
         {section.title && <h2>{section.title}</h2>}
         <ul class="grid">
-          {section.photos.map(({ photo: p, index: i }) => (
+          {section.photos.map(({ photo: p, index: i }, j) => (
             <li>
               <a href={p.src} data-index={i} data-caption={p.caption ?? p.section}>
                 <img
                   src={p.thumb}
                   srcset={p.thumbSmall && `${p.thumbSmall} 320w, ${p.thumb} 640w`}
                   sizes={p.thumbSmall && '(max-width: 640px) 50vw, 300px'}
-                  alt={p.caption ?? `${album.title}, foto ${i + 1}`}
+                  alt={photoAlt(album.title, p, { index: i, inSection: j, sectionSize: section.photos.length })}
                   width="640"
                   height="640"
                   loading={i < 8 ? 'eager' : 'lazy'}
