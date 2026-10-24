@@ -23,10 +23,10 @@
  * with `sections`, the new photos land after them: the script reminds to add
  * them to a section.
  */
-import sharp from 'sharp';
-import { existsSync, mkdirSync, readdirSync, readFileSync, rmSync, statSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdirSync, readdirSync, readFileSync, statSync, writeFileSync } from 'node:fs';
 import { basename, extname, join } from 'node:path';
 import { MAX_BYTES, MAX_SIDE, QUALITY, nextPhotoNumber } from './photo-rules.mjs';
+import { savePhoto } from './save-photo.mjs';
 
 const [src, slug, ...rest] = process.argv.slice(2);
 if (!src || !slug || !/^[a-z0-9]+(-[a-z0-9]+)*$/.test(slug)) {
@@ -73,21 +73,11 @@ if (opts.cover && existsSync(coverOut) && !opts.force) {
 mkdirSync(dest, { recursive: true });
 const first = nextPhotoNumber(readdirSync(dest), slug);
 
-/** Saves `file` as a WebP of at most `maxSide` px at `out`, lowering the
- * quality (down to 50), then the long side (down to half), until it fits
- * MAX_BYTES; returns the quality and side used. Stops the script when even
- * that is too big, instead of leaving it to fail at the build. */
+/** savePhoto, or stop the script when the photo never fits MAX_BYTES,
+ * instead of leaving it to fail at the build. */
 async function save(file, out, maxSide) {
-  for (let side = maxSide; side >= maxSide / 2; side = Math.round(side * 0.85))
-    for (let quality = QUALITY; quality >= 50; quality -= 10) {
-      await sharp(file)
-        .rotate()
-        .resize(side, side, { fit: 'inside', withoutEnlargement: true })
-        .webp({ quality, effort: 6 })
-        .toFile(out);
-      if (statSync(out).size <= MAX_BYTES) return { quality, side };
-    }
-  rmSync(out);
+  const saved = await savePhoto(file, out, maxSide);
+  if (saved) return saved;
   console.error(
     `${file}: oltre ${MAX_BYTES / 1024} KB anche a qualità 50 e lato ${Math.round(maxSide / 2)} px: riducila a mano`,
   );
