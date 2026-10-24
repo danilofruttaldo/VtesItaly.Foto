@@ -7,6 +7,7 @@ import {
   leakedMetadata,
   nextPhotoNumber,
   orderBySections,
+  photoCountWarnings,
 } from '../scripts/photo-rules.mjs';
 import { ALBUM_TYPES } from '../src/utils/album-types';
 
@@ -81,5 +82,21 @@ describe('photo rules', () => {
     expect(imageErrors('p.webp', { ...ok, width: 2000 }, 300 * 1024)).toHaveLength(1);
     expect(imageErrors('p.webp', ok, 700 * 1024)).toHaveLength(1);
     expect(imageErrors('p.webp', { ...ok, format: 'jpeg', exif: Buffer.from('x') }, 1)).toHaveLength(2);
+  });
+});
+
+describe('photoCountWarnings', () => {
+  const album = (slug: string, type: string, n: number) => ({ slug, type, photos: Array.from({ length: n }) });
+  it('warns only past the cap of the album type', () => {
+    expect(
+      photoCountWarnings([album('gp-2026', 'gp', 40), album('tappa', 'tour', 15), album('torneo', 'torneo', 10)]),
+    ).toEqual([]);
+    expect(
+      photoCountWarnings([album('gp-2026', 'gp', 41), album('tappa', 'tour', 16), album('lega', 'lega', 11)]),
+    ).toEqual([
+      'gp-2026: 41 foto, oltre il tetto di 40 per "gp"',
+      'tappa: 16 foto, oltre il tetto di 15 per "tour"',
+      'lega: 11 foto, oltre il tetto di 10 per "lega"',
+    ]);
   });
 });

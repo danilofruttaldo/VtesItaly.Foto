@@ -12,6 +12,22 @@ export const QUALITY = 80;
 /** Largest file accepted in albums/, in bytes. */
 export const MAX_BYTES = 600 * 1024;
 
+/** Most photos an album should hold, by event type: GP and Nazionale run for
+ * days and have side events, a tour stage or a local event tells its story in
+ * fewer. A selection, not a dump: build-photos warns past it, it doesn't stop. */
+export const MAX_PHOTOS = { gp: 40, nazionale: 40, tour: 15 };
+export const MAX_PHOTOS_OTHER = 10;
+
+/** Warnings for the albums ({ slug, type, photos }) past their MAX_PHOTOS. */
+export function photoCountWarnings(albums) {
+  return albums.flatMap((a) => {
+    const max = MAX_PHOTOS[a.type] ?? MAX_PHOTOS_OTHER;
+    return a.photos.length > max
+      ? [`${a.slug}: ${a.photos.length} foto, oltre il tetto di ${max} per "${a.type}"`]
+      : [];
+  });
+}
+
 /** Photo files of an album folder. */
 export const PHOTO_EXT = /\.webp$/i;
 

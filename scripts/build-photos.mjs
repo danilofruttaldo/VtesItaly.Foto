@@ -34,13 +34,14 @@ import {
 } from 'node:fs';
 import { join } from 'node:path';
 import {
-  PHOTO_EXT,
-  THUMB_SIZE,
-  THUMB_SMALL,
   albumErrors,
   captionErrors,
   imageErrors,
   orderBySections,
+  PHOTO_EXT,
+  photoCountWarnings,
+  THUMB_SIZE,
+  THUMB_SMALL,
 } from './photo-rules.mjs';
 import { ALBUM_TYPES } from '../src/utils/album-types.ts';
 import { PRINCIPATI } from '../src/utils/principati.ts';
@@ -244,4 +245,5 @@ if (import.meta.main) {
   }
   const count = albums.reduce((n, a) => n + a.photos.length, 0);
   console.log(`photos: ${albums.length} album, ${count} foto`);
+  for (const w of photoCountWarnings(albums)) console.warn(`photos: attenzione, ${w}`);
 }
