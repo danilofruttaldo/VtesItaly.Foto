@@ -113,6 +113,8 @@ jobs:
         # The Pages CDN keeps /albums.json up to 10 minutes and ignores query
         # strings, so the request waits until the live copy is the one just
         # deployed: otherwise vtesitaly.com would rebuild with the old index.
+        # The hash also goes in the payload: the Site runner may hit another
+        # CDN node, and its fetch-albums waits for the same bytes.
         if: steps.token.outputs.set == 'true' && (needs.ci.outputs.albums-changed == 'true' || github.event_name == 'workflow_dispatch')
         env:
           SITE_DISPATCH_TOKEN: ${{ secrets.SITE_DISPATCH_TOKEN }}
@@ -128,4 +130,4 @@ jobs:
             -H "Authorization: Bearer $SITE_DISPATCH_TOKEN" \
             -H "Accept: application/vnd.github+json" \
             https://api.github.com/repos/danilofruttaldo/VtesItaly.Site/dispatches \
-            -d '{"event_type":"foto-updated"}'
+            -d "{\"event_type\":\"foto-updated\",\"client_payload\":{\"albums_sha256\":\"$WANT\"}}"
