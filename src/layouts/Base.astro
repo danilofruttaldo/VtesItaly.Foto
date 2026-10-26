@@ -29,7 +29,9 @@ const ogImage = image ? new URL(image, Astro.site).href : undefined;
     <meta name="description" content={description} />
     {noindex ? <meta name="robots" content="noindex" /> : <link rel="canonical" href={canonical} />}
     <link rel="icon" href="/favicon.ico" sizes="any" />
-    <link rel="icon" href="/favicon-32.png" type="image/png" />
+    <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32" />
+    <link rel="icon" href="/logo-192.png" type="image/png" sizes="192x192" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <meta name="theme-color" content="#121416" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Foto VTES Italy" />
