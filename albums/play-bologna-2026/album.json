@@ -1,0 +1,39 @@
+{
+  "title": "PLAY VTESItaly 2026",
+  "date": "2026-05-22",
+  "city": "bologna",
+  "type": "evento",
+  "event": "https://vtesitaly.com/comunita/play-bologna-2026/",
+  "sections": [
+    {
+      "title": "Atmosfera",
+      "photos": [
+        "play-bologna-2026-atmosfera-01.webp",
+        "play-bologna-2026-atmosfera-02.webp",
+        "play-bologna-2026-atmosfera-03.webp",
+        "play-bologna-2026-atmosfera-04.webp",
+        "play-bologna-2026-atmosfera-05.webp",
+        "play-bologna-2026-atmosfera-06.webp",
+        "play-bologna-2026-atmosfera-07.webp",
+        "play-bologna-2026-atmosfera-08.webp"
+      ]
+    },
+    {
+      "title": "Tavoli demo",
+      "photos": [
+        "play-bologna-2026-demo-01.webp",
+        "play-bologna-2026-demo-02.webp",
+        "play-bologna-2026-demo-03.webp",
+        "play-bologna-2026-demo-04.webp",
+        "play-bologna-2026-demo-05.webp",
+        "play-bologna-2026-demo-06.webp",
+        "play-bologna-2026-demo-07.webp",
+        "play-bologna-2026-demo-08.webp"
+      ]
+    },
+    {
+      "title": "Cene",
+      "photos": ["play-bologna-2026-cena-01.webp", "play-bologna-2026-cena-02.webp"]
+    }
+  ]
+}

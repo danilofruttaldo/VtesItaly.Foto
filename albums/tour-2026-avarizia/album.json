@@ -1,0 +1,46 @@
+{
+  "title": "IT26 - AVARIZIA",
+  "date": "2026-02-15",
+  "city": "modena",
+  "type": "tour",
+  "event": "https://vtesitaly.com/tour/tour-2026/",
+  "sections": [
+    {
+      "title": "Turni di gioco",
+      "photos": [
+        "tour-2026-avarizia-torneo-01.webp",
+        "tour-2026-avarizia-torneo-02.webp",
+        "tour-2026-avarizia-torneo-03.webp",
+        "tour-2026-avarizia-torneo-04.webp",
+        "tour-2026-avarizia-torneo-05.webp",
+        "tour-2026-avarizia-torneo-06.webp"
+      ]
+    },
+    {
+      "title": "Modena",
+      "photos": [
+        "tour-2026-avarizia-modena-01.webp",
+        "tour-2026-avarizia-modena-02.webp",
+        "tour-2026-avarizia-modena-03.webp",
+        "tour-2026-avarizia-modena-04.webp",
+        "tour-2026-avarizia-modena-05.webp",
+        "tour-2026-avarizia-modena-06.webp",
+        "tour-2026-avarizia-modena-07.webp",
+        "tour-2026-avarizia-modena-08.webp"
+      ]
+    },
+    {
+      "title": "Tavolo finale",
+      "photos": [
+        "tour-2026-avarizia-finale-01.webp",
+        "tour-2026-avarizia-finale-02.webp",
+        "tour-2026-avarizia-finale-03.webp",
+        "tour-2026-avarizia-finale-04.webp"
+      ]
+    },
+    {
+      "title": "Premiazione",
+      "photos": ["tour-2026-avarizia-premiazione-01.webp", "tour-2026-avarizia-premiazione-02.webp"]
+    }
+  ]
+}
