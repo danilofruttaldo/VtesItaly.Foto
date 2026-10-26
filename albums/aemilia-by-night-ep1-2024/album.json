@@ -1,0 +1,43 @@
+{
+  "title": "Aemilia by Night - Episode 1",
+  "date": "2024-01-28",
+  "city": "modena",
+  "type": "torneo",
+  "event": "https://vtesitaly.com/comunita/aemilia-by-night-episode-1-2024/",
+  "sections": [
+    {
+      "title": "Premi in palio",
+      "photos": [
+        "aemilia-by-night-ep1-2024-premi-01.webp",
+        "aemilia-by-night-ep1-2024-premi-02.webp",
+        "aemilia-by-night-ep1-2024-premi-03.webp"
+      ]
+    },
+    {
+      "title": "Turni di gioco",
+      "photos": [
+        "aemilia-by-night-ep1-2024-torneo-01.webp",
+        "aemilia-by-night-ep1-2024-torneo-02.webp",
+        "aemilia-by-night-ep1-2024-torneo-03.webp",
+        "aemilia-by-night-ep1-2024-torneo-04.webp",
+        "aemilia-by-night-ep1-2024-torneo-05.webp",
+        "aemilia-by-night-ep1-2024-torneo-06.webp",
+        "aemilia-by-night-ep1-2024-torneo-07.webp",
+        "aemilia-by-night-ep1-2024-torneo-08.webp",
+        "aemilia-by-night-ep1-2024-torneo-09.webp",
+        "aemilia-by-night-ep1-2024-torneo-10.webp",
+        "aemilia-by-night-ep1-2024-torneo-11.webp",
+        "aemilia-by-night-ep1-2024-torneo-12.webp",
+        "aemilia-by-night-ep1-2024-torneo-13.webp"
+      ]
+    },
+    {
+      "title": "Pausa pranzo",
+      "photos": ["aemilia-by-night-ep1-2024-pranzo-01.webp", "aemilia-by-night-ep1-2024-pranzo-02.webp"]
+    },
+    {
+      "title": "Tavolo finale",
+      "photos": ["aemilia-by-night-ep1-2024-finale-01.webp", "aemilia-by-night-ep1-2024-finale-02.webp"]
+    }
+  ]
+}

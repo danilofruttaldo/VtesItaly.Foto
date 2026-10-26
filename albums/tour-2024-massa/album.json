@@ -1,0 +1,39 @@
+{
+  "title": "IT24 - Massa",
+  "date": "2024-06-15",
+  "city": "massa",
+  "type": "tour",
+  "event": "https://vtesitaly.com/tour/tour-2024/",
+  "sections": [
+    {
+      "title": "Accoglienza",
+      "photos": [
+        "tour-2024-massa-accoglienza-01.webp",
+        "tour-2024-massa-accoglienza-02.webp",
+        "tour-2024-massa-accoglienza-03.webp"
+      ]
+    },
+    {
+      "title": "Intorno al torneo",
+      "photos": [
+        "tour-2024-massa-intorno-01.webp",
+        "tour-2024-massa-intorno-02.webp",
+        "tour-2024-massa-intorno-03.webp",
+        "tour-2024-massa-intorno-04.webp",
+        "tour-2024-massa-intorno-05.webp"
+      ]
+    },
+    {
+      "title": "Premiazione",
+      "photos": [
+        "tour-2024-massa-premiazione-01.webp",
+        "tour-2024-massa-premiazione-02.webp",
+        "tour-2024-massa-premiazione-03.webp",
+        "tour-2024-massa-premiazione-04.webp",
+        "tour-2024-massa-premiazione-05.webp",
+        "tour-2024-massa-premiazione-06.webp",
+        "tour-2024-massa-premiazione-07.webp"
+      ]
+    }
+  ]
+}

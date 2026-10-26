@@ -1,0 +1,44 @@
+{
+  "title": "IT24 - Barga",
+  "date": "2024-08-31",
+  "city": "barga",
+  "type": "tour",
+  "event": "https://vtesitaly.com/tour/tour-2024/",
+  "sections": [
+    {
+      "title": "Atmosfera",
+      "photos": ["tour-2024-barga-atmosfera-01.webp", "tour-2024-barga-atmosfera-02.webp"]
+    },
+    {
+      "title": "Turni di gioco",
+      "photos": [
+        "tour-2024-barga-torneo-01.webp",
+        "tour-2024-barga-torneo-02.webp",
+        "tour-2024-barga-torneo-03.webp",
+        "tour-2024-barga-torneo-04.webp",
+        "tour-2024-barga-torneo-05.webp",
+        "tour-2024-barga-torneo-06.webp",
+        "tour-2024-barga-torneo-07.webp",
+        "tour-2024-barga-torneo-08.webp",
+        "tour-2024-barga-torneo-09.webp",
+        "tour-2024-barga-torneo-10.webp"
+      ]
+    },
+    {
+      "title": "Tavolo finale",
+      "photos": ["tour-2024-barga-finale-01.webp", "tour-2024-barga-finale-02.webp"]
+    },
+    {
+      "title": "Cene",
+      "photos": ["tour-2024-barga-cena-01.webp", "tour-2024-barga-cena-02.webp", "tour-2024-barga-cena-03.webp"]
+    },
+    {
+      "title": "Intorno al torneo",
+      "photos": [
+        "tour-2024-barga-domenica-01.webp",
+        "tour-2024-barga-domenica-02.webp",
+        "tour-2024-barga-domenica-03.webp"
+      ]
+    }
+  ]
+}

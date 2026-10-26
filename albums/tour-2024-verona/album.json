@@ -1,0 +1,49 @@
+{
+  "title": "IT24 - Verona",
+  "date": "2024-02-17",
+  "city": "verona",
+  "type": "tour",
+  "event": "https://vtesitaly.com/tour/tour-2024/",
+  "sections": [
+    {
+      "title": "Pausa pranzo",
+      "photos": ["tour-2024-verona-pranzo-01.webp"]
+    },
+    {
+      "title": "Turni di gioco",
+      "photos": [
+        "tour-2024-verona-torneo-01.webp",
+        "tour-2024-verona-torneo-02.webp",
+        "tour-2024-verona-torneo-03.webp",
+        "tour-2024-verona-torneo-04.webp",
+        "tour-2024-verona-torneo-05.webp",
+        "tour-2024-verona-torneo-06.webp",
+        "tour-2024-verona-torneo-07.webp",
+        "tour-2024-verona-torneo-08.webp",
+        "tour-2024-verona-torneo-09.webp"
+      ]
+    },
+    {
+      "title": "Intorno al torneo",
+      "photos": [
+        "tour-2024-verona-carnevale-01.webp",
+        "tour-2024-verona-carnevale-02.webp",
+        "tour-2024-verona-carnevale-03.webp",
+        "tour-2024-verona-carnevale-04.webp"
+      ]
+    },
+    {
+      "title": "Tavolo finale",
+      "photos": [
+        "tour-2024-verona-finale-01.webp",
+        "tour-2024-verona-finale-02.webp",
+        "tour-2024-verona-finale-03.webp",
+        "tour-2024-verona-finale-04.webp"
+      ]
+    },
+    {
+      "title": "Premiazione",
+      "photos": ["tour-2024-verona-premiazione-01.webp", "tour-2024-verona-premiazione-02.webp"]
+    }
+  ]
+}

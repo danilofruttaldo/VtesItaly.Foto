@@ -1,0 +1,72 @@
+{
+  "title": "Nazionale 2024",
+  "date": "2024-04-27",
+  "city": "trento",
+  "type": "nazionale",
+  "event": "https://vtesitaly.com/nazionale/nazionale-2024/",
+  "sections": [
+    {
+      "title": "Accoglienza",
+      "photos": [
+        "nc-2024-accoglienza-01.webp",
+        "nc-2024-accoglienza-02.webp",
+        "nc-2024-accoglienza-03.webp",
+        "nc-2024-accoglienza-04.webp"
+      ]
+    },
+    {
+      "title": "Turni di gioco",
+      "photos": [
+        "nc-2024-torneo-01.webp",
+        "nc-2024-torneo-02.webp",
+        "nc-2024-torneo-03.webp",
+        "nc-2024-torneo-04.webp",
+        "nc-2024-torneo-05.webp",
+        "nc-2024-torneo-06.webp",
+        "nc-2024-torneo-07.webp",
+        "nc-2024-torneo-08.webp",
+        "nc-2024-torneo-09.webp",
+        "nc-2024-torneo-10.webp",
+        "nc-2024-torneo-11.webp",
+        "nc-2024-torneo-12.webp",
+        "nc-2024-torneo-13.webp",
+        "nc-2024-torneo-14.webp",
+        "nc-2024-torneo-15.webp",
+        "nc-2024-torneo-16.webp",
+        "nc-2024-torneo-17.webp",
+        "nc-2024-torneo-18.webp",
+        "nc-2024-torneo-19.webp"
+      ]
+    },
+    {
+      "title": "Pausa pranzo",
+      "photos": ["nc-2024-pranzo-01.webp"]
+    },
+    {
+      "title": "Intorno ai tavoli",
+      "photos": ["nc-2024-tavoli-01.webp", "nc-2024-tavoli-02.webp"]
+    },
+    {
+      "title": "Premiazione",
+      "photos": [
+        "nc-2024-premiazione-01.webp",
+        "nc-2024-premiazione-02.webp",
+        "nc-2024-premiazione-03.webp",
+        "nc-2024-premiazione-04.webp",
+        "nc-2024-premiazione-05.webp"
+      ]
+    },
+    {
+      "title": "Cene",
+      "photos": [
+        "nc-2024-cena-01.webp",
+        "nc-2024-cena-02.webp",
+        "nc-2024-cena-03.webp",
+        "nc-2024-cena-04.webp",
+        "nc-2024-cena-05.webp",
+        "nc-2024-cena-06.webp",
+        "nc-2024-cena-07.webp"
+      ]
+    }
+  ]
+}
