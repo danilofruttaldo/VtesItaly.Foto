@@ -1,0 +1,26 @@
+{
+  "title": "Sabbat Arising",
+  "date": "2025-09-27",
+  "city": "bologna",
+  "type": "torneo",
+  "event": "https://vtesitaly.com/comunita/sabbat-arising-2025/",
+  "sections": [
+    {
+      "title": "Intorno al torneo",
+      "photos": [
+        "sabbat-arising-2025-intorno-01.webp",
+        "sabbat-arising-2025-intorno-02.webp",
+        "sabbat-arising-2025-intorno-03.webp",
+        "sabbat-arising-2025-intorno-04.webp",
+        "sabbat-arising-2025-intorno-05.webp",
+        "sabbat-arising-2025-intorno-06.webp",
+        "sabbat-arising-2025-intorno-07.webp",
+        "sabbat-arising-2025-intorno-08.webp"
+      ]
+    },
+    {
+      "title": "Cene",
+      "photos": ["sabbat-arising-2025-cena-01.webp", "sabbat-arising-2025-cena-02.webp"]
+    }
+  ]
+}
