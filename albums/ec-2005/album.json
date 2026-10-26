@@ -1,0 +1,64 @@
+{
+  "title": "European Championship 2005 - Budapest",
+  "date": "2005-11-06",
+  "city": "budapest",
+  "type": "ec",
+  "sections": [
+    {
+      "title": "Allestimento e staff",
+      "photos": ["ec-2005-staff-01.webp", "ec-2005-staff-02.webp", "ec-2005-staff-03.webp"]
+    },
+    {
+      "title": "Turni di gioco",
+      "photos": [
+        "ec-2005-torneo-01.webp",
+        "ec-2005-torneo-02.webp",
+        "ec-2005-torneo-03.webp",
+        "ec-2005-torneo-04.webp",
+        "ec-2005-torneo-05.webp",
+        "ec-2005-torneo-06.webp",
+        "ec-2005-torneo-07.webp",
+        "ec-2005-torneo-08.webp",
+        "ec-2005-torneo-09.webp",
+        "ec-2005-torneo-10.webp",
+        "ec-2005-torneo-11.webp",
+        "ec-2005-torneo-12.webp",
+        "ec-2005-torneo-13.webp",
+        "ec-2005-torneo-14.webp",
+        "ec-2005-torneo-15.webp",
+        "ec-2005-torneo-16.webp"
+      ]
+    },
+    {
+      "title": "Intorno al torneo",
+      "photos": [
+        "ec-2005-budapest-01.webp",
+        "ec-2005-budapest-02.webp",
+        "ec-2005-budapest-03.webp",
+        "ec-2005-budapest-04.webp",
+        "ec-2005-budapest-05.webp",
+        "ec-2005-budapest-06.webp",
+        "ec-2005-budapest-07.webp",
+        "ec-2005-budapest-08.webp",
+        "ec-2005-budapest-09.webp",
+        "ec-2005-budapest-10.webp",
+        "ec-2005-budapest-11.webp",
+        "ec-2005-budapest-12.webp",
+        "ec-2005-budapest-13.webp",
+        "ec-2005-budapest-14.webp",
+        "ec-2005-budapest-15.webp",
+        "ec-2005-budapest-16.webp",
+        "ec-2005-budapest-17.webp",
+        "ec-2005-budapest-18.webp",
+        "ec-2005-budapest-19.webp",
+        "ec-2005-budapest-20.webp",
+        "ec-2005-budapest-21.webp",
+        "ec-2005-budapest-22.webp"
+      ]
+    },
+    {
+      "title": "Cene",
+      "photos": ["ec-2005-cena-01.webp", "ec-2005-cena-02.webp", "ec-2005-cena-03.webp", "ec-2005-cena-04.webp"]
+    }
+  ]
+}

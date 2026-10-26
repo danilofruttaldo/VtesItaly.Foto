@@ -12,10 +12,10 @@ export const QUALITY = 80;
 /** Largest file accepted in albums/, in bytes. */
 export const MAX_BYTES = 600 * 1024;
 
-/** Most photos an album should hold, by event type: GP and Nazionale run for
+/** Most photos an album should hold, by event type: EC, GP and Nazionale run for
  * days and have side events, a tour stage or any other event tells its story
  * in fewer. A selection, not a dump: build-photos warns past it, it doesn't stop. */
-export const MAX_PHOTOS = { gp: 50, nazionale: 50 };
+export const MAX_PHOTOS = { ec: 50, gp: 50, nazionale: 50 };
 export const MAX_PHOTOS_OTHER = 20;
 
 /** Warnings for the albums ({ slug, type, photos }) past their MAX_PHOTOS. */
