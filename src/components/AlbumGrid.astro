@@ -18,7 +18,12 @@ const { albums, hideCity = false } = Astro.props;
       {albums.map((a, i) => {
         const cover = a.cover;
         return (
-          <li data-album-city={a.city} data-album-photos={a.photos.length}>
+          <li
+            data-album-citta={a.city}
+            data-album-anno={a.date.slice(0, 4)}
+            data-album-tipo={a.type}
+            data-album-photos={a.photos.length}
+          >
             <a href={`/${a.slug}/`} class="album-card">
               <span class="album-card__media">
                 <img

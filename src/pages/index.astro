@@ -1,8 +1,8 @@
 ---
 import Base from '../layouts/Base.astro';
 import AlbumGrid from '../components/AlbumGrid.astro';
-import CityFilter from '../components/CityFilter.astro';
-import { citiesOf, loadAlbums } from '../utils/albums';
+import AlbumFilter from '../components/AlbumFilter.astro';
+import { loadAlbums } from '../utils/albums';
 
 const albums = loadAlbums();
 const photos = albums.reduce((n, a) => n + a.photos.length, 0);
@@ -19,6 +19,6 @@ const photos = albums.reduce((n, a) => n + a.photos.length, 0);
   <p class="muted" data-album-summary aria-live="polite">
     {albums.length} album, {photos} foto.
   </p>
-  <CityFilter cities={citiesOf(albums)} />
+  <AlbumFilter albums={albums} />
   <AlbumGrid albums={albums} />
 </Base>
