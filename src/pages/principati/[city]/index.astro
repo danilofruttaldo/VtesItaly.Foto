@@ -28,7 +28,9 @@ const photos = albums.reduce((n, a) => n + a.photos.length, 0);
     {PRINCIPATI.has(city.slug) && (
       <>
         {' · '}
-        <a href={`https://vtesitaly.com/principati/${city.slug}/`}>Principato di {city.name}</a>
+        <a href={`https://vtesitaly.com/principati/${city.slug}/`} target="_blank" rel="noopener">
+          Principato di {city.name}
+        </a>
       </>
     )}
   </p>
