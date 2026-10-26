@@ -4,6 +4,7 @@ export const ALBUM_TYPES = {
   ec: 'Europeo',
   gp: 'Grand Prix',
   nazionale: 'Nazionale',
+  prerelease: 'Prerelease',
   tour: 'Tour',
   torneo: 'Torneo',
   lega: 'Lega',

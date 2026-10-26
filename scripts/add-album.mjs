@@ -128,7 +128,7 @@ if (existsSync(meta)) {
     title: opts.title ?? 'TODO titolo',
     date: opts.date ?? 'TODO-YYYY-MM-DD',
     city: opts.city ?? 'TODO principato (es. bologna)',
-    type: opts.type ?? 'TODO ec | gp | nazionale | tour | torneo | lega | evento',
+    type: opts.type ?? 'TODO ec | gp | nazionale | prerelease | tour | torneo | lega | evento',
     ...(opts.event ? { event: opts.event } : {}),
   };
   writeFileSync(meta, JSON.stringify(album, null, 2) + '\n');

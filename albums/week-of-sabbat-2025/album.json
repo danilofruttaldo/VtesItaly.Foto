@@ -1,0 +1,95 @@
+{
+  "title": "Week of Sabbat 2025",
+  "date": "2025-10-18",
+  "city": "italia",
+  "type": "prerelease",
+  "event": "https://vtesitaly.com/comunita/week-of-sabbat-2025/",
+  "sections": [
+    {
+      "title": "Barga",
+      "photos": [
+        "week-of-sabbat-2025-barga-01.webp",
+        "week-of-sabbat-2025-barga-02.webp",
+        "week-of-sabbat-2025-barga-03.webp"
+      ]
+    },
+    {
+      "title": "Bologna",
+      "photos": [
+        "week-of-sabbat-2025-bologna-01.webp",
+        "week-of-sabbat-2025-bologna-02.webp",
+        "week-of-sabbat-2025-bologna-03.webp"
+      ]
+    },
+    {
+      "title": "Massa",
+      "photos": [
+        "week-of-sabbat-2025-massa-01.webp",
+        "week-of-sabbat-2025-massa-02.webp",
+        "week-of-sabbat-2025-massa-03.webp"
+      ]
+    },
+    {
+      "title": "Milano",
+      "photos": [
+        "week-of-sabbat-2025-milano-01.webp",
+        "week-of-sabbat-2025-milano-02.webp",
+        "week-of-sabbat-2025-milano-03.webp"
+      ]
+    },
+    {
+      "title": "Modena",
+      "photos": [
+        "week-of-sabbat-2025-modena-01.webp",
+        "week-of-sabbat-2025-modena-02.webp",
+        "week-of-sabbat-2025-modena-03.webp",
+        "week-of-sabbat-2025-modena-04.webp"
+      ]
+    },
+    {
+      "title": "Parma",
+      "photos": [
+        "week-of-sabbat-2025-parma-01.webp",
+        "week-of-sabbat-2025-parma-02.webp",
+        "week-of-sabbat-2025-parma-03.webp",
+        "week-of-sabbat-2025-parma-04.webp"
+      ]
+    },
+    {
+      "title": "Pordenone",
+      "photos": [
+        "week-of-sabbat-2025-pordenone-01.webp",
+        "week-of-sabbat-2025-pordenone-02.webp",
+        "week-of-sabbat-2025-pordenone-03.webp"
+      ]
+    },
+    {
+      "title": "Torino",
+      "photos": [
+        "week-of-sabbat-2025-torino-01.webp",
+        "week-of-sabbat-2025-torino-02.webp",
+        "week-of-sabbat-2025-torino-03.webp"
+      ]
+    },
+    {
+      "title": "Trento",
+      "photos": [
+        "week-of-sabbat-2025-trento-01.webp",
+        "week-of-sabbat-2025-trento-02.webp",
+        "week-of-sabbat-2025-trento-03.webp"
+      ]
+    },
+    {
+      "title": "Treviso",
+      "photos": ["week-of-sabbat-2025-treviso-01.webp", "week-of-sabbat-2025-treviso-02.webp"]
+    },
+    {
+      "title": "Verona",
+      "photos": [
+        "week-of-sabbat-2025-verona-01.webp",
+        "week-of-sabbat-2025-verona-02.webp",
+        "week-of-sabbat-2025-verona-03.webp"
+      ]
+    }
+  ]
+}
