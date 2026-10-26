@@ -89,8 +89,9 @@ button:focus-visible {
   height: 36px;
 }
 
-main {
-  padding: 32px 0 64px;
+/* main.container: .container alone would reset the vertical padding to 0. */
+main.container {
+  padding-block: 32px 64px;
 }
 
 h1 {
@@ -108,14 +109,27 @@ h2 {
 
 .site-footer {
   border-top: 1px solid var(--color-border);
-  padding: 24px 0;
-  font-size: 0.875rem;
+  padding: 32px 0 40px;
+  font-size: 0.85rem;
+  line-height: 1.6;
   color: var(--color-muted);
+  text-align: center;
+}
+.site-footer p {
+  max-width: 640px;
+  margin: 0 auto;
+}
+.site-footer p + p {
+  margin-top: 8px;
 }
 
 @media (max-width: 640px) {
-  main {
-    padding: 20px 0 48px;
+  main.container {
+    padding-block: 20px 48px;
+  }
+  /* Room for the back to top button, bottom right. */
+  .site-footer {
+    padding-bottom: 72px;
   }
   .site-header {
     padding: 10px 0;

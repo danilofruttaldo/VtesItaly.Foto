@@ -8,6 +8,9 @@ export const FILTER_KEYS = ['citta', 'anno', 'tipo'] as const;
 export type FilterKey = (typeof FILTER_KEYS)[number];
 export type Selection = Partial<Record<FilterKey, string>>;
 
+/** The catch-all type: "Altro" in the filter, listed last (Play and the like). */
+const OTHER_TYPE = 'evento';
+
 export interface FilterOption {
   value: string;
   label: string;
@@ -22,7 +25,7 @@ export function albumValue(album: Pick<Album, 'city' | 'date' | 'type'>, key: Fi
 }
 
 /** Options of each filter, with the number of albums: cities and types by
- * name, years newest first. */
+ * name (the catch-all "Altro" last), years newest first. */
 export function filterOptions(albums: Album[]): Record<FilterKey, FilterOption[]> {
   const count = (key: FilterKey) => {
     const counts = new Map<string, number>();
@@ -38,8 +41,8 @@ export function filterOptions(albums: Album[]): Record<FilterKey, FilterOption[]
       .map(([value, n]) => ({ value, label: value, count: n }))
       .sort((a, b) => b.value.localeCompare(a.value)),
     tipo: count('tipo')
-      .map(([value, n]) => ({ value, label: typeLabel(value), count: n }))
-      .sort(byLabel),
+      .map(([value, n]) => ({ value, label: value === OTHER_TYPE ? 'Altro' : typeLabel(value), count: n }))
+      .sort((a, b) => Number(a.value === OTHER_TYPE) - Number(b.value === OTHER_TYPE) || byLabel(a, b)),
   };
 }
 

@@ -17,14 +17,15 @@ const albums = [
   album('b', '2025-07-13', 'modena', 'torneo'),
   album('c', '2026-02-15', 'modena', 'tour'),
   album('d', '2005-11-06', 'budapest', 'ec'),
+  album('e', '2026-05-22', 'bologna', 'evento'),
 ];
 
 describe('filterOptions', () => {
   it('lists cities and types by name, years newest first, with counts', () => {
     const o = filterOptions(albums);
-    expect(o.citta.map((c) => `${c.label} ${c.count}`)).toEqual(['Bologna 1', 'Budapest 1', 'Modena 2']);
+    expect(o.citta.map((c) => `${c.label} ${c.count}`)).toEqual(['Bologna 2', 'Budapest 1', 'Modena 2']);
     expect(o.anno.map((y) => y.value)).toEqual(['2026', '2025', '2005']);
-    expect(o.tipo.map((t) => t.label)).toEqual(['Europeo', 'Grand Prix', 'Torneo', 'Tour']);
+    expect(o.tipo.map((t) => t.label)).toEqual(['Europeo', 'Grand Prix', 'Torneo', 'Tour', 'Altro']);
   });
 });
 
@@ -51,7 +52,7 @@ describe('matches', () => {
   });
 
   it('combines the chosen filters, an empty selection keeps all', () => {
-    expect(albums.filter((a) => matches(values(a), {})).length).toBe(4);
+    expect(albums.filter((a) => matches(values(a), {})).length).toBe(5);
     expect(albums.filter((a) => matches(values(a), { citta: 'modena' })).map((a) => a.slug)).toEqual(['b', 'c']);
     expect(albums.filter((a) => matches(values(a), { citta: 'modena', anno: '2026' })).map((a) => a.slug)).toEqual([
       'c',
