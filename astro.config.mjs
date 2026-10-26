@@ -10,6 +10,8 @@ export default defineConfig({
     // esbuild (the wasm build, see package.json) instead of lightningcss, whose
     // unsigned native module Smart App Control blocks on the dev machine. Same
     // choice as vtesitaly.com.
-    build: { cssMinify: 'esbuild' },
+    // Scripts as files, never inlined into the page: a browser that blocks inline
+    // scripts (an extension, a strict setting) left the filters dead.
+    build: { cssMinify: 'esbuild', assetsInlineLimit: 0 },
   },
 });
