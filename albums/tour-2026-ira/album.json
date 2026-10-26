@@ -7,7 +7,7 @@
   "sections": [
     {
       "title": "Pordenone",
-      "photos": ["tour-2026-ira-pordenone-01.webp"]
+      "photos": ["tour-2026-ira-pordenone-01.webp", "tour-2026-ira-pordenone-02.webp"]
     },
     {
       "title": "Turni di gioco",
@@ -17,12 +17,19 @@
         "tour-2026-ira-torneo-04.webp",
         "tour-2026-ira-torneo-05.webp",
         "tour-2026-ira-torneo-07.webp",
-        "tour-2026-ira-torneo-08.webp"
+        "tour-2026-ira-torneo-08.webp",
+        "tour-2026-ira-torneo-09.webp",
+        "tour-2026-ira-torneo-10.webp",
+        "tour-2026-ira-torneo-11.webp"
       ]
     },
     {
       "title": "Pausa pranzo",
-      "photos": ["tour-2026-ira-dettagli-01.webp"]
+      "photos": ["tour-2026-ira-dettagli-01.webp", "tour-2026-ira-dettagli-02.webp", "tour-2026-ira-dettagli-03.webp"]
+    },
+    {
+      "title": "Intorno al torneo",
+      "photos": ["tour-2026-ira-intorno-01.webp", "tour-2026-ira-intorno-02.webp", "tour-2026-ira-intorno-03.webp"]
     },
     {
       "title": "Premiazione",

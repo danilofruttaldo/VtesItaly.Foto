@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest';
-import { albumValue, filterOptions, matches, readSelection } from '../src/utils/album-filter';
+import { albumValue, matches, readSelection } from '../src/utils/album-filter';
+import { filterOptions } from '../src/utils/album-filter-options';
 import type { Album } from '../src/utils/albums';
 
 const album = (slug: string, date: string, city: string, type: string): Album => ({
