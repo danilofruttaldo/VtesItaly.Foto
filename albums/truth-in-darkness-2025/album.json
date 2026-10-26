@@ -1,0 +1,21 @@
+{
+  "title": "Truth in Darkness",
+  "date": "2025-05-10",
+  "city": "firenze",
+  "type": "torneo",
+  "event": "https://vtesitaly.com/comunita/truth-in-darkness-2025/",
+  "sections": [
+    {
+      "title": "Atmosfera",
+      "photos": [
+        "truth-in-darkness-2025-atmosfera-01.webp",
+        "truth-in-darkness-2025-atmosfera-02.webp",
+        "truth-in-darkness-2025-atmosfera-03.webp"
+      ]
+    },
+    {
+      "title": "Allestimento e staff",
+      "photos": ["truth-in-darkness-2025-staff-01.webp", "truth-in-darkness-2025-staff-02.webp"]
+    }
+  ]
+}

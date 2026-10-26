@@ -1,0 +1,41 @@
+{
+  "title": "Complearum – 20 anni di Alearum",
+  "date": "2025-07-13",
+  "city": "modena",
+  "type": "torneo",
+  "event": "https://vtesitaly.com/comunita/complearum-20-anni-di-alearum/",
+  "sections": [
+    {
+      "title": "Atmosfera",
+      "photos": ["complearum-2025-atmosfera-01.webp", "complearum-2025-atmosfera-02.webp"]
+    },
+    {
+      "title": "Turni di gioco",
+      "photos": [
+        "complearum-2025-round-01.webp",
+        "complearum-2025-round-02.webp",
+        "complearum-2025-round-03.webp",
+        "complearum-2025-round-04.webp",
+        "complearum-2025-round-05.webp",
+        "complearum-2025-round-06.webp",
+        "complearum-2025-round-07.webp",
+        "complearum-2025-round-08.webp",
+        "complearum-2025-round-09.webp",
+        "complearum-2025-round-10.webp",
+        "complearum-2025-round-11.webp",
+        "complearum-2025-round-12.webp"
+      ]
+    },
+    {
+      "title": "Finale",
+      "photos": [
+        "complearum-2025-finale-01.webp",
+        "complearum-2025-finale-02.webp",
+        "complearum-2025-finale-03.webp",
+        "complearum-2025-finale-04.webp",
+        "complearum-2025-finale-05.webp",
+        "complearum-2025-finale-06.webp"
+      ]
+    }
+  ]
+}
