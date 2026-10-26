@@ -55,6 +55,5 @@ export function initAlbumFilter(): void {
     for (const key of FILTER_KEYS) selects[key].value = '';
     apply({});
   });
-  form.hidden = false;
   apply(initial);
 }

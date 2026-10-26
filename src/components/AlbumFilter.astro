@@ -1,6 +1,6 @@
 ---
-/* Dropdown filters for the home: city, year and event type, combined. They
-   need JavaScript, so the form stays hidden until the script shows it. */
+/* Dropdown filters for the home: city, year and event type, combined. Always
+   shown: hiding them until the script runs left nothing on screen when it did not. */
 import { filterOptions } from '../utils/album-filter';
 import type { Album } from '../utils/albums';
 
@@ -16,7 +16,7 @@ const fields = [
 ] as const;
 ---
 
-<form class="filter" aria-label="Filtra gli album" data-album-filter hidden>
+<form class="filter" aria-label="Filtra gli album" data-album-filter>
   {fields.map((f) => (
     <label class="filter__field">
       <span class="filter__label">{f.label}</span>
@@ -47,9 +47,6 @@ const fields = [
     align-items: flex-end;
     gap: 12px 16px;
     margin: 20px 0 8px;
-  }
-  .filter[hidden] {
-    display: none;
   }
   .filter__field {
     display: flex;

@@ -24,7 +24,7 @@ describe('filterOptions', () => {
     const o = filterOptions(albums);
     expect(o.citta.map((c) => `${c.label} ${c.count}`)).toEqual(['Bologna 1', 'Budapest 1', 'Modena 2']);
     expect(o.anno.map((y) => y.value)).toEqual(['2026', '2025', '2005']);
-    expect(o.tipo.map((t) => t.label)).toEqual(['European Championship', 'Grand Prix', 'Torneo', 'Tour']);
+    expect(o.tipo.map((t) => t.label)).toEqual(['Europeo', 'Grand Prix', 'Torneo', 'Tour']);
   });
 });
 
