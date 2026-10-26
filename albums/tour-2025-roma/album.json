@@ -1,0 +1,38 @@
+{
+  "title": "IT25 - Roma",
+  "date": "2025-10-12",
+  "city": "roma",
+  "type": "tour",
+  "event": "https://vtesitaly.com/tour/tour-2025/",
+  "sections": [
+    {
+      "title": "Roma",
+      "photos": [
+        "tour-2025-roma-roma-01.webp",
+        "tour-2025-roma-roma-02.webp",
+        "tour-2025-roma-roma-03.webp",
+        "tour-2025-roma-roma-04.webp",
+        "tour-2025-roma-roma-05.webp",
+        "tour-2025-roma-roma-06.webp",
+        "tour-2025-roma-roma-07.webp",
+        "tour-2025-roma-roma-08.webp",
+        "tour-2025-roma-roma-09.webp",
+        "tour-2025-roma-roma-10.webp",
+        "tour-2025-roma-roma-11.webp",
+        "tour-2025-roma-roma-12.webp",
+        "tour-2025-roma-roma-13.webp",
+        "tour-2025-roma-roma-14.webp",
+        "tour-2025-roma-roma-15.webp"
+      ]
+    },
+    {
+      "title": "Turni di gioco",
+      "photos": [
+        "tour-2025-roma-torneo-01.webp",
+        "tour-2025-roma-torneo-02.webp",
+        "tour-2025-roma-torneo-03.webp",
+        "tour-2025-roma-torneo-04.webp"
+      ]
+    }
+  ]
+}

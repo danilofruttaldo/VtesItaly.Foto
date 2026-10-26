@@ -1,0 +1,44 @@
+{
+  "title": "IT25 - Bologna",
+  "date": "2025-11-29",
+  "city": "bologna",
+  "type": "tour",
+  "event": "https://vtesitaly.com/tour/tour-2025/",
+  "sections": [
+    {
+      "title": "Turni di gioco",
+      "photos": [
+        "tour-2025-bologna-torneo-01.webp",
+        "tour-2025-bologna-torneo-02.webp",
+        "tour-2025-bologna-torneo-03.webp",
+        "tour-2025-bologna-torneo-04.webp",
+        "tour-2025-bologna-torneo-05.webp",
+        "tour-2025-bologna-torneo-06.webp",
+        "tour-2025-bologna-torneo-07.webp",
+        "tour-2025-bologna-torneo-08.webp",
+        "tour-2025-bologna-torneo-09.webp"
+      ]
+    },
+    {
+      "title": "Bologna",
+      "photos": [
+        "tour-2025-bologna-bologna-01.webp",
+        "tour-2025-bologna-bologna-02.webp",
+        "tour-2025-bologna-bologna-03.webp",
+        "tour-2025-bologna-bologna-04.webp"
+      ]
+    },
+    {
+      "title": "Finale e premiazione",
+      "photos": [
+        "tour-2025-bologna-finale-01.webp",
+        "tour-2025-bologna-finale-02.webp",
+        "tour-2025-bologna-finale-03.webp",
+        "tour-2025-bologna-finale-04.webp",
+        "tour-2025-bologna-finale-05.webp",
+        "tour-2025-bologna-finale-06.webp",
+        "tour-2025-bologna-finale-07.webp"
+      ]
+    }
+  ]
+}
