@@ -1,0 +1,26 @@
+{
+  "title": "IT24 - Firenze",
+  "date": "2024-11-23",
+  "city": "firenze",
+  "type": "tour",
+  "event": "https://vtesitaly.com/tour/tour-2024/",
+  "sections": [
+    {
+      "title": "Turni di gioco",
+      "photos": [
+        "tour-2024-firenze-torneo-01.webp",
+        "tour-2024-firenze-torneo-02.webp",
+        "tour-2024-firenze-torneo-03.webp",
+        "tour-2024-firenze-torneo-04.webp"
+      ]
+    },
+    {
+      "title": "Tavolo finale",
+      "photos": ["tour-2024-firenze-finale-01.webp"]
+    },
+    {
+      "title": "Cena",
+      "photos": ["tour-2024-firenze-cena-01.webp", "tour-2024-firenze-cena-02.webp", "tour-2024-firenze-cena-03.webp"]
+    }
+  ]
+}
