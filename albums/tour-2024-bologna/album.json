@@ -1,0 +1,39 @@
+{
+  "title": "IT24 - Bologna",
+  "date": "2024-09-15",
+  "city": "bologna",
+  "type": "tour",
+  "event": "https://vtesitaly.com/tour/tour-2024/",
+  "sections": [
+    {
+      "title": "Giocatori",
+      "photos": [
+        "tour-2024-bologna-giocatori-01.webp",
+        "tour-2024-bologna-giocatori-02.webp",
+        "tour-2024-bologna-giocatori-03.webp",
+        "tour-2024-bologna-giocatori-04.webp",
+        "tour-2024-bologna-giocatori-05.webp",
+        "tour-2024-bologna-giocatori-06.webp",
+        "tour-2024-bologna-giocatori-07.webp",
+        "tour-2024-bologna-giocatori-08.webp",
+        "tour-2024-bologna-giocatori-09.webp",
+        "tour-2024-bologna-giocatori-10.webp"
+      ]
+    },
+    {
+      "title": "Turni di gioco",
+      "photos": [
+        "tour-2024-bologna-turni-di-gioco-01.webp",
+        "tour-2024-bologna-turni-di-gioco-02.webp",
+        "tour-2024-bologna-turni-di-gioco-03.webp",
+        "tour-2024-bologna-turni-di-gioco-04.webp",
+        "tour-2024-bologna-turni-di-gioco-05.webp",
+        "tour-2024-bologna-turni-di-gioco-06.webp",
+        "tour-2024-bologna-turni-di-gioco-07.webp",
+        "tour-2024-bologna-turni-di-gioco-08.webp",
+        "tour-2024-bologna-turni-di-gioco-09.webp",
+        "tour-2024-bologna-turni-di-gioco-10.webp"
+      ]
+    }
+  ]
+}

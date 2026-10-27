@@ -1,0 +1,41 @@
+{
+  "title": "From Bologna to Varsavia",
+  "date": "2024-09-14",
+  "city": "bologna",
+  "type": "torneo",
+  "event": "https://vtesitaly.com/comunita/from-bologna-to-varsavia-2024/",
+  "sections": [
+    {
+      "title": "Turni di gioco",
+      "photos": [
+        "from-bologna-to-varsavia-2024-turni-di-gioco-01.webp",
+        "from-bologna-to-varsavia-2024-turni-di-gioco-02.webp",
+        "from-bologna-to-varsavia-2024-turni-di-gioco-03.webp",
+        "from-bologna-to-varsavia-2024-turni-di-gioco-04.webp",
+        "from-bologna-to-varsavia-2024-turni-di-gioco-05.webp",
+        "from-bologna-to-varsavia-2024-turni-di-gioco-06.webp",
+        "from-bologna-to-varsavia-2024-turni-di-gioco-07.webp",
+        "from-bologna-to-varsavia-2024-turni-di-gioco-08.webp",
+        "from-bologna-to-varsavia-2024-turni-di-gioco-09.webp",
+        "from-bologna-to-varsavia-2024-turni-di-gioco-10.webp",
+        "from-bologna-to-varsavia-2024-turni-di-gioco-11.webp",
+        "from-bologna-to-varsavia-2024-turni-di-gioco-12.webp"
+      ]
+    },
+    {
+      "title": "Pranzo",
+      "photos": ["from-bologna-to-varsavia-2024-pranzo-01.webp"]
+    },
+    {
+      "title": "Bologna",
+      "photos": [
+        "from-bologna-to-varsavia-2024-bologna-01.webp",
+        "from-bologna-to-varsavia-2024-bologna-02.webp",
+        "from-bologna-to-varsavia-2024-bologna-03.webp",
+        "from-bologna-to-varsavia-2024-bologna-04.webp",
+        "from-bologna-to-varsavia-2024-bologna-05.webp",
+        "from-bologna-to-varsavia-2024-bologna-06.webp"
+      ]
+    }
+  ]
+}

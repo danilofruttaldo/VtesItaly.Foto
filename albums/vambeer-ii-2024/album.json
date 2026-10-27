@@ -1,0 +1,42 @@
+{
+  "title": "Vambeer II",
+  "date": "2024-10-13",
+  "city": "modena",
+  "type": "torneo",
+  "event": "https://vtesitaly.com/comunita/vambeer-ii-2024/",
+  "sections": [
+    {
+      "title": "Arrivo",
+      "photos": ["vambeer-ii-2024-arrivo-01.webp", "vambeer-ii-2024-arrivo-02.webp"]
+    },
+    {
+      "title": "Turni di gioco",
+      "photos": [
+        "vambeer-ii-2024-turni-di-gioco-01.webp",
+        "vambeer-ii-2024-turni-di-gioco-02.webp",
+        "vambeer-ii-2024-turni-di-gioco-03.webp",
+        "vambeer-ii-2024-turni-di-gioco-04.webp",
+        "vambeer-ii-2024-turni-di-gioco-05.webp",
+        "vambeer-ii-2024-turni-di-gioco-06.webp",
+        "vambeer-ii-2024-turni-di-gioco-07.webp",
+        "vambeer-ii-2024-turni-di-gioco-08.webp",
+        "vambeer-ii-2024-turni-di-gioco-09.webp",
+        "vambeer-ii-2024-turni-di-gioco-10.webp",
+        "vambeer-ii-2024-turni-di-gioco-11.webp",
+        "vambeer-ii-2024-turni-di-gioco-12.webp"
+      ]
+    },
+    {
+      "title": "Oasi di Manzolino",
+      "photos": [
+        "vambeer-ii-2024-oasi-di-manzolino-01.webp",
+        "vambeer-ii-2024-oasi-di-manzolino-02.webp",
+        "vambeer-ii-2024-oasi-di-manzolino-03.webp"
+      ]
+    },
+    {
+      "title": "Finale",
+      "photos": ["vambeer-ii-2024-finale-01.webp", "vambeer-ii-2024-finale-02.webp", "vambeer-ii-2024-finale-03.webp"]
+    }
+  ]
+}

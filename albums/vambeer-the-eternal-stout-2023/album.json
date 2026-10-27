@@ -1,0 +1,46 @@
+{
+  "title": "Vambeer: the Eternal Stout",
+  "date": "2023-10-01",
+  "city": "modena",
+  "type": "torneo",
+  "event": "https://vtesitaly.com/comunita/vambeer-the-eternal-stout-2023/",
+  "sections": [
+    {
+      "title": "Arrivo",
+      "photos": ["vambeer-the-eternal-stout-2023-arrivo-01.webp", "vambeer-the-eternal-stout-2023-arrivo-02.webp"]
+    },
+    {
+      "title": "Turni di gioco",
+      "photos": [
+        "vambeer-the-eternal-stout-2023-turni-di-gioco-01.webp",
+        "vambeer-the-eternal-stout-2023-turni-di-gioco-02.webp",
+        "vambeer-the-eternal-stout-2023-turni-di-gioco-03.webp",
+        "vambeer-the-eternal-stout-2023-turni-di-gioco-04.webp",
+        "vambeer-the-eternal-stout-2023-turni-di-gioco-05.webp",
+        "vambeer-the-eternal-stout-2023-turni-di-gioco-06.webp",
+        "vambeer-the-eternal-stout-2023-turni-di-gioco-07.webp",
+        "vambeer-the-eternal-stout-2023-turni-di-gioco-08.webp",
+        "vambeer-the-eternal-stout-2023-turni-di-gioco-09.webp",
+        "vambeer-the-eternal-stout-2023-turni-di-gioco-10.webp",
+        "vambeer-the-eternal-stout-2023-turni-di-gioco-11.webp",
+        "vambeer-the-eternal-stout-2023-turni-di-gioco-12.webp"
+      ]
+    },
+    {
+      "title": "Al pub",
+      "photos": [
+        "vambeer-the-eternal-stout-2023-al-pub-01.webp",
+        "vambeer-the-eternal-stout-2023-al-pub-02.webp",
+        "vambeer-the-eternal-stout-2023-al-pub-03.webp"
+      ]
+    },
+    {
+      "title": "Finale",
+      "photos": [
+        "vambeer-the-eternal-stout-2023-finale-01.webp",
+        "vambeer-the-eternal-stout-2023-finale-02.webp",
+        "vambeer-the-eternal-stout-2023-finale-03.webp"
+      ]
+    }
+  ]
+}

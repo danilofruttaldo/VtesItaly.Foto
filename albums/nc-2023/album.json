@@ -7,7 +7,30 @@
   "sections": [
     {
       "title": "Preparazione",
-      "photos": ["nc-2023-preparazione-01.webp", "nc-2023-preparazione-02.webp"]
+      "photos": [
+        "nc-2023-preparazione-01.webp",
+        "nc-2023-preparazione-02.webp",
+        "nc-2023-preparazione-03.webp",
+        "nc-2023-preparazione-04.webp",
+        "nc-2023-preparazione-05.webp",
+        "nc-2023-preparazione-06.webp",
+        "nc-2023-preparazione-07.webp"
+      ]
+    },
+    {
+      "title": "Giocatori",
+      "photos": [
+        "nc-2023-giocatori-01.webp",
+        "nc-2023-giocatori-02.webp",
+        "nc-2023-giocatori-03.webp",
+        "nc-2023-giocatori-04.webp",
+        "nc-2023-giocatori-05.webp",
+        "nc-2023-giocatori-06.webp",
+        "nc-2023-giocatori-07.webp",
+        "nc-2023-giocatori-08.webp",
+        "nc-2023-giocatori-09.webp",
+        "nc-2023-giocatori-10.webp"
+      ]
     },
     {
       "title": "Round",
@@ -17,7 +40,37 @@
         "nc-2023-round-03.webp",
         "nc-2023-round-04.webp",
         "nc-2023-round-05.webp",
-        "nc-2023-round-06.webp"
+        "nc-2023-round-06.webp",
+        "nc-2023-round-07.webp",
+        "nc-2023-round-08.webp",
+        "nc-2023-round-09.webp",
+        "nc-2023-round-10.webp",
+        "nc-2023-round-11.webp",
+        "nc-2023-round-12.webp",
+        "nc-2023-round-13.webp",
+        "nc-2023-round-14.webp",
+        "nc-2023-round-15.webp",
+        "nc-2023-round-16.webp",
+        "nc-2023-round-17.webp",
+        "nc-2023-round-18.webp",
+        "nc-2023-round-19.webp",
+        "nc-2023-round-20.webp",
+        "nc-2023-round-21.webp"
+      ]
+    },
+    {
+      "title": "Finale",
+      "photos": ["nc-2023-finale-01.webp", "nc-2023-finale-02.webp", "nc-2023-finale-03.webp", "nc-2023-finale-04.webp"]
+    },
+    {
+      "title": "Premiazione",
+      "photos": [
+        "nc-2023-premiazione-01.webp",
+        "nc-2023-premiazione-02.webp",
+        "nc-2023-premiazione-03.webp",
+        "nc-2023-premiazione-04.webp",
+        "nc-2023-premiazione-05.webp",
+        "nc-2023-premiazione-06.webp"
       ]
     }
   ]

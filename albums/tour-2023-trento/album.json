@@ -1,0 +1,46 @@
+{
+  "title": "IT23 - Trento",
+  "date": "2023-06-03",
+  "city": "trento",
+  "type": "tour",
+  "event": "https://vtesitaly.com/tour/tour-2023/",
+  "sections": [
+    {
+      "title": "Mattina",
+      "photos": ["tour-2023-trento-mattina-01.webp", "tour-2023-trento-mattina-02.webp"]
+    },
+    {
+      "title": "Turni di gioco",
+      "photos": [
+        "tour-2023-trento-turni-di-gioco-01.webp",
+        "tour-2023-trento-turni-di-gioco-02.webp",
+        "tour-2023-trento-turni-di-gioco-03.webp",
+        "tour-2023-trento-turni-di-gioco-04.webp",
+        "tour-2023-trento-turni-di-gioco-05.webp",
+        "tour-2023-trento-turni-di-gioco-06.webp",
+        "tour-2023-trento-turni-di-gioco-07.webp",
+        "tour-2023-trento-turni-di-gioco-08.webp",
+        "tour-2023-trento-turni-di-gioco-09.webp"
+      ]
+    },
+    {
+      "title": "Premiazione",
+      "photos": [
+        "tour-2023-trento-premiazione-01.webp",
+        "tour-2023-trento-premiazione-02.webp",
+        "tour-2023-trento-premiazione-03.webp",
+        "tour-2023-trento-premiazione-04.webp",
+        "tour-2023-trento-premiazione-05.webp",
+        "tour-2023-trento-premiazione-06.webp"
+      ]
+    },
+    {
+      "title": "Il giorno dopo",
+      "photos": [
+        "tour-2023-trento-il-giorno-dopo-01.webp",
+        "tour-2023-trento-il-giorno-dopo-02.webp",
+        "tour-2023-trento-il-giorno-dopo-03.webp"
+      ]
+    }
+  ]
+}

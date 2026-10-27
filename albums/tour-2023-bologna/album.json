@@ -1,0 +1,44 @@
+{
+  "title": "IT23 - Bologna",
+  "date": "2023-04-29",
+  "city": "bologna",
+  "type": "tour",
+  "event": "https://vtesitaly.com/tour/tour-2023/",
+  "description": "Side event del sabato del Nazionale 2023.",
+  "sections": [
+    {
+      "title": "Bologna",
+      "photos": ["tour-2023-bologna-bologna-01.webp", "tour-2023-bologna-bologna-02.webp"]
+    },
+    {
+      "title": "Giocatori",
+      "photos": [
+        "tour-2023-bologna-giocatori-01.webp",
+        "tour-2023-bologna-giocatori-02.webp",
+        "tour-2023-bologna-giocatori-03.webp",
+        "tour-2023-bologna-giocatori-04.webp",
+        "tour-2023-bologna-giocatori-05.webp"
+      ]
+    },
+    {
+      "title": "Turni di gioco",
+      "photos": [
+        "tour-2023-bologna-turni-di-gioco-01.webp",
+        "tour-2023-bologna-turni-di-gioco-02.webp",
+        "tour-2023-bologna-turni-di-gioco-03.webp",
+        "tour-2023-bologna-turni-di-gioco-04.webp",
+        "tour-2023-bologna-turni-di-gioco-05.webp",
+        "tour-2023-bologna-turni-di-gioco-06.webp",
+        "tour-2023-bologna-turni-di-gioco-07.webp",
+        "tour-2023-bologna-turni-di-gioco-08.webp",
+        "tour-2023-bologna-turni-di-gioco-09.webp",
+        "tour-2023-bologna-turni-di-gioco-10.webp",
+        "tour-2023-bologna-turni-di-gioco-11.webp"
+      ]
+    },
+    {
+      "title": "Pausa pranzo",
+      "photos": ["tour-2023-bologna-pausa-pranzo-01.webp"]
+    }
+  ]
+}

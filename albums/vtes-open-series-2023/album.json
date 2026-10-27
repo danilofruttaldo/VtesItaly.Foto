@@ -1,0 +1,38 @@
+{
+  "title": "VTES Open Series",
+  "date": "2023-07-23",
+  "city": "bologna",
+  "type": "torneo",
+  "event": "https://vtesitaly.com/comunita/vtes-open-series-2023/",
+  "sections": [
+    {
+      "title": "Giocatori",
+      "photos": [
+        "vtes-open-series-2023-giocatori-01.webp",
+        "vtes-open-series-2023-giocatori-02.webp",
+        "vtes-open-series-2023-giocatori-03.webp",
+        "vtes-open-series-2023-giocatori-04.webp",
+        "vtes-open-series-2023-giocatori-05.webp"
+      ]
+    },
+    {
+      "title": "Turni di gioco",
+      "photos": [
+        "vtes-open-series-2023-turni-di-gioco-01.webp",
+        "vtes-open-series-2023-turni-di-gioco-02.webp",
+        "vtes-open-series-2023-turni-di-gioco-03.webp",
+        "vtes-open-series-2023-turni-di-gioco-04.webp",
+        "vtes-open-series-2023-turni-di-gioco-05.webp",
+        "vtes-open-series-2023-turni-di-gioco-06.webp",
+        "vtes-open-series-2023-turni-di-gioco-07.webp",
+        "vtes-open-series-2023-turni-di-gioco-08.webp",
+        "vtes-open-series-2023-turni-di-gioco-09.webp",
+        "vtes-open-series-2023-turni-di-gioco-10.webp",
+        "vtes-open-series-2023-turni-di-gioco-11.webp",
+        "vtes-open-series-2023-turni-di-gioco-12.webp",
+        "vtes-open-series-2023-turni-di-gioco-13.webp",
+        "vtes-open-series-2023-turni-di-gioco-14.webp"
+      ]
+    }
+  ]
+}

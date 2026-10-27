@@ -1,0 +1,72 @@
+{
+  "title": "European Championship 2024 - Varsavia",
+  "date": "2024-09-27",
+  "city": "varsavia",
+  "type": "ec",
+  "event": "https://vtesitaly.com/europeo/europeo-2024/",
+  "sections": [
+    {
+      "title": "In viaggio",
+      "photos": ["ec-2024-in-viaggio-01.webp", "ec-2024-in-viaggio-02.webp"]
+    },
+    {
+      "title": "Varsavia",
+      "photos": [
+        "ec-2024-varsavia-01.webp",
+        "ec-2024-varsavia-02.webp",
+        "ec-2024-varsavia-03.webp",
+        "ec-2024-varsavia-04.webp",
+        "ec-2024-varsavia-05.webp",
+        "ec-2024-varsavia-06.webp",
+        "ec-2024-varsavia-07.webp",
+        "ec-2024-varsavia-08.webp",
+        "ec-2024-varsavia-09.webp",
+        "ec-2024-varsavia-10.webp",
+        "ec-2024-varsavia-11.webp",
+        "ec-2024-varsavia-12.webp",
+        "ec-2024-varsavia-13.webp"
+      ]
+    },
+    {
+      "title": "Cene",
+      "photos": ["ec-2024-cene-01.webp", "ec-2024-cene-02.webp"]
+    },
+    {
+      "title": "Casa Italia",
+      "photos": ["ec-2024-casa-italia-01.webp", "ec-2024-casa-italia-02.webp"]
+    },
+    {
+      "title": "Day 1",
+      "photos": [
+        "ec-2024-day-1-01.webp",
+        "ec-2024-day-1-02.webp",
+        "ec-2024-day-1-03.webp",
+        "ec-2024-day-1-04.webp",
+        "ec-2024-day-1-05.webp",
+        "ec-2024-day-1-06.webp",
+        "ec-2024-day-1-07.webp",
+        "ec-2024-day-1-08.webp",
+        "ec-2024-day-1-09.webp",
+        "ec-2024-day-1-10.webp",
+        "ec-2024-day-1-11.webp",
+        "ec-2024-day-1-12.webp",
+        "ec-2024-day-1-13.webp"
+      ]
+    },
+    {
+      "title": "Day 2",
+      "photos": [
+        "ec-2024-day-2-01.webp",
+        "ec-2024-day-2-02.webp",
+        "ec-2024-day-2-03.webp",
+        "ec-2024-day-2-04.webp",
+        "ec-2024-day-2-05.webp",
+        "ec-2024-day-2-06.webp",
+        "ec-2024-day-2-07.webp",
+        "ec-2024-day-2-08.webp",
+        "ec-2024-day-2-09.webp",
+        "ec-2024-day-2-10.webp"
+      ]
+    }
+  ]
+}

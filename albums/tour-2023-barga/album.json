@@ -1,0 +1,46 @@
+{
+  "title": "IT23 - Barga",
+  "date": "2023-09-03",
+  "city": "barga",
+  "type": "tour",
+  "event": "https://vtesitaly.com/tour/tour-2023/",
+  "sections": [
+    {
+      "title": "Fortezza delle Verrucole",
+      "photos": [
+        "tour-2023-barga-fortezza-delle-verrucole-01.webp",
+        "tour-2023-barga-fortezza-delle-verrucole-02.webp",
+        "tour-2023-barga-fortezza-delle-verrucole-03.webp",
+        "tour-2023-barga-fortezza-delle-verrucole-04.webp",
+        "tour-2023-barga-fortezza-delle-verrucole-05.webp",
+        "tour-2023-barga-fortezza-delle-verrucole-06.webp"
+      ]
+    },
+    {
+      "title": "In agriturismo",
+      "photos": [
+        "tour-2023-barga-in-agriturismo-01.webp",
+        "tour-2023-barga-in-agriturismo-02.webp",
+        "tour-2023-barga-in-agriturismo-03.webp",
+        "tour-2023-barga-in-agriturismo-04.webp"
+      ]
+    },
+    {
+      "title": "Giocatori",
+      "photos": ["tour-2023-barga-giocatori-01.webp", "tour-2023-barga-giocatori-02.webp"]
+    },
+    {
+      "title": "Turni di gioco",
+      "photos": [
+        "tour-2023-barga-turni-di-gioco-01.webp",
+        "tour-2023-barga-turni-di-gioco-02.webp",
+        "tour-2023-barga-turni-di-gioco-03.webp",
+        "tour-2023-barga-turni-di-gioco-04.webp",
+        "tour-2023-barga-turni-di-gioco-05.webp",
+        "tour-2023-barga-turni-di-gioco-06.webp",
+        "tour-2023-barga-turni-di-gioco-07.webp",
+        "tour-2023-barga-turni-di-gioco-08.webp"
+      ]
+    }
+  ]
+}

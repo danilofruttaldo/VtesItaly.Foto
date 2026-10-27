@@ -1,0 +1,45 @@
+{
+  "title": "IT23 - Verona",
+  "date": "2023-06-02",
+  "city": "verona",
+  "type": "tour",
+  "event": "https://vtesitaly.com/tour/tour-2023/",
+  "description": "Ad Aldeno (TN), nel weekend con la tappa di Trento.",
+  "sections": [
+    {
+      "title": "Arrivo",
+      "photos": ["tour-2023-verona-arrivo-01.webp", "tour-2023-verona-arrivo-02.webp"]
+    },
+    {
+      "title": "Crokinole",
+      "photos": ["tour-2023-verona-crokinole-01.webp", "tour-2023-verona-crokinole-02.webp"]
+    },
+    {
+      "title": "Turni di gioco",
+      "photos": [
+        "tour-2023-verona-turni-di-gioco-01.webp",
+        "tour-2023-verona-turni-di-gioco-02.webp",
+        "tour-2023-verona-turni-di-gioco-03.webp",
+        "tour-2023-verona-turni-di-gioco-04.webp",
+        "tour-2023-verona-turni-di-gioco-05.webp",
+        "tour-2023-verona-turni-di-gioco-06.webp",
+        "tour-2023-verona-turni-di-gioco-07.webp",
+        "tour-2023-verona-turni-di-gioco-08.webp",
+        "tour-2023-verona-turni-di-gioco-09.webp",
+        "tour-2023-verona-turni-di-gioco-10.webp"
+      ]
+    },
+    {
+      "title": "Pranzo",
+      "photos": [
+        "tour-2023-verona-pranzo-01.webp",
+        "tour-2023-verona-pranzo-02.webp",
+        "tour-2023-verona-pranzo-03.webp"
+      ]
+    },
+    {
+      "title": "Serata",
+      "photos": ["tour-2023-verona-serata-01.webp", "tour-2023-verona-serata-02.webp"]
+    }
+  ]
+}
