@@ -43,6 +43,20 @@ jobs:
       - run: npm run format:check
       - run: npm test
 
+      - name: Restore the generated photos
+        # Thumbnails were ~90% of the build. build-photos keeps the hash of the
+        # source of each output in .cache/, so the restored public/p/ stays
+        # valid after checkout and only new or changed photos are processed.
+        # The key starts with the hash of what decides the output (the rules,
+        # sharp's version): a change there starts from scratch.
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: |
+            public/p
+            .cache/build-photos.json
+          key: photos-${{ hashFiles('scripts/build-photos.mjs', 'scripts/photo-rules.mjs', 'package-lock.json') }}-${{ hashFiles('albums/**', 'covers/**') }}
+          restore-keys: photos-${{ hashFiles('scripts/build-photos.mjs', 'scripts/photo-rules.mjs', 'package-lock.json') }}-
+
       # prebuild (scripts/build-photos.mjs) also checks every photo against
       # scripts/photo-rules.mjs and stops on one that breaks them.
       - run: npm run build

@@ -18,8 +18,11 @@
  *
  * public/p/ and the manifest are generated, git-ignored. buildPhotos() takes
  * the repo root as a parameter, so the tests run it on a scratch folder. Re-runs only
- * regenerate a thumb older than its photo, and delete the files of photos
- * and albums no longer in albums/.
+ * regenerate an output whose source changed, and delete the files of photos
+ * and albums no longer in albums/. "Changed" is by content: .cache/build-photos.json
+ * keeps the hash of the source each output was made from, so the copy of
+ * public/p/ that CI restores from its cache stays valid after a fresh checkout
+ * (which gives every source a new mtime).
  */
 import sharp from 'sharp';
 import {
@@ -32,7 +35,8 @@ import {
   statSync,
   writeFileSync,
 } from 'node:fs';
-import { join } from 'node:path';
+import { createHash } from 'node:crypto';
+import { dirname, join, relative } from 'node:path';
 import {
   albumErrors,
   captionErrors,
@@ -60,6 +64,7 @@ export async function buildPhotos(root = '.') {
   const DATA = join(root, 'src', 'data');
   const MANIFEST = join(DATA, 'manifest.json');
   const CITY_COVERS = join(root, 'covers');
+  const STAMPS = join(root, '.cache', 'build-photos.json');
 
   /** Accepted album.json `city`: a principato, or a town with its own header. */
   const cities = new Set([
@@ -74,8 +79,16 @@ export async function buildPhotos(root = '.') {
   /** Every file written under OUT by this run: the rest is stale. */
   const outputs = new Set();
 
+  /** Output (relative to OUT) -> hash of the source it was made from. */
+  const stamps = existsSync(STAMPS) ? JSON.parse(readFileSync(STAMPS, 'utf8')) : {};
+  const newStamps = {};
+
+  /** Records the source `out` is made from: true when `out` already matches it. */
   function fresh(out, src) {
-    return existsSync(out) && statSync(out).mtimeMs >= statSync(src).mtimeMs;
+    const key = relative(OUT, out).replaceAll('\\', '/');
+    const hash = createHash('sha256').update(readFileSync(src)).digest('hex');
+    newStamps[key] = hash;
+    return existsSync(out) && stamps[key] === hash;
   }
 
   /** Square cover thumbs from an earlier rule (always COVER_SIZE) differ in size. */
@@ -234,6 +247,8 @@ export async function buildPhotos(root = '.') {
   albums.sort((a, b) => b.date.localeCompare(a.date) || a.slug.localeCompare(b.slug));
   mkdirSync(DATA, { recursive: true });
   writeFileSync(MANIFEST, JSON.stringify({ albums }, null, 2) + '\n');
+  mkdirSync(dirname(STAMPS), { recursive: true });
+  writeFileSync(STAMPS, JSON.stringify(newStamps) + '\n');
   return { errors, albums };
 }
 

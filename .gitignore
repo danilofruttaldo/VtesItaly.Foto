@@ -11,3 +11,6 @@ desktop.ini
 # and the manifest the pages read. Only the sources in albums/ are committed.
 public/p/
 src/data/manifest.json
+
+# Hashes of the sources build-photos made public/p/ from (see the script).
+.cache/

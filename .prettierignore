@@ -4,3 +4,4 @@ node_modules/
 public/p/
 src/data/manifest.json
 package-lock.json
+.cache/

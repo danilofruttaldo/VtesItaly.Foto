@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
-import { existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, utimesSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import sharp from 'sharp';
@@ -72,6 +72,26 @@ describe('build-photos', () => {
     expect(existsSync(out('gone'))).toBe(false);
     expect(existsSync(out('stray.webp'))).toBe(false);
     expect(manifest().albums[0].photos).toHaveLength(1);
+  });
+
+  it('regenerates a thumb when its photo changes, not when only its mtime does', async () => {
+    await buildPhotos(root);
+    const src = join(root, 'albums', 'torneo-2026', 'torneo-2026-01.webp');
+    const thumb = out('torneo-2026', 'torneo-2026-01-thumb.webp');
+    const small = out('torneo-2026', 'torneo-2026-01-thumb-320.webp');
+    const before = readFileSync(thumb);
+    // Made from the thumb: kept as long as the thumb is.
+    writeFileSync(small, 'kept');
+    // A fresh checkout (CI, with public/p/ from its cache) dates every source to now.
+    const later = new Date(Date.now() + 60_000);
+    utimesSync(src, later, later);
+    expect((await buildPhotos(root)).errors).toEqual([]);
+    expect(readFileSync(small, 'utf8')).toBe('kept');
+
+    await webp(src, 40, 30);
+    expect((await buildPhotos(root)).errors).toEqual([]);
+    expect(readFileSync(thumb).equals(before)).toBe(false);
+    expect(readFileSync(small, 'utf8')).not.toBe('kept');
   });
 
   it('cuts a poster or header cover to a square no larger than its short side', async () => {
