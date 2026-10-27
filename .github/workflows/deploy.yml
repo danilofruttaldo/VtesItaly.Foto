@@ -1,8 +1,8 @@
 name: CI
 
-# ci -> deploy to GitHub Pages (foto.vtesitaly.com, see public/CNAME).
-# The Pages deploy needs no secret: the job's OIDC token is enough. The
-# optional SITE_DISPATCH_TOKEN then asks vtesitaly.com to rebuild.
+# ci -> deploy to GitHub Pages (foto.vtesitaly.com, see public/CNAME) ->
+# site-rebuild. The Pages deploy needs no secret: the job's OIDC token is
+# enough. The optional SITE_DISPATCH_TOKEN then asks vtesitaly.com to rebuild.
 
 on:
   push:
@@ -12,16 +12,17 @@ on:
 permissions:
   contents: read
 
-concurrency:
-  # Pages rejects a deploy while another is running: a newer push waits for
-  # the running one instead of cancelling it halfway through deploy-pages.
-  group: pages-${{ github.ref }}
-  cancel-in-progress: false
+# No workflow-level concurrency: it held a newer push until the whole older
+# run was over, CDN wait included. Each job declares its own group instead.
 
 jobs:
   ci:
     runs-on: ubuntu-24.04
     timeout-minutes: 15
+    concurrency:
+      # A newer commit on the same ref supersedes the in-flight check.
+      group: ci-${{ github.ref }}
+      cancel-in-progress: true
     outputs:
       albums-changed: ${{ steps.albums.outputs.changed }}
       albums-sha: ${{ steps.albums.outputs.sha }}
@@ -96,8 +97,13 @@ jobs:
     needs: ci
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-24.04
-    # deploy-pages, plus up to 10 minutes waiting for the CDN (see below).
-    timeout-minutes: 15
+    # Hundreds of MB to publish: room for a slow Pages backend.
+    timeout-minutes: 10
+    concurrency:
+      # Pages rejects a deploy while another is running: a newer one waits for
+      # the running one instead of cancelling it halfway through deploy-pages.
+      group: pages-deploy
+      cancel-in-progress: false
     permissions:
       pages: write
       id-token: write
@@ -110,6 +116,19 @@ jobs:
         id: deployment
         uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5.0.1
 
+  site-rebuild:
+    # Its own job, so the wait for the CDN (up to 10 minutes) no longer holds
+    # the Pages deploy of the next push.
+    needs: [ci, deploy]
+    # Only when /albums.json changed (a manual run always sends it).
+    if: needs.ci.outputs.albums-changed == 'true' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    concurrency:
+      # One at a time; a newer one waits, and each sends its own index hash.
+      group: site-rebuild
+      cancel-in-progress: false
+    steps:
       - name: Check for SITE_DISPATCH_TOKEN
         # `if:` cannot read secrets: this step tells the next one whether the
         # token is set, without handing it to every step of the job.
@@ -121,15 +140,14 @@ jobs:
       - name: Rebuild vtesitaly.com with the new albums
         # The site's event pages read /albums.json at build time. Needs the
         # secret SITE_DISPATCH_TOKEN: a fine-grained token on VtesItaly.Site
-        # with Contents read and write. Without it the step is skipped, and so
-        # it is when /albums.json did not change (a manual run always sends it).
+        # with Contents read and write. Without it the step is skipped.
         #
         # The Pages CDN keeps /albums.json up to 10 minutes and ignores query
         # strings, so the request waits until the live copy is the one just
         # deployed: otherwise vtesitaly.com would rebuild with the old index.
         # The hash also goes in the payload: the Site runner may hit another
         # CDN node, and its fetch-albums waits for the same bytes.
-        if: steps.token.outputs.set == 'true' && (needs.ci.outputs.albums-changed == 'true' || github.event_name == 'workflow_dispatch')
+        if: steps.token.outputs.set == 'true'
         env:
           SITE_DISPATCH_TOKEN: ${{ secrets.SITE_DISPATCH_TOKEN }}
           WANT: ${{ needs.ci.outputs.albums-sha }}
