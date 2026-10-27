@@ -1,0 +1,51 @@
+{
+  "title": "Torneo del B.I.P. (Bleed in Pordenone)",
+  "date": "2023-11-19",
+  "city": "pordenone",
+  "type": "torneo",
+  "event": "https://vtesitaly.com/comunita/torneo-del-b-i-p-bleed-in-pordenone-2023/",
+  "description": "Con la gita ad Aquileia del sabato.",
+  "sections": [
+    {
+      "title": "Aquileia",
+      "photos": [
+        "bip-2023-aquileia-01.webp",
+        "bip-2023-aquileia-02.webp",
+        "bip-2023-aquileia-03.webp",
+        "bip-2023-aquileia-04.webp",
+        "bip-2023-aquileia-05.webp"
+      ]
+    },
+    {
+      "title": "Cena",
+      "photos": ["bip-2023-cena-01.webp"]
+    },
+    {
+      "title": "Giocatori",
+      "photos": ["bip-2023-giocatori-01.webp", "bip-2023-giocatori-02.webp", "bip-2023-giocatori-03.webp"]
+    },
+    {
+      "title": "Turni di gioco",
+      "photos": [
+        "bip-2023-turni-di-gioco-01.webp",
+        "bip-2023-turni-di-gioco-02.webp",
+        "bip-2023-turni-di-gioco-03.webp",
+        "bip-2023-turni-di-gioco-04.webp",
+        "bip-2023-turni-di-gioco-05.webp",
+        "bip-2023-turni-di-gioco-06.webp"
+      ]
+    },
+    {
+      "title": "Pranzo",
+      "photos": ["bip-2023-pranzo-01.webp"]
+    },
+    {
+      "title": "Finale",
+      "photos": ["bip-2023-finale-01.webp", "bip-2023-finale-02.webp"]
+    },
+    {
+      "title": "Premiazione",
+      "photos": ["bip-2023-premiazione-01.webp", "bip-2023-premiazione-02.webp"]
+    }
+  ]
+}
