@@ -1,0 +1,49 @@
+{
+  "title": "European Championship 2010 - Parigi",
+  "date": "2010-10-30",
+  "city": "parigi",
+  "type": "ec",
+  "event": "https://vtesitaly.com/europeo/europeo-2010/",
+  "sections": [
+    {
+      "title": "Turni di gioco",
+      "photos": [
+        "ec-2010-torneo-01.webp",
+        "ec-2010-torneo-02.webp",
+        "ec-2010-torneo-03.webp",
+        "ec-2010-torneo-04.webp",
+        "ec-2010-torneo-05.webp",
+        "ec-2010-torneo-06.webp",
+        "ec-2010-torneo-07.webp",
+        "ec-2010-torneo-08.webp",
+        "ec-2010-torneo-09.webp"
+      ]
+    },
+    {
+      "title": "Intorno al torneo",
+      "photos": [
+        "ec-2010-parigi-01.webp",
+        "ec-2010-parigi-02.webp",
+        "ec-2010-parigi-03.webp",
+        "ec-2010-parigi-04.webp",
+        "ec-2010-parigi-05.webp",
+        "ec-2010-parigi-06.webp",
+        "ec-2010-parigi-07.webp",
+        "ec-2010-parigi-08.webp",
+        "ec-2010-parigi-09.webp",
+        "ec-2010-parigi-10.webp",
+        "ec-2010-parigi-11.webp",
+        "ec-2010-parigi-12.webp",
+        "ec-2010-parigi-13.webp",
+        "ec-2010-parigi-14.webp",
+        "ec-2010-parigi-15.webp",
+        "ec-2010-parigi-16.webp",
+        "ec-2010-parigi-17.webp",
+        "ec-2010-parigi-18.webp",
+        "ec-2010-parigi-19.webp",
+        "ec-2010-parigi-20.webp",
+        "ec-2010-parigi-21.webp"
+      ]
+    }
+  ]
+}
