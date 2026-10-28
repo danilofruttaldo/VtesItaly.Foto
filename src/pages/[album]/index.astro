@@ -1,6 +1,7 @@
 ---
 import type { GetStaticPaths } from 'astro';
 import Base from '../../layouts/Base.astro';
+import ShareButtons from '../../components/ShareButtons.astro';
 import {
   cityName,
   coverImage,
@@ -67,6 +68,8 @@ const description =
       </section>
     ))}
   </div>
+
+  <ShareButtons title={album.title} />
 
   <dialog class="viewer" aria-label="Visualizzatore foto">
     <img alt="" />
