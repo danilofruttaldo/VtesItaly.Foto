@@ -1,0 +1,89 @@
+{
+  "title": "Grand Prix 2026 - Marsiglia",
+  "date": "2026-05-30",
+  "city": "marsiglia",
+  "type": "gp",
+  "event": "https://vtesitaly.com/comunita/french-grand-prix-2026/",
+  "description": "Il piccolo contingente italiano al Grand Prix francese, con i giorni a Marsiglia.",
+  "sections": [
+    {
+      "title": "Marsiglia",
+      "photos": [
+        "french-grand-prix-2026-marsiglia-01.webp",
+        "french-grand-prix-2026-marsiglia-02.webp",
+        "french-grand-prix-2026-marsiglia-03.webp",
+        "french-grand-prix-2026-marsiglia-04.webp",
+        "french-grand-prix-2026-marsiglia-05.webp",
+        "french-grand-prix-2026-marsiglia-06.webp",
+        "french-grand-prix-2026-marsiglia-07.webp",
+        "french-grand-prix-2026-marsiglia-08.webp",
+        "french-grand-prix-2026-marsiglia-09.webp",
+        "french-grand-prix-2026-marsiglia-10.webp",
+        "french-grand-prix-2026-marsiglia-11.webp",
+        "french-grand-prix-2026-marsiglia-12.webp",
+        "french-grand-prix-2026-marsiglia-13.webp",
+        "french-grand-prix-2026-marsiglia-14.webp",
+        "french-grand-prix-2026-marsiglia-15.webp"
+      ]
+    },
+    {
+      "title": "Cena",
+      "photos": [
+        "french-grand-prix-2026-cena-01.webp",
+        "french-grand-prix-2026-cena-02.webp",
+        "french-grand-prix-2026-cena-03.webp"
+      ]
+    },
+    {
+      "title": "Iscrizioni",
+      "photos": [
+        "french-grand-prix-2026-iscrizioni-01.webp",
+        "french-grand-prix-2026-iscrizioni-02.webp",
+        "french-grand-prix-2026-iscrizioni-03.webp",
+        "french-grand-prix-2026-iscrizioni-04.webp",
+        "french-grand-prix-2026-iscrizioni-05.webp"
+      ]
+    },
+    {
+      "title": "Turni di gioco",
+      "photos": [
+        "french-grand-prix-2026-turni-di-gioco-01.webp",
+        "french-grand-prix-2026-turni-di-gioco-02.webp",
+        "french-grand-prix-2026-turni-di-gioco-03.webp",
+        "french-grand-prix-2026-turni-di-gioco-04.webp",
+        "french-grand-prix-2026-turni-di-gioco-05.webp",
+        "french-grand-prix-2026-turni-di-gioco-06.webp",
+        "french-grand-prix-2026-turni-di-gioco-07.webp",
+        "french-grand-prix-2026-turni-di-gioco-08.webp",
+        "french-grand-prix-2026-turni-di-gioco-09.webp",
+        "french-grand-prix-2026-turni-di-gioco-10.webp",
+        "french-grand-prix-2026-turni-di-gioco-11.webp",
+        "french-grand-prix-2026-turni-di-gioco-12.webp",
+        "french-grand-prix-2026-turni-di-gioco-13.webp",
+        "french-grand-prix-2026-turni-di-gioco-14.webp",
+        "french-grand-prix-2026-turni-di-gioco-15.webp",
+        "french-grand-prix-2026-turni-di-gioco-16.webp",
+        "french-grand-prix-2026-turni-di-gioco-17.webp",
+        "french-grand-prix-2026-turni-di-gioco-18.webp",
+        "french-grand-prix-2026-turni-di-gioco-19.webp",
+        "french-grand-prix-2026-turni-di-gioco-20.webp"
+      ]
+    },
+    {
+      "title": "Pranzo",
+      "photos": ["french-grand-prix-2026-pranzo-01.webp", "french-grand-prix-2026-pranzo-02.webp"]
+    },
+    {
+      "title": "Serata",
+      "photos": [
+        "french-grand-prix-2026-serata-01.webp",
+        "french-grand-prix-2026-serata-02.webp",
+        "french-grand-prix-2026-serata-03.webp"
+      ]
+    },
+    {
+      "title": "Finale",
+      "photos": ["french-grand-prix-2026-finale-01.webp", "french-grand-prix-2026-finale-02.webp"]
+    }
+  ]
+}
