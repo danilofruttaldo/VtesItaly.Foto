@@ -1,0 +1,46 @@
+{
+  "title": "Vambeer III",
+  "date": "2026-10-24",
+  "city": "modena",
+  "type": "torneo",
+  "event": "https://vtesitaly.com/comunita/vambeer-iii-2026/",
+  "description": "Con l'inaugurazione di Medium Ævum e l'oasi di Manzolino al tramonto.",
+  "sections": [
+    {
+      "title": "Arrivo",
+      "photos": ["vambeer-iii-2026-arrivo-01.webp", "vambeer-iii-2026-arrivo-02.webp"]
+    },
+    {
+      "title": "Medium Ævum",
+      "photos": [
+        "vambeer-iii-2026-medium-aevum-01.webp",
+        "vambeer-iii-2026-medium-aevum-02.webp",
+        "vambeer-iii-2026-medium-aevum-03.webp",
+        "vambeer-iii-2026-medium-aevum-04.webp",
+        "vambeer-iii-2026-medium-aevum-05.webp",
+        "vambeer-iii-2026-medium-aevum-06.webp"
+      ]
+    },
+    {
+      "title": "Turni di gioco",
+      "photos": [
+        "vambeer-iii-2026-turni-di-gioco-01.webp",
+        "vambeer-iii-2026-turni-di-gioco-02.webp",
+        "vambeer-iii-2026-turni-di-gioco-03.webp",
+        "vambeer-iii-2026-turni-di-gioco-04.webp",
+        "vambeer-iii-2026-turni-di-gioco-05.webp",
+        "vambeer-iii-2026-turni-di-gioco-06.webp",
+        "vambeer-iii-2026-turni-di-gioco-07.webp"
+      ]
+    },
+    {
+      "title": "Oasi di Manzolino",
+      "photos": [
+        "vambeer-iii-2026-oasi-di-manzolino-01.webp",
+        "vambeer-iii-2026-oasi-di-manzolino-02.webp",
+        "vambeer-iii-2026-oasi-di-manzolino-03.webp",
+        "vambeer-iii-2026-oasi-di-manzolino-04.webp"
+      ]
+    }
+  ]
+}
