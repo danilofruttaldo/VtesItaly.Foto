@@ -14,19 +14,26 @@
     "taste-of-spritzae-2025-finale-03.webp": "Paolo, vincitore del torneo",
     "taste-of-spritzae-2025-concorso-di-stile-01.webp": "Si calcola lo stile dei finalisti",
     "taste-of-spritzae-2025-concorso-di-stile-02.webp": "Giulietto, vincitore del premio Migliori accessori",
-    "taste-of-spritzae-2025-concorso-di-stile-03.webp": "I vincitori dei premi stile"
+    "taste-of-spritzae-2025-concorso-di-stile-03.webp": "I vincitori dei premi stile",
+    "taste-of-spritzae-2025-round-04.webp": "Niccolò sembra pensare: oh no... Lasombra!",
+    "taste-of-spritzae-2025-round-05.webp": "Dreeno: siamo così alleati che giochiamo esattamente lo stesso mazzo",
+    "taste-of-spritzae-2025-round-06.webp": "Walt non è per niente divertito",
+    "taste-of-spritzae-2025-finale-04.webp": "Nana e Nangila entrambe in torpore"
   },
   "sections": [
     {
       "title": "Atmosfera",
-      "photos": ["taste-of-spritzae-2025-atmosfera-01.webp"]
+      "photos": ["taste-of-spritzae-2025-atmosfera-01.webp", "taste-of-spritzae-2025-atmosfera-02.webp"]
     },
     {
       "title": "Round",
       "photos": [
         "taste-of-spritzae-2025-round-01.webp",
         "taste-of-spritzae-2025-round-02.webp",
-        "taste-of-spritzae-2025-round-03.webp"
+        "taste-of-spritzae-2025-round-03.webp",
+        "taste-of-spritzae-2025-round-04.webp",
+        "taste-of-spritzae-2025-round-05.webp",
+        "taste-of-spritzae-2025-round-06.webp"
       ]
     },
     {
@@ -34,6 +41,7 @@
       "photos": [
         "taste-of-spritzae-2025-finale-01.webp",
         "taste-of-spritzae-2025-finale-02.webp",
+        "taste-of-spritzae-2025-finale-04.webp",
         "taste-of-spritzae-2025-finale-03.webp"
       ]
     },
@@ -42,8 +50,15 @@
       "photos": [
         "taste-of-spritzae-2025-concorso-di-stile-01.webp",
         "taste-of-spritzae-2025-concorso-di-stile-02.webp",
-        "taste-of-spritzae-2025-concorso-di-stile-03.webp"
+        "taste-of-spritzae-2025-concorso-di-stile-03.webp",
+        "taste-of-spritzae-2025-concorso-di-stile-04.webp",
+        "taste-of-spritzae-2025-concorso-di-stile-05.webp",
+        "taste-of-spritzae-2025-concorso-di-stile-06.webp"
       ]
+    },
+    {
+      "title": "Segnalini",
+      "photos": ["taste-of-spritzae-2025-segnalini-01.webp", "taste-of-spritzae-2025-segnalini-02.webp"]
     }
   ]
 }
